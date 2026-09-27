@@ -8,10 +8,10 @@
 /* ====== 令牌（与 灵界篇-纪传体时间线.html 同一套暖纸色系） ====== */
 :root{
   --surface-1:#fdfcf8; --page:#f2f0e9; --card:#ffffff;
-  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#8f8b7f;
+  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#6f6a5c;
   --grid:#e6e3d8; --baseline:#c8c4b6; --ring:rgba(27,25,22,.10);
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
-  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --s5:#d55181; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
   --gold:#d97706;
   --plane-wash:rgba(42,120,214,.07); --plane-edge:rgba(42,120,214,.24);
   --home-wash:rgba(137,135,129,.10);
@@ -52,9 +52,11 @@ html,body{margin:0;padding:0}
 body{background:var(--page);color:var(--ink-1);
   font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   font-size:14px;line-height:1.6}
+/* 标题走宋体系衬线，与时间线页统一 */
+h1,.panel h3,.m-ti{font-family:"Songti SC","STSong","Source Han Serif SC","Noto Serif SC","SimSun",serif}
 .wrap{max-width:1560px;margin:0 auto;padding:0 18px 60px}
 header{padding:30px 0 10px}
-h1{font-size:23px;margin:0 0 6px;font-weight:800;letter-spacing:.5px;
+h1{font-size:25px;margin:0 0 6px;font-weight:800;letter-spacing:1px;
   background:linear-gradient(115deg,var(--ink-1) 25%,var(--s1) 70%,var(--s3));
   -webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
 .sub{color:var(--ink-2);font-size:13px;margin:0;max-width:1200px}
@@ -97,6 +99,8 @@ input.search{border:1px solid var(--ring);background:var(--card);color:var(--ink
 .evq{color:var(--ink-2);font-size:12px;padding:5px 8px;border-left:2px solid var(--s1);
   background:var(--surface-1);margin:4px 0;border-radius:0 6px 6px 0}
 .evq b{color:var(--ink-1)}
+.evq.clickable{cursor:pointer;transition:background .15s,border-color .15s}
+.evq.clickable:hover{background:var(--card);border-left-color:var(--ink-1)}
 .nlist{display:grid;grid-template-columns:1fr;gap:4px}
 .nrow{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:6px;
   cursor:pointer;font-size:12px;transition:background .15s}
@@ -122,15 +126,20 @@ td b{color:var(--ink-1)}
 .tip .t1{font-weight:700;color:var(--ink-1)}
 svg text{font-family:inherit}
 .node{cursor:pointer}
+.node:focus-visible{outline:none}
+.node:focus-visible .ndot,.node:focus-visible circle{stroke:var(--s1);stroke-width:3}
 .node.dim{opacity:.12}
 .node .ndot{stroke:var(--card);stroke-width:2}
 .node.hl .ndot{stroke:var(--ink-1);stroke-width:2.5}
+/* 描边改用令牌色：原来硬编码 #ffffff，深色模式下会留下刺眼白圈 */
 .nlabel{font-size:12px;fill:var(--ink-1);font-weight:600;
-  paint-order:stroke;stroke:#ffffff;stroke-width:3px;stroke-linejoin:round}
+  paint-order:stroke;stroke:var(--card);stroke-width:3px;stroke-linejoin:round}
 .nlabel.sub{font-size:10.5px;fill:var(--ink-2);font-weight:500}
 .clabel{font-size:15px;font-weight:700;fill:var(--ink-3);letter-spacing:2px}
 .route{pointer-events:none}
 .planetag{font-size:11px;fill:var(--ink-1);font-weight:600}
+.tablewrap{overflow-x:auto}          /* 窄屏横向滚动，避免三列被压到不可读 */
+.tablewrap table{min-width:520px}
 footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3);
   font-size:12px;line-height:1.8}
 
@@ -160,6 +169,41 @@ footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3
   border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);line-height:1.7}
 .md{margin:2px 0 4px;font-size:13px;color:var(--ink-2);line-height:1.7}
 .m-foot{display:flex;gap:8px;padding:0 18px 16px}
+
+/* ====== 无障碍：键盘焦点一律可见（prow / nrow / 表格行原来是不可聚焦的 div） ====== */
+:where(a,button,select,input,summary,[tabindex]):focus-visible,
+.prow:focus-visible,.nrow:focus-visible,tr.rowsel:focus-visible{
+  outline:2px solid var(--s1);outline-offset:2px;border-radius:8px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.alert{padding:8px 10px;border-radius:8px;background:var(--home-wash);
+  color:var(--ink-2);font-size:12px;margin-bottom:6px}
+
+/* ====== 触屏：命中区域撑到 ≥44px ====== */
+@media (pointer:coarse){
+  .btn,.chip,input.search{min-height:44px;padding:9px 14px;font-size:13px}
+  .prow,.nrow{padding:10px 8px}
+  .prow .dot,.nrow .d{margin-top:0}
+  .prow .dot{width:11px;height:11px}
+  .mclose{width:44px;height:44px;font-size:19px}
+  tbody tr td{padding:10px 8px}
+}
+
+/* ====== 尊重系统「减弱动效」 ====== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .btn:hover,.chip:hover{transform:none}
+}
+
+@media (max-width:900px){
+  .maprow{gap:10px}
+  .mapcard{flex:1 1 100%}
+  .panel{flex:1 1 100%;min-width:0}
+  .panel .pbody{max-height:none}
+  h1{font-size:20px}
+  .wrap{padding:0 14px 48px}
+}
 </style>
 </head>
 <body>
@@ -173,7 +217,7 @@ footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3
 </header>
 
 <div class="toolbar">
-  <input class="search" id="search" list="plist" placeholder="输入人物名，回车定位足迹…">
+  <input class="search" id="search" list="plist" aria-label="按人物名搜索并反向高亮足迹" placeholder="输入人物名，回车定位足迹…">
   <datalist id="plist"></datalist>
   <span class="chip" id="curFilter" style="display:none"><span class="dot"></span><span class="nm"></span><button class="btn" style="border:none;padding:0 4px" id="clearF">×</button></span>
   <button class="btn" id="modeBtn">底图：实景图 ⇄ 示意图</button>
@@ -183,7 +227,7 @@ footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3
 </div>
 
 <div class="maprow">
-  <div class="card mapcard"><svg id="map" viewBox="0 0 1900 1123" role="img" aria-label="灵界地图（实景图+节点叠加）"></svg></div>
+  <div class="card mapcard"><svg id="map" viewBox="0 0 1900 1123" role="group" aria-label="灵界地图：30 个地点节点，可用 Tab 逐个聚焦、回车查看该地人物"></svg></div>
   <div class="card panel"><div class="pbody" id="panel"></div></div>
 </div>
 
@@ -191,7 +235,7 @@ footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3
 
 <div class="card" style="margin-top:14px;padding:12px 14px">
   <b>地点 × 人物 总表</b>（点击行在地图中定位）
-  <div id="tablewrap"></div>
+  <div class="tablewrap" id="tablewrap"></div>
 </div>
 </div>
 <div class="tip" id="tip" role="tooltip"></div>
@@ -219,23 +263,62 @@ function openModal(c,l,d,who){
   const qs=QUOTES[String(c)];
   if(qs&&qs.length){htm("div","mh",mBody,"原文精炼");qs.forEach(q=>htm("div","mq",mBody,q));}
   if(d){htm("div","mh",mBody,qs&&qs.length?"综述":"事件综述");htm("div","md",mBody,d);}
-  modalEl.classList.add("on");mClose.focus();
+  modalEl.classList.add("on");
+  document.documentElement.style.overflow="hidden";
+  mClose.focus();
 }
 function closeModal(){modalEl.classList.remove("on");
+  document.documentElement.style.overflow="";
   if(lastFocus&&lastFocus.focus)lastFocus.focus();}
 mClose.addEventListener("click",closeModal);
 modalEl.addEventListener("click",ev=>{if(ev.target===modalEl)closeModal();});
+/* 焦点陷阱：Tab 在弹窗内循环 */
+modalEl.addEventListener("keydown",ev=>{
+  if(ev.key!=="Tab")return;
+  const f=[...modalEl.querySelectorAll(
+    "button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])")]
+    .filter(n=>!n.disabled&&n.offsetParent!==null);
+  if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}
+  else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}
+});
 document.addEventListener("keydown",ev=>{
   if(ev.key==="Escape"&&modalEl.classList.contains("on"))closeModal();});
 const NS="http://www.w3.org/2000/svg";
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* 令牌读取带缓存：切换主题/模式时会成百次调用 css()，每次 getComputedStyle 都会触发样式重算 */
+const _tok=new Map();
+const css=v=>{let c=_tok.get(v);if(c===undefined){
+  c=getComputedStyle(document.documentElement).getPropertyValue(v).trim();_tok.set(v,c);}return c;};
+const clearTok=()=>_tok.clear();
+const RM=window.matchMedia("(prefers-reduced-motion: reduce)");
+const reveal=(el,block)=>{if(el)el.scrollIntoView({behavior:RM.matches?"auto":"smooth",block:block||"start"});};
+const store={
+  get(k,d){try{const v=localStorage.getItem("frxxz:map:"+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem("frxxz:map:"+k,JSON.stringify(v));}catch(e){}}};
 const GRP_COLOR={g1:"--s1",g2:"--s2",g3:"--s3",g4:"--s4",g5:"--s5",g6:"--s6",g7:"--s7",g8:"--s8",
   core:{hanli:"--s1",wan:"--s2",bingfeng:"--s3",ziling:"--s4",yuan:"--s5",xiang:"--s6",yinyue:"--s7",bingpo:"--s8"}};
 const pColor=p=>p.core?css(GRP_COLOR.core[p.id]||"--s1"):css(GRP_COLOR[p.grp]);
 const grpName=g=>DATA.groups[g]||"";
 const state={mode:"img",selNode:null,selPerson:null,route:true,theme:"auto"};
+const THEME_LABEL={auto:"跟随系统",light:"浅色",dark:"深色"};
+/* 恢复上次的主题与图层开关 */
+(function(){
+  const t=store.get("theme","auto");
+  if(["auto","light","dark"].includes(t))state.theme=t;
+  if(state.theme!=="auto")document.documentElement.setAttribute("data-theme",state.theme);
+  const r=store.get("route",null); if(typeof r==="boolean")state.route=r;
+  const m=store.get("mode",null); if(m==="img"||m==="sch")state.mode=m;
+})();
+/* 键盘可达的点击替身：Enter / 空格等同点击 */
+function onActivate(node,fn){
+  node.tabIndex=0;node.setAttribute("role","button");
+  node.addEventListener("keydown",ev=>{
+    if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();fn();}});
+}
 const svg=document.getElementById("map"), tipEl=document.getElementById("tip"),
       panel=document.getElementById("panel");
+panel.tabIndex=-1;                    /* 供键盘选择后把焦点移进来，朗读新内容 */
 function el(n,at,parent){const e=document.createElementNS(NS,n);
   for(const k in at)e.setAttribute(k,at[k]);if(parent)parent.appendChild(e);return e;}
 function htm(n,cls,parent,txt){const e=document.createElement(n);if(cls)e.className=cls;
@@ -253,10 +336,18 @@ DATA.persons.forEach(p=>{
 });
 
 function drawBase(){
+  /* 重绘会重建整个 SVG，记住当前聚焦的节点，事后还回去 */
+  const act=document.activeElement, fk=act&&act.dataset&&act.dataset.id?act.dataset.id:null;
   svg.innerHTML="";
   if(state.mode==="img"){
-    el("image",{href:"灵界地图总览.png",x:0,y:0,width:1587,height:1123,
+    /* 底图优先 webp（约 235KB，PNG 为 2.7MB）；加载失败自动回退 PNG */
+    const im=el("image",{href:"灵界地图总览.webp",x:0,y:0,width:1587,height:1123,
       preserveAspectRatio:"xMidYMid meet"},svg);
+    im.addEventListener("error",function onErr(){
+      im.removeEventListener("error",onErr);
+      im.setAttribute("href","灵界地图总览.png");
+      im.setAttributeNS("http://www.w3.org/1999/xlink","xlink:href","灵界地图总览.png");
+    });
   }else{
     const g0=el("g",{transform:"scale(1.22,1.26)"},svg);
     const land=(x,y,w,h,label,dx,dy)=>{
@@ -302,6 +393,7 @@ function drawBase(){
     attach(gp,n);
   });
   drawRoute();
+  if(fk){const back=svg.querySelector(`.node[data-id="${fk}"]`);if(back)back.focus({preventScroll:true});}
 }
 function routePoints(){
   const seq=[];DATA.persons.find(p=>p.id==="hanli").spans.forEach(s=>{
@@ -345,21 +437,34 @@ function drawRoute(){
 }
 function attach(gp,n){
   const b=byNode[n.id];
-  gp.addEventListener("pointermove",ev=>{
+  gp.setAttribute("aria-label",`${n.name}，${n.region}，关联${b.persons.length}人`+
+    (b.hanli.length?`，韩立经此${b.hanli.length}段`:"")+"（回车查看）");
+  const fill=()=>{
     tipEl.style.display="block";tipEl.innerHTML="";
     htm("div","t1",tipEl,n.name);
-    htm("div","",tipEl,`${n.region} · 关联${b.persons.length}人`+(b.hanli.length?` · 韩立经此${b.hanli.length}段`:""));
+    htm("div","",tipEl,`${n.region} · 关联${b.persons.length}人`+
+      (b.hanli.length?` · 韩立经此${b.hanli.length}段`:""));
+  };
+  const place=(px,py)=>{
     const w2=tipEl.offsetWidth,h2=tipEl.offsetHeight;
-    let x=ev.clientX+14,y=ev.clientY-h2-8;
-    if(x+w2>innerWidth-8)x=ev.clientX-w2-14;
-    if(y<8)y=ev.clientY+16;
+    let x=px+14,y=py-h2-8;
+    if(x+w2>innerWidth-8)x=px-w2-14;
+    if(y<8)y=py+16;
     tipEl.style.left=x+"px";tipEl.style.top=y+"px";
-  });
+  };
+  gp.addEventListener("pointermove",ev=>{fill();place(ev.clientX,ev.clientY);});
   gp.addEventListener("pointerleave",()=>tipEl.style.display="none");
+  /* 键盘聚焦时同样给概要提示，交互不再只对鼠标开放 */
+  gp.addEventListener("focus",()=>{fill();const r=gp.getBoundingClientRect();
+    place(r.left+r.width/2,r.top-6);});
+  gp.addEventListener("blur",()=>tipEl.style.display="none");
   gp.addEventListener("click",()=>selectNode(n.id));
+  onActivate(gp,()=>selectNode(n.id,true));
 }
-function selectNode(id){state.selNode=id;state.selPerson=null;renderSel();showNodePanel(id);}
-function selectPerson(id){state.selPerson=id;state.selNode=null;renderSel();showPersonPanel(id);}
+function selectNode(id,viaKey){state.selNode=id;state.selPerson=null;renderSel();showNodePanel(id);
+  if(viaKey)panel.focus();}
+function selectPerson(id,viaKey){state.selPerson=id;state.selNode=null;renderSel();showPersonPanel(id);
+  if(viaKey)panel.focus();}
 function renderSel(){
   document.querySelectorAll(".node").forEach(g=>g.classList.remove("dim","hl"));
   if(state.selPerson){
@@ -384,7 +489,19 @@ function showNodePanel(id){
   htm("div","desc",panel,n.desc);
   if(b.hanli.length){
     htm("h4","",panel,"韩立经此");
-    b.hanli.forEach(s=>htm("div","evq",panel,`第${s[0]}–${s[1]}章`));
+    /* 原来是纯文本、却和人物面板里可点击的事件条长得一模一样——有原文可查时才做成可点 */
+    b.hanli.forEach(s=>{
+      const row=htm("div","evq",panel,`第${s[0]}–${s[1]}章`);
+      const qs=QUOTES[String(s[0])];
+      if(qs&&qs.length){
+        row.classList.add("clickable");
+        row.title="点击查看原文精炼弹窗";
+        const fire=()=>openModal(s[0],`${n.name} · 韩立经此`,
+          `韩立在此盘桓于第${s[0]}–${s[1]}章（${n.name}）。`,"韩立 · 本纪");
+        row.addEventListener("click",fire);
+        onActivate(row,fire);
+      }
+    });
   }
   htm("h4","",panel,`此地人物（${b.persons.length}）`);
   const list=htm("div","plist",panel);
@@ -392,12 +509,14 @@ function showNodePanel(id){
    .forEach(p=>{
     const r=htm("div","prow",list);
     r.addEventListener("click",()=>selectPerson(p.id));
+    onActivate(r,()=>selectPerson(p.id,true));
     const d=htm("span","dot",r);d.style.background=pColor(p);
     const box=htm("span","",r);
     htm("div","nm",box,p.name+(p.core?"（核心列传）":""));
     const sps=p.spans.filter(s=>s[2]===id).map(s=>s[0]===s[1]?s[0]:s[0]+"–"+s[1]).join("、");
     htm("div","sp",box,`第${sps}章 · ${p.core?DATA.groups.core:grpName(p.grp)}`);
     if(p.tier===2&&!p.core)htm("div","sp",box,p.who);
+    r.setAttribute("aria-label",`${p.name}，第${sps}章（回车查看人物足迹）`);
   });
 }
 function showPersonPanel(id){
@@ -414,33 +533,51 @@ function showPersonPanel(id){
     const n=byNode[s[2]].node;
     const r=htm("div","nrow",nl);
     r.addEventListener("click",()=>selectNode(s[2]));
+    onActivate(r,()=>selectNode(s[2],true));
     const d=htm("span","d",r);d.style.background=pColor(p);
     htm("span","",r,n.name);
     const sps=p.spans.filter(x=>x[2]===s[2]).map(x=>x[0]===x[1]?x[0]:x[0]+"–"+x[1]).join("、");
     htm("span","t",r,`第${sps}章`);
+    r.setAttribute("aria-label",`${n.name}，第${sps}章（回车查看该地人物）`);
   });
   if(p.events.length){
     htm("h4","",panel,"关键事件");
     p.events.forEach(e=>{
       const q=htm("div","evq",panel);
-      q.style.cursor="pointer";
+      q.classList.add("clickable");
       const b1=document.createElement("b");
       b1.textContent=`第${e[0]}章 · ${e[1]}`+(e[3]?`（${byNode[e[3]].node.name.split("·")[0]}）`:"");
       q.appendChild(b1);
       if(e[2]){const br=document.createElement("br");q.appendChild(br);q.appendChild(document.createTextNode(e[2]));}
       q.title="点击查看原文精炼弹窗";
-      q.addEventListener("click",()=>openModal(e[0],e[1],e[2],
-        p.name+"（"+(p.core?DATA.groups.core:grpName(p.grp))+"）"));
+      const fire=()=>openModal(e[0],e[1],e[2],
+        p.name+"（"+(p.core?DATA.groups.core:grpName(p.grp))+"）");
+      q.addEventListener("click",fire);
+      onActivate(q,fire);
     });
   }
 }
 const dl=document.getElementById("plist");
 DATA.persons.slice().sort((a,b)=>a.name.localeCompare(b.name,"zh")).forEach(p=>{
   const o=document.createElement("option");o.value=p.name;dl.appendChild(o);});
-document.getElementById("search").addEventListener("change",ev=>{
-  const q=ev.target.value.trim();
+const searchEl=document.getElementById("search");
+function runSearch(){
+  const q=searchEl.value.trim();
+  if(!q)return;
   const p=DATA.persons.find(x=>x.name===q)||DATA.persons.find(x=>x.name.includes(q));
-  if(p)selectPerson(p.id);
+  if(p){selectPerson(p.id);return;}
+  /* 原来查不到是静默失败，用户无从判断；这里给出明确反馈 */
+  state.selPerson=null;state.selNode=null;renderSel();
+  panel.innerHTML="";
+  const box=htm("div","alert",panel,
+    `未找到「${q}」。可试人物本名（如“韩立”“南宫婉”“啼魂兽”），或在下方「地点 × 人物 总表」中查找。`);
+  box.setAttribute("role","status");
+  panel.focus();
+}
+searchEl.addEventListener("change",runSearch);
+searchEl.addEventListener("keydown",ev=>{
+  if(ev.key==="Enter"){ev.preventDefault();runSearch();}
+  else if(ev.key==="Escape"){searchEl.value="";searchEl.blur();}
 });
 function panelEmpty(){
   panel.innerHTML="";
@@ -449,29 +586,44 @@ function panelEmpty(){
 }
 document.getElementById("clearF").addEventListener("click",()=>{
   state.selPerson=null;state.selNode=null;renderSel();
+  document.getElementById("search").value="";
   panelEmpty();
 });
 document.getElementById("routeBtn").addEventListener("click",ev=>{
   state.route=!state.route;
+  store.set("route",state.route);
   ev.currentTarget.setAttribute("aria-pressed",state.route?"true":"false");
   ev.currentTarget.textContent="韩立行程："+(state.route?"开":"关");
   drawRoute();
 });
-document.getElementById("modeBtn").addEventListener("click",()=>{
+document.getElementById("modeBtn").addEventListener("click",ev=>{
   state.mode=state.mode==="img"?"sch":"img";
+  store.set("mode",state.mode);
+  ev.currentTarget.textContent=state.mode==="img"?"底图：实景图 ⇄ 示意图":"底图：示意图 ⇄ 实景图";
   drawBase();renderSel();
   if(state.selNode)showNodePanel(state.selNode);
   else if(state.selPerson)showPersonPanel(state.selPerson);
 });
 document.getElementById("themeBtn").addEventListener("click",ev=>{
   state.theme=state.theme==="auto"?"light":state.theme==="light"?"dark":"auto";
-  ev.currentTarget.textContent="主题："+({auto:"跟随系统",light:"浅色",dark:"深色"})[state.theme];
+  ev.currentTarget.textContent="主题："+THEME_LABEL[state.theme];
   if(state.theme==="auto")document.documentElement.removeAttribute("data-theme");
   else document.documentElement.setAttribute("data-theme",state.theme);
+  store.set("theme",state.theme);
+  clearTok();          /* 换色后令牌缓存必须失效 */
   drawBase();renderSel();
   if(state.selNode)showNodePanel(state.selNode);
   else if(state.selPerson)showPersonPanel(state.selPerson);
 });
+/* 工具栏文案与实际状态对齐（状态可能来自本地记忆） */
+(function(){
+  const rb=document.getElementById("routeBtn");
+  rb.setAttribute("aria-pressed",state.route?"true":"false");
+  rb.textContent="韩立行程："+(state.route?"开":"关");
+  document.getElementById("themeBtn").textContent="主题："+THEME_LABEL[state.theme];
+  if(state.mode==="sch")
+    document.getElementById("modeBtn").textContent="底图：示意图 ⇄ 实景图";
+})();
 (function(){
   const lg=document.getElementById("legend");
   const s=htm("span","sec",lg,"人物色：");
@@ -484,13 +636,20 @@ document.getElementById("themeBtn").addEventListener("click",ev=>{
 (function(){
   const w=document.getElementById("tablewrap");
   const tb=document.createElement("table");
-  tb.innerHTML="<thead><tr><th>地点</th><th>区域</th><th>关联人物</th></tr></thead>";
+  tb.innerHTML='<thead><tr><th scope="col">地点</th><th scope="col">区域</th>'
+    +'<th scope="col">关联人物</th></tr></thead>';
   const body=document.createElement("tbody");
   DATA.nodes.forEach(n=>{
     const b=byNode[n.id];if(!b.persons.length)return;
-    const tr=document.createElement("tr");tr.style.cursor="pointer";
-    tr.addEventListener("click",()=>{selectNode(n.id);
-      document.querySelector(".mapcard").scrollIntoView({behavior:"smooth",block:"center"});});
+    const tr=document.createElement("tr");
+    tr.className="rowsel";tr.style.cursor="pointer";
+    /* 行也是可聚焦的：表格行不能加 role=button（会破坏表格语义），只补 tabindex + 回车 */
+    tr.tabIndex=0;
+    tr.setAttribute("aria-label",`${n.name}，${n.region}，关联 ${b.persons.length} 人（回车在地图中定位）`);
+    const go=()=>{selectNode(n.id,true);reveal(document.querySelector(".mapcard"),"center");};
+    tr.addEventListener("click",go);
+    tr.addEventListener("keydown",ev=>{
+      if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();go();}});
     const td1=document.createElement("td");td1.innerHTML="<b></b>";
     td1.querySelector("b").textContent=n.name;
     const td2=document.createElement("td");td2.textContent=n.region;

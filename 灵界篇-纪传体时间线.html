@@ -8,7 +8,7 @@
 /* ====== 令牌定义在 :root —— 悬浮提示等游离元素也能取到（修复弹窗透明重影 bug） ====== */
 :root{
   --surface-1:#fdfcf8; --page:#f2f0e9; --card:#ffffff;
-  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#8f8b7f;
+  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#6f6a5c;
   --grid:#e6e3d8; --baseline:#c8c4b6; --ring:rgba(27,25,22,.10);
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
   --s5:#d55181; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
@@ -55,9 +55,11 @@ html,body{margin:0;padding:0}
 body{background:var(--page);color:var(--ink-1);
   font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   font-size:14px;line-height:1.6}
+/* 标题走宋体系衬线，呼应古籍纪传体；正文保持无衬线，优先数据可读性 */
+h1,h2,.m-ti{font-family:"Songti SC","STSong","Source Han Serif SC","Noto Serif SC","SimSun",serif}
 
 header{padding:30px 20px 10px;max-width:1280px;margin:0 auto}
-h1{font-size:23px;margin:0 0 6px;font-weight:800;letter-spacing:.5px;
+h1{font-size:25px;margin:0 0 6px;font-weight:800;letter-spacing:1px;
   background:linear-gradient(115deg,var(--ink-1) 25%,var(--s1) 70%,var(--s3));
   -webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
 .sub{color:var(--ink-2);font-size:13px;margin:0;max-width:1150px}
@@ -136,14 +138,14 @@ select.btn{padding:5px 7px}
 /* 主列（韩立本纪）：0-12 所在地条 | 13-30 修为条 | 36 主轴 | 48+ 事件卡 */
 .spine{position:absolute;left:36px;width:2px;transform:translateX(-1px);
   background:linear-gradient(var(--baseline),var(--grid))}
-.locseg{position:absolute;left:0;width:12px;border-radius:2px}
-.locseg .lt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:9px;color:var(--ink-2);
-  display:flex;align-items:center;justify-content:center;letter-spacing:1px;overflow:hidden}
-.realmseg{position:absolute;left:13px;width:17px;border-radius:3px}
-.realmseg .rt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:9px;color:var(--s1);
-  display:flex;align-items:center;justify-content:center;letter-spacing:1px;overflow:hidden;
+.locseg{position:absolute;left:0;width:15px;border-radius:2px}
+.locseg .lt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:10px;color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;letter-spacing:.5px;overflow:hidden}
+.realmseg{position:absolute;left:16px;width:16px;border-radius:3px}
+.realmseg .rt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:10px;color:var(--s1);
+  display:flex;align-items:center;justify-content:center;letter-spacing:.5px;overflow:hidden;
   font-weight:600}
-.leader{position:absolute;left:35px;width:1px;background:var(--baseline)}
+.leader{position:absolute;left:34px;width:1px;background:var(--baseline)}
 .ev{position:absolute;left:48px;right:8px;background:var(--card);
   border:1px solid var(--ring);border-left:3px solid var(--s1);border-radius:8px;
   padding:8px 12px 9px 11px;box-shadow:var(--sh-1);
@@ -270,7 +272,45 @@ tbody tr:hover{background:var(--home-wash)}
 mark{background:transparent;color:var(--ink-1);font-weight:700}
 footer{max-width:1280px;margin:40px auto 0;padding:0 20px 48px;color:var(--ink-3);
   font-size:12px;line-height:1.8}
-@media (max-width:760px){.col.main{width:300px}.col.lane{width:160px}}
+
+/* ====== 无障碍：键盘焦点一律可见（原来的自定义按钮会吃掉默认焦点环） ====== */
+:where(a,button,select,input,summary,[tabindex]):focus-visible,
+.ev.clickable:focus-visible,.lev.clickable:focus-visible,tr.evrow:focus-visible{
+  outline:2px solid var(--s1);outline-offset:2px;border-radius:8px}
+.mk:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ====== 触屏：命中区域撑到 ≥44px，视觉尺寸保持不变 ====== */
+@media (pointer:coarse){
+  .mk::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;
+    transform:translate(-50%,-50%);border-radius:50%}
+  .btn,.chip,select.btn{min-height:44px;padding:9px 14px;font-size:13px}
+  .pop label{padding:10px 6px;font-size:13px}
+  .colhead .rm{min-width:44px;min-height:44px;margin-right:-10px}
+  .mclose{width:44px;height:44px;font-size:19px}
+}
+
+/* ====== 尊重系统「减弱动效」 ====== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .btn:hover,.chip:hover{transform:none}
+  .mk:hover{transform:translate(-7px,-7px)}
+  .mk.di:hover,.mk.tri:hover{transform:translate(-7px,-7px) rotate(45deg)}
+}
+
+@media (max-width:760px){
+  header{padding:22px 14px 8px}
+  .controls{padding:0 14px}
+  section.bio,footer{padding-left:14px;padding-right:14px}
+  .cards{grid-template-columns:1fr}
+  .vscroll{max-height:72vh}
+  .col.main{width:300px}.col.lane{width:160px}
+  h1{font-size:20px}
+  .pop{min-width:0;width:min(340px,88vw)}
+  .mbox{margin:auto 0}
+}
 </style>
 </head>
 <body>
@@ -680,10 +720,21 @@ const CHARS={"zhaowugui":{"name":"赵无归","grp":"g1","who":"天渊卫炼虚�
 /* ================= 状态与工具 ================= */
 const AXIS_W=96, MAIN_W=372, LANE_W=190;
 const state={px:9, sel:["wan","bingfeng","ziling"], theme:"auto"};
+const THEME_LABEL={auto:"跟随系统",light:"浅色",dark:"深色"};
 const scrollEl=document.getElementById("vscroll");
 const canvasEl=document.getElementById("canvas");
 const tipEl=document.getElementById("tip");
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+/* 令牌读取带缓存：滚动时 renderWindow 会成百次调用 css()，每次都走 getComputedStyle 会强制样式重算 */
+const _tok=new Map();
+const css=v=>{let c=_tok.get(v);if(c===undefined){
+    c=getComputedStyle(document.documentElement).getPropertyValue(v).trim();_tok.set(v,c);}return c;};
+const clearTok=()=>_tok.clear();
+/* 系统偏好：减弱动效 / 本地记忆（file:// 下 localStorage 可能不可用，全部包一层） */
+const RM=window.matchMedia("(prefers-reduced-motion: reduce)");
+const reveal=(el,block)=>{if(el)el.scrollIntoView({behavior:RM.matches?"auto":"smooth",block:block||"start"});};
+const store={
+  get(k,d){try{const v=localStorage.getItem("frxxz:tl:"+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem("frxxz:tl:"+k,JSON.stringify(v));}catch(e){}}};
 const Y=c=>(c-CH0)*state.px;
 const hexA=(hex,a)=>{const h=hex.replace("#","");const n=parseInt(h,16);
   return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;};
@@ -692,14 +743,28 @@ const laneName=id=>P[id]?P[id].name:(PETS[id]?PETS[id].name:(CHARS[id]?CHARS[id]
 const laneTag=id=>P[id]?P[id].tag:(PETS[id]?"灵宠别传":(CHARS[id]?GROUPS[CHARS[id].grp]:""));
 const isPet=id=>!!PETS[id];
 const isChar=id=>!!CHARS[id];
+/* 事件/地点按泳道预索引：避免每次窗口化渲染都全量 filter + 线性查找 */
+const EV_BY_LANE={};
+EV.forEach(e=>{(EV_BY_LANE[e.w]||(EV_BY_LANE[e.w]=[])).push(e);});
+const CH_LOC={},CH_EV={};
+for(const cid in CHARS){
+  const v=CHARS[cid];
+  CH_LOC[cid]=c=>{const s=v.spans.find(s=>s[0]<=c&&c<=s[1]);return s?s[2]:"";};
+  CH_EV[cid]=(v.events||[]).map(e=>({c:e[0],l:e[1],d:e[2]||"",r:[],__loc:CH_LOC[cid](e[0])}));
+}
 function findEvent(lane,c){
-  if(P[lane]||PETS[lane])return EV.find(e=>e.w===lane&&e.c===c);
-  if(CHARS[lane]&&CHARS[lane].events){
-    const e=CHARS[lane].events.find(x=>x[0]===c);
-    if(e)return{c:e[0],l:e[1],d:e[2]||"",r:[]};
-  }
+  if(P[lane]||PETS[lane])return (EV_BY_LANE[lane]||[]).find(e=>e.c===c);
+  if(CH_EV[lane])return CH_EV[lane].find(x=>x.c===c)||null;
   return null;
 }
+/* 恢复上次的泳道与主题（读不到就用默认，静默降级） */
+(function(){
+  const s=store.get("sel",null);
+  if(Array.isArray(s)&&s.every(id=>P[id]||PETS[id]||CHARS[id]))state.sel=s;
+  const t=store.get("theme","auto");
+  if(["auto","light","dark"].includes(t))state.theme=t;
+  if(state.theme!=="auto")document.documentElement.setAttribute("data-theme",state.theme);
+})();
 function htm(n,cls,parent,txt){const e=document.createElement(n);if(cls)e.className=cls;
   if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
 
@@ -742,7 +807,8 @@ function buildPicker(){
     [["恢复默认",()=>{state.sel=["wan","bingfeng","ziling"];}],
      ["清空泳道",()=>{state.sel=[];}]]
      .forEach(([t,fn])=>{const b=htm("button","btn",ops,t);
-       b.addEventListener("click",()=>{fn();rebuild();render();renderChips();});});
+       b.addEventListener("click",()=>{fn();store.set("sel",state.sel);
+         rebuild();render();renderChips();});});
     search.addEventListener("input",()=>{
       const q=search.value.trim();
       sections.forEach(d=>{
@@ -776,7 +842,7 @@ function renderChips(){
     ch.addEventListener("click",ev=>{
       if(ev.target===x){toggleLane(id);renderChips();}
       else{const t=document.getElementById("bio-"+id);
-        if(t){t.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});}}
+        if(t){t.open=true;reveal(t,"start");}}
     });
   });
   if(!state.sel.length)htm("span","hint",c,"（未添加泳道 — 点“＋ 添加泳道”选择）");
@@ -784,6 +850,7 @@ function renderChips(){
 function toggleLane(id){
   const i=state.sel.indexOf(id);
   if(i>=0)state.sel.splice(i,1);else state.sel.push(id);
+  store.set("sel",state.sel);
   rebuild();
 }
 
@@ -795,19 +862,24 @@ function buildControls(){
   const jump=htm("select","btn",c);jump.title="跳转到";
   htm("option","",jump,"跳转…").value="";
   JUMPS.forEach(j=>{const o=htm("option","",jump,`第${j.c}章 · ${j.l}`);o.value=j.c;});
-  jump.addEventListener("change",()=>{if(jump.value){scrollEl.scrollTo({top:Math.max(0,Y(+jump.value)-120),behavior:"smooth"});jump.selectedIndex=0;}});
+  jump.addEventListener("change",()=>{if(jump.value){
+    const top=Math.max(0,Y(+jump.value)-120);
+    if(RM.matches)scrollEl.scrollTop=top;else scrollEl.scrollTo({top,behavior:"smooth"});
+    jump.selectedIndex=0;}});
   const zOut=htm("button","btn",c,"密度−");const zIn=htm("button","btn",c,"密度＋");
   zOut.title="每章更矮（更紧凑）";zIn.title="每章更高（更舒展）";
   const keep=fn=>{const cy=scrollEl.scrollTop+scrollEl.clientHeight/2;
     const ch=CH0+cy/state.px;fn();scrollEl.scrollTop=ch*state.px-CH0*state.px-scrollEl.clientHeight/2;};
   zOut.addEventListener("click",()=>keep(()=>{state.px=Math.max(4,state.px-2);rebuild();}));
   zIn.addEventListener("click",()=>keep(()=>{state.px=Math.min(20,state.px+2);rebuild();}));
-  const th=htm("button","btn",c,"主题：跟随系统");
+  const th=htm("button","btn",c,"主题："+THEME_LABEL[state.theme]);
   th.addEventListener("click",()=>{
     state.theme=state.theme==="auto"?"light":state.theme==="light"?"dark":"auto";
-    th.textContent="主题："+({auto:"跟随系统",light:"浅色",dark:"深色"})[state.theme];
+    th.textContent="主题："+THEME_LABEL[state.theme];
     if(state.theme==="auto")document.documentElement.removeAttribute("data-theme");
     else document.documentElement.setAttribute("data-theme",state.theme);
+    store.set("theme",state.theme);
+    clearTok();          /* 主题换色后令牌缓存必须失效，否则仍旧色重绘 */
     rebuild();
   });
 }
@@ -835,7 +907,7 @@ function rebuild(){
   const md=htm("span","dot",mh);md.style.background=css("--s1");
   mh.appendChild(document.createTextNode("韩立 · 本纪"));
   mh.addEventListener("click",()=>{const t=document.getElementById("bio-hanli");
-    if(t){t.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});}});
+    if(t){t.open=true;reveal(t,"start");}});
   cols.main=htm("div","items",mn);cols.main.style.height=totalH+"px";
   htm("div","spine",cols.main);
   /* 泳道 */
@@ -853,9 +925,9 @@ function rebuild(){
     lh.addEventListener("click",ev=>{
       if(ev.target.classList.contains("rm"))return;
       const t=document.getElementById("bio-"+id);
-      if(t){t.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});}
+      if(t){t.open=true;reveal(t,"start");}
       else{const r=document.getElementById("charrow-"+id);
-        if(r){r.scrollIntoView({behavior:"smooth",block:"center"});
+        if(r){reveal(r,"center");
           r.style.transition="background .4s";r.style.background="var(--home-wash)";
           setTimeout(()=>r.style.background="",1500);}}
     });
@@ -932,8 +1004,10 @@ function renderWindow(full){
     const seg=htm("div","locseg",cols.main);
     seg.style.cssText=`top:${y}px;height:${h}px;background:${s.p?css("--plane-wash"):css("--home-wash")};`+
       (s.p?`border-left:2px solid ${css("--plane-edge")};`:"");
+    /* 竖排条带高度有限，文字必被截断——补 title 悬停可读全文 */
+    seg.title=`所在地：${s.l}（第${s.f}–${s.t}章）${s.p?" · 独立位面":""}`;
     if(h>=50){const t=htm("span","lt",seg,
-      s.l.length>Math.floor(h/11)?s.l.slice(0,Math.floor(h/11))+"…":s.l);
+      s.l.length>Math.floor(h/12)?s.l.slice(0,Math.floor(h/12))+"…":s.l);
       if(s.p)t.style.fontWeight="600";}
   });
   REALMS.forEach((r,i)=>{const y=Y(r.c),h=(i<REALMS.length-1?Y(REALMS[i+1].c):Y(CH1))-y;
@@ -941,11 +1015,11 @@ function renderWindow(full){
     const seg=htm("div","realmseg",cols.main);
     seg.style.cssText=`top:${y}px;height:${h}px;background:${hexA(css("--s1"),.10)};`+
       `box-shadow:inset 1px 0 0 ${hexA(css("--s1"),.25)}`;
-    if(h>=44){const n=Math.floor((h-8)/11);
+    if(h>=44){const n=Math.floor((h-6)/12);
       htm("span","rt",seg,r.l.length>n?r.l.slice(0,n)+"…":r.l);}
-    seg.title="修为："+r.l;
+    seg.title=`修为：${r.l}（自第${r.c}章起）`;
   });
-  const hl=layoutCards(EV.filter(e=>e.w==="hanli"),{wide:true});
+  const hl=layoutCards(EV_BY_LANE.hanli||[],{wide:true});
   hl.forEach(o=>{if(!vis(o))return;addMainCard(o);});
   /* 泳道 */
   state.sel.forEach(id=>{
@@ -967,9 +1041,7 @@ function renderWindow(full){
         {c:p.f,l:"阶段带",d:p.l+`（第${p.f}–${p.t}章${p.s==="unknown"?"，时点不详":""}）`,r:[],__loc:p.__loc},id,ev.clientX,ev.clientY));
       b.addEventListener("pointerleave",hideTip);
     });
-    const locFor=c=>{const s=CHARS[id].spans.find(s=>s[0]<=c&&c<=s[1]);return s?s[2]:"";};
-const evs=(P[id]||PETS[id])?EV.filter(e=>e.w===id)
-      :CHARS[id].events.map(e=>({c:e[0],l:e[1],d:e[2]||"",r:[],__loc:locFor(e[0])}));
+    const evs=(P[id]||PETS[id])?(EV_BY_LANE[id]||[]):CH_EV[id];
     const flow=[...(CHARS[id]&&CHARS[id].spans.length?[{c:CHARS[id].spans[0][0],l:CHARS[id].who,__idc:1}]:[]),
                 ...srcPh.map(p=>({c:p.f,l:p.l,__ph:p})),
                 ...evs].sort((a,b)=>a.c-b.c);
@@ -1126,24 +1198,44 @@ function openModal(e,lane){
   const b1=htm("button","btn",mFoot,"查看列传/索引");
   b1.addEventListener("click",()=>{closeModal();
     const t=document.getElementById("bio-"+lane);
-    if(t){t.open=true;t.scrollIntoView({behavior:"smooth",block:"start"});return;}
+    if(t){t.open=true;reveal(t,"start");return;}
     const ix=document.getElementById("char-index");if(ix)ix.open=true;
     const r=document.getElementById("charrow-"+lane);
-    if(r)r.scrollIntoView({behavior:"smooth",block:"center"});
+    if(r)reveal(r,"center");
   });
   const b2=htm("button","btn",mFoot,"关闭");
   b2.addEventListener("click",closeModal);
   modalEl.classList.add("on");
+  document.documentElement.style.overflow="hidden";
   mClose.focus();
 }
 function closeModal(){
   modalEl.classList.remove("on");
+  document.documentElement.style.overflow="";
   if(lastFocus&&lastFocus.focus)lastFocus.focus();
 }
 mClose.addEventListener("click",closeModal);
 modalEl.addEventListener("click",ev=>{if(ev.target===modalEl)closeModal();});
+/* 焦点陷阱：Tab 在弹窗内循环，不逃到背后的长卷上 */
+modalEl.addEventListener("keydown",ev=>{
+  if(ev.key!=="Tab")return;
+  const f=[...modalEl.querySelectorAll(
+    "button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])")]
+    .filter(n=>!n.disabled&&n.offsetParent!==null);
+  if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}
+  else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}
+});
 document.addEventListener("keydown",ev=>{
-  if(ev.key==="Escape"&&modalEl.classList.contains("on")){closeModal();hideTip();}
+  if(ev.key!=="Escape")return;
+  const pop=document.getElementById("pop");
+  if(pop&&pop.classList.contains("on")){
+    pop.classList.remove("on");
+    const pb=document.getElementById("pickBtn");
+    pb.setAttribute("aria-expanded","false");pb.focus();
+  }
+  if(modalEl.classList.contains("on")){closeModal();hideTip();}
 });
 
 /* ================= 图例 ================= */
@@ -1168,7 +1260,7 @@ function buildLegend(){
 
 /* ================= 纪传体区块 ================= */
 function eventTable(id){
-  const evs=EV.filter(e=>e.w===id).sort((a,b)=>a.c-b.c);
+  const evs=(EV_BY_LANE[id]||[]).slice().sort((a,b)=>a.c-b.c);
   if(!evs.length)return "";
   let t='<table><thead><tr><th style="width:86px">章节</th><th>事件</th></tr></thead><tbody>';
   evs.forEach(e=>{

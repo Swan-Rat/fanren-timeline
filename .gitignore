@@ -4,6 +4,10 @@ research/
 .idea/
 .DS_Store
 *.webp
+# 但实景底图的 webp 版要跟着站点一起发布（地图页优先加载它，失败才回退 PNG）
+!灵界地图总览.webp
+# WorkBuddy 工作区记忆（本地数据，不入库）
+.workbuddy/
 参考-*.md
 0[1-5]-*.md
 index_chapters.py
