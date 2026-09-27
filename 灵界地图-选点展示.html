@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>凡人修仙传·灵界 — 地图选点展示（实景图）</title>
+<style>
+/* ====== 令牌（与 灵界篇-纪传体时间线.html 同一套暖纸色系） ====== */
+:root{
+  --surface-1:#fdfcf8; --page:#f2f0e9; --card:#ffffff;
+  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#8f8b7f;
+  --grid:#e6e3d8; --baseline:#c8c4b6; --ring:rgba(27,25,22,.10);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#e87ba4; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --gold:#d97706;
+  --plane-wash:rgba(42,120,214,.07); --plane-edge:rgba(42,120,214,.24);
+  --home-wash:rgba(137,135,129,.10);
+  --sh-1:0 1px 2px rgba(27,25,22,.05),0 2px 8px rgba(27,25,22,.06);
+  --sh-2:0 2px 6px rgba(27,25,22,.07),0 10px 26px rgba(27,25,22,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme:dark;
+    --surface-1:#1d1c18; --page:#12110e; --card:#26251f;
+    --ink-1:#f2f0ea; --ink-2:#c6c3b8; --ink-3:#8f8b7f;
+    --grid:#2e2d28; --baseline:#3d3c35; --ring:rgba(255,255,255,.10);
+    --s1:#4b93ec; --s2:#e86a33; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#2fa84f; --s7:#9085e9; --s8:#e66767;
+    --gold:#f0a128;
+    --plane-wash:rgba(75,147,236,.09); --plane-edge:rgba(75,147,236,.30);
+    --home-wash:rgba(137,135,129,.14);
+    --sh-1:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.28);
+    --sh-2:0 2px 6px rgba(0,0,0,.35),0 10px 26px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --surface-1:#1d1c18; --page:#12110e; --card:#26251f;
+  --ink-1:#f2f0ea; --ink-2:#c6c3b8; --ink-3:#8f8b7f;
+  --grid:#2e2d28; --baseline:#3d3c35; --ring:rgba(255,255,255,.10);
+  --s1:#4b93ec; --s2:#e86a33; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#2fa84f; --s7:#9085e9; --s8:#e66767;
+  --gold:#f0a128;
+  --plane-wash:rgba(75,147,236,.09); --plane-edge:rgba(75,147,236,.30);
+  --home-wash:rgba(137,135,129,.14);
+  --sh-1:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.28);
+  --sh-2:0 2px 6px rgba(0,0,0,.35),0 10px 26px rgba(0,0,0,.45);
+}
+:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page);color:var(--ink-1);
+  font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:14px;line-height:1.6}
+.wrap{max-width:1560px;margin:0 auto;padding:0 18px 60px}
+header{padding:30px 0 10px}
+h1{font-size:23px;margin:0 0 6px;font-weight:800;letter-spacing:.5px;
+  background:linear-gradient(115deg,var(--ink-1) 25%,var(--s1) 70%,var(--s3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
+.sub{color:var(--ink-2);font-size:13px;margin:0;max-width:1200px}
+.sub b{color:var(--ink-1)}
+.sub a{font-weight:600}
+a{color:var(--s1)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0 10px}
+.btn,.chip{border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;line-height:1.5;
+  box-shadow:var(--sh-1);transition:transform .15s,box-shadow .15s,border-color .15s}
+.btn:hover,.chip:hover{border-color:var(--baseline);transform:translateY(-1px);box-shadow:var(--sh-2)}
+.btn[aria-pressed="true"]{border-color:var(--s1);color:var(--s1)}
+input.search{border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  border-radius:8px;padding:5px 11px;font-size:12px;width:200px;box-shadow:var(--sh-1)}
+.chip{border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.hint{color:var(--ink-3);font-size:12px}
+.maprow{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap}
+.card{background:var(--surface-1);border:1px solid var(--ring);border-radius:14px;
+  overflow:hidden;box-shadow:var(--sh-1)}
+.mapcard{flex:1 1 720px;min-width:0}
+.mapcard svg{display:block;width:100%;height:auto}
+.panel{flex:0 1 340px;min-width:300px;display:flex;flex-direction:column;
+  background:var(--card)}
+.panel .pbody{padding:12px 14px;overflow:auto;max-height:78vh;font-size:12.5px}
+.panel h3{margin:0 0 2px;font-size:15px;font-weight:800}
+.panel .reg{color:var(--ink-3);font-size:11.5px;margin-bottom:6px}
+.panel .desc{color:var(--ink-2);margin:4px 0 8px}
+.panel h4{margin:10px 0 4px;font-size:12px;color:var(--ink-1);font-weight:700;
+  background:var(--home-wash);padding:2px 9px;border-radius:5px;width:fit-content}
+.plist{display:flex;flex-direction:column;gap:4px}
+.prow{display:flex;align-items:flex-start;gap:7px;padding:4px 6px;border-radius:6px;
+  cursor:pointer;border:1px solid transparent;transition:background .15s}
+.prow:hover{background:var(--home-wash)}
+.prow .dot{width:8px;height:8px;border-radius:50%;flex:none;margin-top:5px;
+  box-shadow:0 0 0 1.5px var(--card)}
+.prow .nm{font-weight:700;font-size:12.5px}
+.prow .sp{color:var(--ink-3);font-size:11px}
+.prow.sel{border-color:var(--baseline);background:var(--home-wash)}
+.evq{color:var(--ink-2);font-size:12px;padding:5px 8px;border-left:2px solid var(--s1);
+  background:var(--surface-1);margin:4px 0;border-radius:0 6px 6px 0}
+.evq b{color:var(--ink-1)}
+.nlist{display:grid;grid-template-columns:1fr;gap:4px}
+.nrow{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:6px;
+  cursor:pointer;font-size:12px;transition:background .15s}
+.nrow:hover{background:var(--home-wash)}
+.nrow .d{width:8px;height:8px;border-radius:50%;flex:none}
+.nrow .t{color:var(--ink-3);font-size:11px}
+.legend{display:flex;flex-wrap:wrap;gap:9px 16px;align-items:center;
+  padding:12px 16px;border-top:1px solid var(--grid);font-size:12px;color:var(--ink-2);
+  background:var(--card)}
+.legend .it{display:inline-flex;align-items:center;gap:6px}
+.legend .dot{width:9px;height:9px;border-radius:50%;box-shadow:var(--sh-1)}
+.legend .sec{font-weight:700;color:var(--ink-1);background:var(--home-wash);
+  padding:2px 9px;border-radius:5px;font-size:11.5px;letter-spacing:.3px}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-top:8px}
+th{color:var(--ink-3);font-weight:700;text-align:left;border-bottom:2px solid var(--grid);
+  padding:5px 8px;font-size:11.5px;letter-spacing:.5px}
+td{border-bottom:1px solid var(--grid);padding:5px 8px;vertical-align:top;color:var(--ink-2)}
+td b{color:var(--ink-1)}
+.tip{position:fixed;z-index:99;max-width:300px;background:var(--card);
+  border:1px solid var(--ring);border-top:3px solid var(--s1);border-radius:10px;
+  padding:8px 11px;box-shadow:var(--sh-2);font-size:12.5px;color:var(--ink-2);
+  pointer-events:none;display:none}
+.tip .t1{font-weight:700;color:var(--ink-1)}
+svg text{font-family:inherit}
+.node{cursor:pointer}
+.node.dim{opacity:.12}
+.node .ndot{stroke:var(--card);stroke-width:2}
+.node.hl .ndot{stroke:var(--ink-1);stroke-width:2.5}
+.nlabel{font-size:12px;fill:var(--ink-1);font-weight:600;
+  paint-order:stroke;stroke:#ffffff;stroke-width:3px;stroke-linejoin:round}
+.nlabel.sub{font-size:10.5px;fill:var(--ink-2);font-weight:500}
+.clabel{font-size:15px;font-weight:700;fill:var(--ink-3);letter-spacing:2px}
+.route{pointer-events:none}
+.planetag{font-size:11px;fill:var(--ink-1);font-weight:600}
+footer{max-width:1560px;margin:40px auto 0;padding:0 18px 48px;color:var(--ink-3);
+  font-size:12px;line-height:1.8}
+
+/* ====== 原文精炼弹窗 ====== */
+.modal{display:none;position:fixed;inset:0;z-index:120;padding:24px;
+  background:rgba(27,25,22,.45);backdrop-filter:blur(2px);
+  align-items:flex-start;justify-content:center;overflow:auto}
+.modal.on{display:flex}
+.mbox{background:var(--card);border:1px solid var(--ring);border-top:3px solid var(--s1);
+  border-radius:14px;box-shadow:var(--sh-2);width:min(620px,94vw);margin:auto 0;
+  position:relative;animation:mpop .18s ease}
+@keyframes mpop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.mclose{position:absolute;top:10px;right:10px;border:1px solid var(--ring);background:var(--card);
+  color:var(--ink-3);border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;line-height:1}
+.mclose:hover{color:var(--ink-1);border-color:var(--baseline)}
+.m-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  padding:16px 44px 10px 18px;border-bottom:1px solid var(--grid)}
+.m-ch{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:var(--card);
+  background:var(--s1);padding:2px 9px;border-radius:6px;letter-spacing:.5px}
+.m-ti{font-weight:800;font-size:16px;color:var(--ink-1)}
+.m-who{font-size:12px;color:var(--ink-3)}
+.m-body{padding:6px 18px 14px;max-height:62vh;overflow:auto}
+.mh{font-size:11.5px;font-weight:700;color:var(--ink-1);background:var(--home-wash);
+  padding:2px 9px;border-radius:5px;width:fit-content;margin:12px 0 6px;letter-spacing:.3px}
+.mq{margin:0 0 8px;padding:8px 12px;border-left:3px solid var(--gold);
+  background:linear-gradient(90deg,rgba(217,119,6,.05),transparent 55%),var(--surface-1);
+  border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);line-height:1.7}
+.md{margin:2px 0 4px;font-size:13px;color:var(--ink-2);line-height:1.7}
+.m-foot{display:flex;gap:8px;padding:0 18px 16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>凡人修仙传 · 灵界 — 地图选点展示</h1>
+  <p class="sub">底图：同人地图《灵界地图总览》（诸天图鉴阁）；圆点=地点节点（大小∝关联人数），右侧条带=独立位面。
+  <b>点击节点</b>看该地人物与韩立行程；<b>搜索人物</b>反向高亮足迹；蓝线=韩立行程（序号=抵达次序）。
+  共<b>79人×30节点</b>，数据源<b>人物数据库.json</b>。配套：<a href="灵界篇-纪传体时间线.html">纪传体时间线</a>。
+  注：节点按底图标注近似落位；地理表述以原文为准（如原文人族居风元大陆西北角，底图绘于东北）。位面（魔界/广寒界/小修罗界/小灵天/龙岛/人界/仙界）不在灵界地理内，置于右侧条带。</p>
+</header>
+
+<div class="toolbar">
+  <input class="search" id="search" list="plist" placeholder="输入人物名，回车定位足迹…">
+  <datalist id="plist"></datalist>
+  <span class="chip" id="curFilter" style="display:none"><span class="dot"></span><span class="nm"></span><button class="btn" style="border:none;padding:0 4px" id="clearF">×</button></span>
+  <button class="btn" id="modeBtn">底图：实景图 ⇄ 示意图</button>
+  <button class="btn" id="routeBtn" aria-pressed="true">韩立行程：开</button>
+  <button class="btn" id="themeBtn">主题：跟随系统</button>
+  <span class="hint">悬停看概要 · 点击看详情</span>
+</div>
+
+<div class="maprow">
+  <div class="card mapcard"><svg id="map" viewBox="0 0 1900 1123" role="img" aria-label="灵界地图（实景图+节点叠加）"></svg></div>
+  <div class="card panel"><div class="pbody" id="panel"></div></div>
+</div>
+
+<div class="card" style="margin-top:14px;display:flex" id="legend"></div>
+
+<div class="card" style="margin-top:14px;padding:12px 14px">
+  <b>地点 × 人物 总表</b>（点击行在地图中定位）
+  <div id="tablewrap"></div>
+</div>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mbox">
+    <button class="mclose" id="mClose" aria-label="关闭弹窗">×</button>
+    <div class="m-head"><span class="m-ch" id="mCh"></span><span class="m-ti" id="mTitle"></span><span class="m-who" id="mWho"></span></div>
+    <div class="m-body" id="mBody"></div>
+  </div>
+</div>
+<script>
+"use strict";
+const DATA={"nodes": [{"id": "qingluo", "name": "青罗沙漠·天元境边陲", "x": 532, "y": 412, "ix": 1238, "iy": 225, "region": "风元大陆", "kind": "cont", "desc": "韩立灵界落点；天东商号、安远城兽潮、埋宝挖宝"}, {"id": "anyuan", "name": "安远城·虞阳城", "x": 600, "y": 368, "ix": 1285, "iy": 202, "region": "风元大陆", "kind": "cont", "desc": "天元境边陲人族城市：安远城兽潮、虞阳城炼体"}, {"id": "tianyuan", "name": "天渊城", "x": 658, "y": 328, "ix": 1333, "iy": 180, "region": "风元大陆", "kind": "cont", "desc": "人妖两族联合要塞：青冥卫、魔劫大战、大乘庆典"}, {"id": "tiandou", "name": "天元圣城", "x": 600, "y": 280, "ix": 1349, "iy": 146, "region": "风元大陆", "kind": "cont", "desc": "天元境皇城（天元圣皇·儒皇）"}, {"id": "yitian", "name": "倚天城", "x": 738, "y": 366, "ix": 1397, "iy": 202, "region": "风元大陆", "kind": "cont", "desc": "倚天门四宗之城：倚天之战"}, {"id": "jiuxian", "name": "九仙山·万宝大会", "x": 768, "y": 300, "ix": 1365, "iy": 225, "region": "风元大陆", "kind": "cont", "desc": "万宝大会/黑域交换会：赎回冰凤、血魂苏醒"}, {"id": "fengyuan_g", "name": "风元大陆·各地", "x": 880, "y": 430, "ix": 1174, "iy": 505, "region": "风元大陆", "kind": "cont", "desc": "泛风元段落（归途蛮荒、备战、战后等）"}, {"id": "manhuang", "name": "蛮荒", "x": 860, "y": 565, "ix": 1174, "iy": 618, "region": "风元大陆", "kind": "cont", "desc": "中南部蛮兽妖修地盘：归途、花石老祖、游历"}, {"id": "muzu", "name": "木族领地", "x": 830, "y": 258, "ix": 1301, "iy": 135, "region": "风元大陆", "kind": "cont", "desc": "木族任务/木族大战"}, {"id": "feiling", "name": "飞灵族区·天鹏圣城", "x": 1005, "y": 688, "ix": 1397, "iy": 696, "region": "风元大陆", "kind": "cont", "desc": "飞灵族七十二支：天鹏族圣子试炼"}, {"id": "diyuan", "name": "地渊·冥河之地", "x": 1090, "y": 748, "ix": 1333, "iy": 786, "region": "风元大陆", "kind": "cont", "desc": "飞灵族圣地地下：四大妖王、元瑶妍丽、青元子"}, {"id": "heiming", "name": "黑冥岛·黑隐山脉", "x": 1105, "y": 618, "ix": 1270, "iy": 719, "region": "风元大陆", "kind": "cont", "desc": "风元边缘半岛：苦修/种剑"}, {"id": "lingzu", "name": "灵族·伏灵山", "x": 930, "y": 600, "ix": 1508, "iy": 955, "region": "风元大陆", "kind": "cont", "desc": "灵族圣山：灵王驻地"}, {"id": "wuyahai", "name": "无涯海·元合岛（青元宫）", "x": 680, "y": 762, "ix": 1301, "iy": 314, "region": "风元大陆", "kind": "cont", "desc": "韩立晚年基业：青元宫、飞升之地"}, {"id": "yuncheng", "name": "云城·天云十三族", "x": 255, "y": 565, "ix": 222, "iy": 741, "region": "雷鸣大陆", "kind": "cont", "desc": "悬浮空城：再遇向之礼、广寒令、四族拍卖"}, {"id": "fuang", "name": "伏蛟城", "x": 332, "y": 506, "ix": 270, "iy": 674, "region": "雷鸣大陆", "kind": "cont", "desc": "超级传送阵：灭血影、回风元起点"}, {"id": "mojin", "name": "魔金山脉", "x": 300, "y": 468, "ix": 238, "iy": 393, "region": "雷鸣大陆", "kind": "cont", "desc": "魔兽魔气之地：刑兽觉醒、玄天残刃"}, {"id": "leiming_g", "name": "雷鸣大陆·外海诸地", "x": 168, "y": 505, "ix": 270, "iy": 505, "region": "雷鸣大陆", "kind": "cont", "desc": "泛雷鸣段落（火阳族、蓝湖岛等方向）"}, {"id": "huohu", "name": "火瑚群岛", "x": 305, "y": 728, "ix": 667, "iy": 1011, "region": "雷鸣大陆", "kind": "cont", "desc": "雷鸣外海：火阳族/乌罗族（灵漩邪光）"}, {"id": "lanhu", "name": "蓝湖岛", "x": 172, "y": 648, "ix": 444, "iy": 696, "region": "雷鸣大陆", "kind": "cont", "desc": "寒精族岛屿：力压合体"}, {"id": "haiwang", "name": "中央海域·海王族", "x": 600, "y": 468, "ix": 730, "iy": 472, "region": "中央海域", "kind": "sea", "desc": "雷鸣与风元之间大海：血祭召唤玄天斩灵剑"}, {"id": "xuehe", "name": "血鹤城·血天大陆", "x": 770, "y": 122, "ix": 762, "iy": 112, "region": "血天大陆", "kind": "cont", "desc": "夜化血红之陆：赫连拍卖、马良降世"}, {"id": "wanyue", "name": "万月山脉·天鼎宫", "x": 958, "y": 90, "ix": 952, "iy": 90, "region": "血天大陆", "kind": "cont", "desc": "天鼎真人洞府：冰魄仙子被困与获救"}, {"id": "mojie", "name": "魔界", "x": 1200, "y": 150, "ix": 1745, "iy": 90, "region": "魔界", "kind": "plane", "desc": "血石山脉/幻啸沙漠/魔源海(洗灵池)/蓝瀑湖/始印之地"}, {"id": "guanghan", "name": "广寒界", "x": 1200, "y": 260, "ix": 1745, "iy": 215, "region": "广寒界", "kind": "plane", "desc": "真仙界残破空间：连进两阶、炼神术、太乙青山"}, {"id": "xiuxiao", "name": "小修罗界", "x": 1200, "y": 370, "ix": 1745, "iy": 340, "region": "小修罗界", "kind": "plane", "desc": "修罗蛛晶核、山海珠（空鱼族）"}, {"id": "xiaolingtian", "name": "小灵天", "x": 1200, "y": 480, "ix": 1745, "iy": 465, "region": "小灵天", "kind": "plane", "desc": "南宫婉“月仙子”之地：团圆与接返"}, {"id": "longdao", "name": "龙岛", "x": 1200, "y": 590, "ix": 1745, "iy": 590, "region": "龙岛", "kind": "plane", "desc": "真龙族·广灵道果大会"}, {"id": "renjie", "name": "人界", "x": 1200, "y": 700, "ix": 1745, "iy": 715, "region": "人界", "kind": "plane", "desc": "下界：大晋/天南/乱星海——凌玉灵天星城、分魂重游"}, {"id": "xianjie", "name": "仙界·北寒仙域", "x": 1200, "y": 790, "ix": 1745, "iy": 840, "region": "仙界", "kind": "plane", "desc": "韩立飞升终点（啼魂先行之地）"}], "persons": [{"id": "zhaowugui", "name": "赵无归", "grp": "g1", "who": "天渊卫炼虚，两色雷劫中救下韩立并引荐青冥卫", "tier": 2, "spans": [[1314, 1325, "tianyuan"], [1343, 1354, "muzu"]], "events": [], "core": 0}, {"id": "leiluo", "name": "雷罗真人", "grp": "g1", "who": "天渊城人族五长老之一，飞升修士之首（曾被影族附身）", "tier": 3, "spans": [[1346, 1356, "muzu"], [1764, 1764, "fengyuan_g"]], "events": [], "core": 0}, {"id": "jinyue", "name": "金越禅师", "grp": "g1", "who": "天渊城人族五长老之一，长年闭关的飞升修士", "tier": 3, "spans": [[1352, 1357, "muzu"], [1764, 1766, "fengyuan_g"], [1841, 1844, "fengyuan_g"], [1874, 1887, "fengyuan_g"], [1977, 2004, "fengyuan_g"], [2191, 2199, "fengyuan_g"]], "events": [], "core": 0}, {"id": "tysh", "name": "天元圣皇", "grp": "g1", "who": "人族三皇之首（天元境·儒皇），紫影事件亲临天渊城", "tier": 2, "spans": [[1272, 1272, "qingluo"], [1288, 1291, "tianyuan"], [1322, 1322, "tianyuan"], [1356, 1357, "tianyuan"], [1760, 1760, "fengyuan_g"], [1781, 1801, "fengyuan_g"], [1822, 1833, "fengyuan_g"], [1873, 1873, "fengyuan_g"]], "events": [[1356, "紫影事件亲临天渊城", "以四神香助金越禅师逼出附身雷罗真人的影族“紫影”并收押；妖族预言者占卜玄天斩灵剑位于风元西北角，天渊城借机外派可疑飞升修士（韩立木族任务之因）", "tianyuan"]], "core": 0}, {"id": "yinguang", "name": "银光仙子", "grp": "g1", "who": "倚天城女修，与韩立交好多年、并肩魔劫诸战", "tier": 2, "spans": [[1766, 1766, "fengyuan_g"], [1874, 1924, "fengyuan_g"], [1978, 1992, "fengyuan_g"], [2191, 2199, "fengyuan_g"]], "events": [[1886, "倚天城驰援", "倚天门危急时与韩立同往驰援并肩血战；天渊大战、木族大战皆有配合", "fengyuan_g"], [2384, "战后重聚", "木族大战后与韩立、林鸾仙子重逢", null]], "core": 0}, {"id": "linluan", "name": "林鸾仙子", "grp": "g1", "who": "天皇宗女修，银光仙子挚友", "tier": 3, "spans": [[1901, 1924, "fengyuan_g"], [1982, 1985, "fengyuan_g"]], "events": [], "core": 0}, {"id": "qinglong", "name": "青龙上人", "grp": "g1", "who": "天渊城新晋长老，觊觎胁迫冰凤，被韩立灭口", "tier": 2, "spans": [[1902, 1926, "fengyuan_g"], [1975, 1985, "fengyuan_g"], [2192, 2192, "fengyuan_g"]], "events": [[1982, "被韩立灭口", "觊觎胁迫冰凤，被韩立三击败、限期离城后仍被“斩草除根”", "fengyuan_g"]], "core": 0}, {"id": "cheqigong", "name": "车骑恭", "grp": "g1", "who": "困于镇魔锁的老魔，授紫言鼎秘术、报血光之仇", "tier": 2, "spans": [[1907, 1907, "fengyuan_g"], [1926, 1944, "fengyuan_g"], [1962, 1965, "fengyuan_g"], [2112, 2112, "mojie"]], "events": [], "core": 0}, {"id": "leiyunzi", "name": "雷云子", "grp": "g1", "who": "五雷之体炼虚，归途鸣族小城月余大战成友", "tier": 2, "spans": [[1747, 1749, "fengyuan_g"], [1954, 1961, "fengyuan_g"]], "events": [], "core": 0}, {"id": "mingzun", "name": "明尊", "grp": "g1", "who": "赫连商盟风元大陆主事，串联诸族设局围杀马良", "tier": 2, "spans": [[2323, 2338, "wuyahai"], [2398, 2431, "fengyuan_g"]], "events": [], "core": 0}, {"id": "duyu", "name": "杜宇", "grp": "g1", "who": "圣岛使者，携玉书玉砚挑衅被韩立制服", "tier": 3, "spans": [[2192, 2197, "fengyuan_g"]], "events": [], "core": 0}, {"id": "lirong", "name": "李蓉", "grp": "g1", "who": "圣岛使者蓉仙子，大乘庆典报信", "tier": 3, "spans": [[2202, 2207, "mojie"]], "events": [], "core": 0}, {"id": "zhuguoer", "name": "朱果儿", "grp": "g2", "who": "小灵天黄衫少女，修素女轮回功，后为韩立之徒", "tier": 2, "spans": [[2049, 2070, "mojie"], [2097, 2115, "mojie"], [2134, 2154, "fengyuan_g"], [2171, 2207, "mojie"], [2256, 2262, "lingzu"], [2302, 2347, "xuehe"]], "events": [[2050, "魔界幻夜城获救", "小灵天俘虏，修素女轮回功——韩立由此推断南宫婉滞留小灵天", "mojie"], [2394, "拜师随行", "小灵天正式拜韩立为师，随返灵界居青元宫", null]], "core": 0}, {"id": "baiguoer", "name": "白果儿", "grp": "g2", "who": "韩立记名弟子，冰髓之体/寒魄神通，献昊阴之石", "tier": 2, "spans": [[1777, 1790, "fengyuan_g"], [1822, 1841, "fengyuan_g"], [1868, 1873, "fengyuan_g"], [2050, 2050, "mojie"], [2197, 2206, "mojie"], [2255, 2259, "lingzu"], [2305, 2305, "wuyahai"], [2322, 2322, "wuyahai"], [2441, 2445, "wuyahai"]], "events": [], "core": 0}, {"id": "haidashao", "name": "海大少", "grp": "g2", "who": "韩立门下弟子", "tier": 3, "spans": [[1775, 1822, "fengyuan_g"], [1839, 1841, "fengyuan_g"], [1868, 1887, "fengyuan_g"], [1908, 1908, "fengyuan_g"], [1975, 2006, "fengyuan_g"], [2197, 2205, "fengyuan_g"], [2254, 2257, "lingzu"], [2304, 2305, "wuyahai"], [2403, 2408, "fengyuan_g"], [2445, 2445, "wuyahai"]], "events": [], "core": 0}, {"id": "qilingzi", "name": "器灵子", "grp": "g2", "who": "韩立门下弟子", "tier": 3, "spans": [[1775, 1841, "fengyuan_g"], [1868, 1869, "fengyuan_g"], [1908, 1908, "fengyuan_g"], [1975, 2006, "fengyuan_g"], [2197, 2205, "fengyuan_g"], [2255, 2259, "lingzu"], [2305, 2305, "wuyahai"], [2403, 2403, "fengyuan_g"], [2445, 2445, "wuyahai"]], "events": [], "core": 0}, {"id": "daier", "name": "黛儿", "grp": "g2", "who": "安远城兽潮所救的人妖混血女童，黑凤族养大，化形酷似南宫婉", "tier": 2, "spans": [[1282, 1295, "tianyuan"], [1354, 1354, "muzu"], [1797, 1822, "fengyuan_g"], [2188, 2199, "fengyuan_g"], [2445, 2445, "wuyahai"]], "events": [[1809, "化形重逢", "化形后容貌竟与南宫婉七八分酷似（幼时对韩立玉佩画像印象极深，纯出巧合）", "fengyuan_g"]], "core": 0}, {"id": "aoxiao", "name": "敖啸", "grp": "g3", "who": "妖族唯一大乘（银月祖父），驻圣岛，渡劫失败陨落", "tier": 2, "spans": [[1669, 1669, "guanghan"], [1766, 1767, "fengyuan_g"], [1965, 1972, "fengyuan_g"], [2005, 2009, "fengyuan_g"], [2145, 2198, "fengyuan_g"], [2216, 2216, "mojie"], [2253, 2269, "xiuxiao"], [2304, 2305, "wuyahai"], [2363, 2363, "xuehe"], [2402, 2402, "fengyuan_g"]], "events": [[1965, "降临圣岛", "受莫简离之邀降临圣岛坐镇，为两族魔劫定策", "fengyuan_g"], [2145, "魔界边域救韩立", "元刹圣祖本体袭杀时携银月赶到解围，并托付银月随行", "fengyuan_g"], [2304, "渡劫失败陨落", "闭关出岔提前渡劫，韩立携雷霄符狂赶不及——妖族唯一大乘陨落", "wuyahai"]], "core": 0}, {"id": "xiaohong", "name": "筱虹", "grp": "g3", "who": "黑凤族少妇（翁大峰之女），黛儿养母，木族任务队友", "tier": 2, "spans": [[1354, 1384, "muzu"], [1797, 1797, "fengyuan_g"], [1976, 1979, "fengyuan_g"]], "events": [], "core": 0}, {"id": "tuyao", "name": "涂咬", "grp": "g3", "who": "人面蛟大修士，助韩立寻小灵天海底入口", "tier": 2, "spans": [[2387, 2389, "xiaolingtian"]], "events": [[2387, "父女助寻小灵天坐标", "", "xiaolingtian"]], "core": 0}, {"id": "huashi", "name": "花石老祖", "grp": "g3", "who": "蛮荒妖修，归附韩立", "tier": 3, "spans": [[2259, 2262, "lingzu"], [2302, 2307, "wuyahai"], [2326, 2347, "xuehe"], [2371, 2411, "fengyuan_g"]], "events": [], "core": 0}, {"id": "yechu", "name": "叶楚", "grp": "g3", "who": "潜伏木族千年的半妖，木族任务真正接应对象", "tier": 2, "spans": [[1375, 1386, "muzu"]], "events": [[1354, "木族任务接应", "潜伏木族千年的半妖叶家后人；以一次性传送盘传回情报——此行真正目的", null]], "core": 0}, {"id": "heixiao", "name": "黑枭王", "grp": "g4", "who": "夜叉族隐藏大乘，大乘庆典被韩立重创立威", "tier": 2, "spans": [[2202, 2207, "mojie"]], "events": [[2202, "被当众重创", "大乘庆典上来犯，被韩立“牛刀小试”重创——两族合体修士彻底心悦诚服", "mojie"]], "core": 0}, {"id": "yecha", "name": "夜叉王", "grp": "g4", "who": "大夜叉王级存在，猖奴猎杀取乐", "tier": 2, "spans": [[1297, 1297, "tianyuan"], [1393, 1399, "muzu"]], "events": [[1396, "猖奴猎杀", "以“猖奴”猎杀修士取乐；末击震偏肖姓女子的光阵，韩立被甩落黑冥岛", "muzu"]], "core": 0}, {"id": "yuanyue", "name": "元魇始祖", "grp": "g4", "who": "魔源海三大始祖之一，授洗灵池之机、颁灭仙令", "tier": 2, "spans": [[2087, 2112, "mojie"], [2132, 2143, "fengyuan_g"], [2212, 2228, "mojie"], [2245, 2246, "mojie"], [2434, 2436, "longdao"]], "events": [[2101, "授洗灵池之机", "魔源海三大始祖之一：与韩立交易允其入洗灵池；血光陨后颁“灭仙令”全魔界追杀", "mojie"]], "core": 0}, {"id": "baohua", "name": "宝花圣祖", "grp": "g4", "who": "魔界圣祖，与韩立多次交易结盟，合灭螟虫之母、诛六极", "tier": 2, "spans": [[1960, 1964, "fengyuan_g"], [2016, 2030, "mojie"], [2069, 2070, "mojie"], [2087, 2114, "mojie"], [2132, 2139, "mojie"], [2213, 2261, "lingzu"], [2325, 2325, "wuyahai"], [2434, 2436, "longdao"]], "events": [[2095, "魔源海现身", "与韩立初次交易（炼魔草等），一路尾随观望", "mojie"], [2242, "合力灭螟虫之母", "韩立神念之链捆缚虫母，宝花舍身施梵门秘术，配何康“刑罚之雷”将其抹杀", "lingzu"], [2246, "诛六极", "以玄天灵域困杀六极本体与六化身（含隐藏第七化身），救出敖啸莫简离；与韩立分泣灵秘藏", "lingzu"]], "core": 0}, {"id": "xueguang", "name": "血光圣祖", "grp": "g4", "who": "魔界圣祖：化身侵灵界屠倚天，本体魔界被重创陨落", "tier": 2, "spans": [[1880, 1963, "fengyuan_g"], [1989, 2012, "fengyuan_g"], [2112, 2112, "mojie"]], "events": [[1910, "化身血屠倚天", "化身统领魔军血屠倚天城；夺紫言鼎追杀韩立数年", "fengyuan_g"], [2112, "本体陨落", "魔界沉水镇被韩立涅槃圣体＋蟹道人重创，残躯被车骑恭夺宝补刀", "mojie"]], "core": 0}, {"id": "yuansha", "name": "元刹圣祖", "grp": "g4", "who": "魔界圣祖，本体两战韩立", "tier": 2, "spans": [[1794, 1794, "fengyuan_g"], [1837, 1837, "fengyuan_g"], [1945, 1964, "fengyuan_g"], [2144, 2158, "fengyuan_g"], [2249, 2250, "mojie"]], "events": [], "core": 0}, {"id": "liuji", "name": "六极圣祖", "grp": "g4", "who": "魔界圣祖，改紫灵魔功携其入魔界，后被宝花诛灭", "tier": 2, "spans": [[1405, 1405, "diyuan"], [1886, 1886, "fengyuan_g"], [1945, 1963, "fengyuan_g"], [2095, 2143, "fengyuan_g"], [2212, 2214, "mojie"], [2245, 2247, "mojie"]], "events": [[2246, "被宝花灭门", "本体与六大化身及隐藏第七化身尽灭——紫灵“备用化身”威胁解除", "mojie"]], "core": 0}, {"id": "xielian", "name": "邪莲圣祖", "grp": "g4", "who": "万花山脉圣祖，透露始印之地失联", "tier": 3, "spans": [[2213, 2228, "mojie"]], "events": [], "core": 0}, {"id": "lanying", "name": "蓝颖", "grp": "g4", "who": "广源斋蓝瀑城主，紫灵旧识，助寻泣灵秘藏", "tier": 2, "spans": [[2122, 2134, "mojie"], [2172, 2172, "fengyuan_g"], [2200, 2200, "fengyuan_g"], [2247, 2249, "mojie"]], "events": [], "core": 0}, {"id": "wangu", "name": "万骨真人", "grp": "g1", "who": "黑域交换会主办合体老魔", "tier": 3, "spans": [[1786, 1812, "fengyuan_g"]], "events": [], "core": 0}, {"id": "tongya", "name": "铜鸦老人", "grp": "g4", "who": "天鸦界四禽之一，异界驰援魔界", "tier": 3, "spans": [[2216, 2228, "mojie"], [2245, 2246, "mojie"]], "events": [], "core": 0}, {"id": "qingyuanzi", "name": "青元子", "grp": "g5", "who": "冥河之地主人：人族飞升前辈夺舍长元族躯的大乘，青元剑诀原作者", "tier": 2, "spans": [[1357, 1357, "muzu"], [1374, 1385, "muzu"], [1512, 1521, "heiming"], [1567, 1568, "leiming_g"], [1595, 1604, "leiming_g"], [1664, 1664, "leiming_g"], [1706, 1706, "guanghan"], [1744, 1758, "fengyuan_g"], [1794, 1794, "fengyuan_g"], [1837, 1871, "fengyuan_g"], [1928, 1928, "fengyuan_g"], [2189, 2189, "fengyuan_g"], [2305, 2321, "wuyahai"]], "events": [[1512, "剑诀与神乳之约", "冥河之地摄住韩立：新青元剑诀（春黎/青蟠剑阵）换全部金雷竹叶，冥河神乳换千年送物之约；收元瑶妍丽为徒/义女", "heiming"], [2312, "渡大天劫", "黄元子纠合不灭天尊、三全道人来攻，韩立（大乘）赶到力斩强敌；元瑶以天阴之体大神通助义父抵劫", "wuyahai"]], "core": 0}, {"id": "huangyuanzi", "name": "黄元子", "grp": "g5", "who": "长元族大乘，寻青元子夺躯之仇", "tier": 2, "spans": [[2305, 2320, "wuyahai"]], "events": [[2313, "攻谷寻仇", "纠合不灭天尊、三全道人攻青元子渡劫之谷，被韩立斩败", "wuyahai"]], "core": 0}, {"id": "sanquan", "name": "三全道人", "grp": "g5", "who": "黄元子盟友大乘", "tier": 3, "spans": [[2305, 2320, "wuyahai"]], "events": [], "core": 0}, {"id": "yuelong", "name": "越隆", "grp": "g5", "who": "冥河之地大乘", "tier": 3, "spans": [[2307, 2315, "wuyahai"]], "events": [], "core": 0}, {"id": "lingyuling", "name": "凌玉灵", "grp": "g6", "who": "人界乱星海星宫之主，分魂游界时唯一健在旧识", "tier": 2, "spans": [[2443, 2443, "renjie"]], "events": [[2443, "千年寿诞长谈", "韩立分魂重游人界时唯一健在旧识；告知田琴儿渡劫化灰、石坚陨落、黄枫谷复兴、落云宗没落诸身后事", "renjie"]], "core": 0}, {"id": "lifeiyu", "name": "厉飞雨", "grp": "g6", "who": "七玄门旧友——大乘心魔劫中心魔所化之相", "tier": 3, "spans": [[2183, 2185, "fengyuan_g"], [2442, 2442, "renjie"]], "events": [], "core": 0}, {"id": "dayan", "name": "大衍神君", "grp": "g6", "who": "人界传承恩师——傀儡术/寄灵大成被追述", "tier": 3, "spans": [[1320, 1320, "tianyuan"], [1464, 1464, "diyuan"], [1584, 1584, "leiming_g"], [1605, 1605, "leiming_g"], [2442, 2443, "renjie"]], "events": [], "core": 0}, {"id": "lingwang", "name": "灵王", "grp": "g7", "who": "灵族之主（真身白色小人，历代灵王同一人）", "tier": 2, "spans": [[1834, 1834, "fengyuan_g"], [2018, 2021, "mojie"], [2091, 2107, "mojie"], [2254, 2275, "xiuxiao"], [2294, 2302, "xiuxiao"], [2407, 2407, "fengyuan_g"], [2432, 2433, "fengyuan_g"]], "events": [[2265, "雇佣猎修罗蛛", "以雷霄符＋三宝为酬，请韩立等四名大乘入小修罗界猎修罗蛛提“光阴之丝”；冰峰下镇压着盗掌天瓶叛逃的九元观仙人", "xiuxiao"], [2432, "两招服于韩立", "韩立接其两招不动；搜魂叛仙得知瓶灵下落", "fengyuan_g"]], "core": 0}, {"id": "qianqiu", "name": "千秋圣女", "grp": "g7", "who": "器灵族圣女，魔界之约发起者之一", "tier": 2, "spans": [[1800, 1807, "fengyuan_g"], [1833, 1836, "fengyuan_g"], [2010, 2039, "mojie"], [2067, 2089, "mojie"], [2199, 2199, "fengyuan_g"], [2269, 2269, "xiuxiao"]], "events": [], "core": 0}, {"id": "yeying", "name": "叶颖", "grp": "g7", "who": "真灵世家叶家少主，天凤血脉，魔界远征队友", "tier": 2, "spans": [[1354, 1388, "muzu"], [1792, 1794, "fengyuan_g"], [1826, 1826, "fengyuan_g"], [2199, 2199, "fengyuan_g"]], "events": [], "core": 0}, {"id": "longjia", "name": "陇家老祖", "grp": "g7", "who": "真灵世家陇家（真龙血脉）大乘，木族大战统帅", "tier": 2, "spans": [[1801, 1838, "fengyuan_g"], [1874, 1877, "fengyuan_g"], [1908, 1908, "fengyuan_g"], [2005, 2110, "mojie"], [2134, 2151, "fengyuan_g"], [2199, 2199, "fengyuan_g"]], "events": [], "core": 0}, {"id": "xiaofeng", "name": "晓风仙子", "grp": "g7", "who": "真灵世家谷家，引韩立入万宝大会诸事", "tier": 3, "spans": [[1758, 1760, "fengyuan_g"], [1794, 1794, "fengyuan_g"], [1822, 1837, "fengyuan_g"], [2199, 2199, "fengyuan_g"]], "events": [], "core": 0}, {"id": "tianli", "name": "天黎仙子", "grp": "g7", "who": "谷家太上大长老", "tier": 3, "spans": [[1823, 1831, "fengyuan_g"]], "events": [], "core": 0}, {"id": "jiatianmu", "name": "甲天木", "grp": "g7", "who": "万古族傀儡大师，赠通灵傀儡“娃娃”", "tier": 2, "spans": [[1571, 1587, "leiming_g"]], "events": [], "core": 0}, {"id": "qianjizi", "name": "千机子", "grp": "g7", "who": "万古族合体顶阶，广寒界知情者", "tier": 2, "spans": [[1586, 1604, "leiming_g"], [1662, 1672, "guanghan"], [1741, 1746, "yuncheng"]], "events": [], "core": 0}, {"id": "xianxian", "name": "纤纤", "grp": "g7", "who": "晶族美妇，云城典籍/天外魔甲相关", "tier": 3, "spans": [[1579, 1660, "leiming_g"]], "events": [], "core": 0}, {"id": "duantianren", "name": "段天刃", "grp": "g7", "who": "石茧族怪人，云城相赠名帖", "tier": 3, "spans": [[1592, 1604, "leiming_g"], [1664, 1681, "guanghan"], [1699, 1726, "yuncheng"], [1743, 1745, "yuncheng"]], "events": [], "core": 0}, {"id": "xuqianyu", "name": "许芊羽", "grp": "g8", "who": "冰魄仙子后人（小极宫一脉），血魄化身随行者", "tier": 2, "spans": [[1766, 1774, "fengyuan_g"], [1936, 1937, "fengyuan_g"], [2179, 2206, "mojie"]], "events": [[1329, "天渊城初遇", "韩立赠万年玄玉还人情——冰魄后人伏笔", null], [2205, "代血魄献鼎", "血魄中毒重伤，命其将虚天鼎作贺礼送还韩立求救", "mojie"]], "core": 0}, {"id": "wengdafeng", "name": "翁大峰", "grp": "g8", "who": "天云族大乘，冰魄故识，托信物、赠天罡印", "tier": 2, "spans": [[1316, 1325, "tianyuan"], [1664, 1672, "guanghan"], [1740, 1756, "fengyuan_g"], [1775, 1775, "fengyuan_g"]], "events": [[1741, "托付冰魄信物", "云城弃守时识出韩立的风元人族出身与虚天鼎来历（冰魄“虚灵鼎”试验品），托捎血魂瓶信物，赠天罡印＋伏蛟城传送阵使用权", "fengyuan_g"]], "core": 0}, {"id": "xiaoming", "name": "萧冥", "grp": "g8", "who": "血天血骨门大乘，天鼎宫持钥者之一", "tier": 3, "spans": [[2342, 2386, "xuehe"]], "events": [], "core": 0}, {"id": "qingping", "name": "清平道人", "grp": "g8", "who": "血天大乘，天鼎宫五祖之一", "tier": 3, "spans": [[2342, 2370, "xuehe"]], "events": [], "core": 0}, {"id": "wanhua", "name": "万花夫人", "grp": "g8", "who": "血天大乘，清平道侣", "tier": 3, "spans": [[2342, 2370, "xuehe"]], "events": [], "core": 0}, {"id": "wugou", "name": "无垢老祖", "grp": "g8", "who": "血天大乘道侣", "tier": 3, "spans": [[2348, 2349, "xuehe"], [2365, 2370, "xuehe"]], "events": [], "core": 0}, {"id": "huaxi", "name": "华西仙子", "grp": "g8", "who": "血天大乘道侣", "tier": 3, "spans": [[2348, 2349, "xuehe"], [2365, 2370, "xuehe"]], "events": [], "core": 0}, {"id": "tianding", "name": "天鼎真人", "grp": "g8", "who": "百万年前飞升仙界者，天鼎宫之主（追述）", "tier": 3, "spans": [[2345, 2383, "xuehe"]], "events": [], "core": 0}, {"id": "fanpaozi", "name": "樊咆子", "grp": "g8", "who": "紫睛真龙，龙岛道果大会相邀", "tier": 2, "spans": [[2190, 2191, "fengyuan_g"], [2334, 2335, "wuyahai"], [2435, 2439, "longdao"]], "events": [[2190, "罡风初遇", "紫睛真龙与韩立联手杀七首枭；相邀龙岛广灵道果大会", "fengyuan_g"]], "core": 0}, {"id": "tianfeier", "name": "田飞儿", "grp": "g8", "who": "真龙族执事，赠道果大会之约", "tier": 2, "spans": [[2335, 2339, "wuyahai"], [2434, 2439, "longdao"]], "events": [[2335, "拍卖会相认", "真龙族执事真容相认，赠玉简与道果大会之约", "wuyahai"]], "core": 0}, {"id": "xiedaoren", "name": "蟹道人", "grp": "g8", "who": "黄金巨蟹所化仙傀儡，真心认主，随韩立飞升", "tier": 2, "spans": [[2110, 2115, "mojie"], [2134, 2242, "mojie"], [2369, 2370, "xuehe"], [2391, 2391, "xiaolingtian"], [2412, 2446, "wuyahai"]], "events": [[2110, "苦灵岛现世", "黄金巨蟹所化伪仙傀儡（原主仙界大能）；随韩立重创血光圣祖本体", "mojie"], [2446, "随韩立飞升", "恢复往昔记忆后真心认主；与噬金虫王同入灵兽环飞升北寒仙域", "wuyahai"]], "core": 0}, {"id": "maliang", "name": "马良", "grp": "g4", "who": "九元观真仙，为掌天瓶下界血屠诸大乘，被围杀", "tier": 2, "spans": [[2271, 2271, "xiuxiao"], [2384, 2445, "wuyahai"]], "events": [[2371, "血天降世", "九元观真仙为追缴被盗的掌天瓶下界：以万灵血玺屠大乘、收真灵为仆", null], [2426, "鸣煞被围杀", "诸族设局围杀——韩立金蝉脱壳＋玄天斩灵剑灭其元婴（界面之力压制慢了半拍）", "wuyahai"]], "core": 0}, {"id": "hekang", "name": "何康(老鬼)", "grp": "g8", "who": "钵中仙界巡查使者，灭螟虫之母、传炼神术", "tier": 2, "spans": [[2242, 2242, "mojie"]], "events": [[2242, "刑罚之雷灭虫母", "钵中仙界巡查使者：耗九成魂念引“天罚之雷”抹杀螟虫之母", "mojie"], [2441, "传炼神术三层", "魔界封印之地传韩立炼神术第三层；约定修成后以神念激发宝符传讯仙界救其归界", null]], "core": 0}, {"id": "xuanjiuling", "name": "轩九灵", "grp": "g4", "who": "劫夺祖龙之血的大乘，后参与围杀马良", "tier": 2, "spans": [[2410, 2423, "fengyuan_g"]], "events": [[2331, "劫夺祖龙之血", "赫连商盟拍卖会劫走祖龙之血的大乘", null], [2410, "参与围杀马良", "鸣煞之地群强之一", "fengyuan_g"]], "core": 0}, {"id": "zhangkui", "name": "张奎", "grp": "g1", "who": "天东商号护卫队长，青罗沙漠救起韩立", "tier": 2, "spans": [[1264, 1283, "qingluo"]], "events": [], "core": 0}, {"id": "xiaonv", "name": "肖姓女子", "grp": "g1", "who": "人族猎蟾队友，光阵送韩立脱夜叉王之围", "tier": 2, "spans": [[1278, 1279, "qingluo"], [1390, 1399, "muzu"]], "events": [], "core": 0}, {"id": "lanku", "name": "鬼婆(白美妇)", "grp": "g5", "who": "地渊四大妖王之一（鬼妖），元瑶妍丽旧主", "tier": 3, "spans": [[1444, 1444, "diyuan"], [1460, 1518, "heiming"]], "events": [], "core": 0}, {"id": "dixue", "name": "地血", "grp": "g5", "who": "地渊四大妖王之一，傀儡符阵宗师", "tier": 3, "spans": [[1444, 1519, "heiming"]], "events": [], "core": 0}, {"id": "muqing", "name": "木青", "grp": "g5", "who": "地渊四大妖王之一（木灵之妖）", "tier": 3, "spans": [[1444, 1519, "heiming"]], "events": [], "core": 0}, {"id": "luzu", "name": "六足", "grp": "g5", "who": "地渊四大妖王之一，无生命气息的神秘存在", "tier": 3, "spans": [[1439, 1518, "heiming"]], "events": [], "core": 0}, {"id": "mojianli", "name": "莫简离", "grp": "g1", "who": "人族大乘老祖：星盘探魔界预警魔劫；与敖啸同困魔界获救", "tier": 2, "spans": [[1766, 1766, "fengyuan_g"], [1793, 1793, "fengyuan_g"], [1837, 1837, "fengyuan_g"], [1936, 1939, "fengyuan_g"], [1965, 1970, "fengyuan_g"], [1989, 2009, "fengyuan_g"], [2125, 2125, "mojie"], [2147, 2213, "mojie"], [2246, 2304, "wuyahai"], [2363, 2363, "xuehe"], [2402, 2403, "fengyuan_g"], [2434, 2445, "wuyahai"]], "events": [[2205, "随魔族入魔界", "与敖啸随各族大乘随魔族始祖入魔界解决螟虫之母大劫，被困始印之地", "mojie"], [2246, "获救", "韩立二入魔界灭虫母后获救", "wuyahai"], [2445, "渡劫陨落", "“在数百年前的另一次大天劫中陨落而亡”", "wuyahai"]], "core": 0}, {"id": "hanli", "name": "韩立", "grp": "core", "who": "主角·本纪", "tier": 1, "spans": [[1262, 1290, "qingluo"], [1291, 1353, "tianyuan"], [1354, 1399, "muzu"], [1400, 1517, "diyuan"], [1518, 1534, "heiming"], [1535, 1666, "leiming_g"], [1667, 1720, "guanghan"], [1721, 1746, "yuncheng"], [1747, 2012, "fengyuan_g"], [2013, 2141, "mojie"], [2142, 2205, "fengyuan_g"], [2206, 2253, "mojie"], [2254, 2266, "lingzu"], [2267, 2303, "xiuxiao"], [2304, 2344, "wuyahai"], [2345, 2388, "xuehe"], [2389, 2396, "xiaolingtian"], [2397, 2433, "fengyuan_g"], [2434, 2435, "mojie"], [2436, 2441, "longdao"], [2442, 2444, "renjie"], [2445, 2446, "wuyahai"]], "events": [], "core": 1}, {"id": "wan", "name": "南宫婉", "grp": "core", "who": "道侣·月仙子", "tier": 1, "spans": [[1261, 2392, "renjie"], [2393, 2396, "xiaolingtian"], [2397, 2446, "wuyahai"]], "events": [], "core": 1}, {"id": "bingfeng", "name": "冰凤", "grp": "core", "who": "冰海之主·天凤血脉", "tier": 1, "spans": [[1250, 1260, "renjie"], [1262, 1818, "tianyuan"], [1819, 2446, "wuyahai"]], "events": [], "core": 1}, {"id": "ziling", "name": "紫灵", "grp": "core", "who": "妙音门主·修魔", "tier": 1, "spans": [[1250, 2119, "renjie"], [2120, 2446, "mojie"]], "events": [], "core": 1}, {"id": "yuan", "name": "元瑶·妍丽", "grp": "core", "who": "鬼道·青元子门下", "tier": 1, "spans": [[1250, 1459, "renjie"], [1460, 2321, "diyuan"], [2322, 2446, "wuyahai"]], "events": [], "core": 1}, {"id": "xiang", "name": "向之礼", "grp": "core", "who": "大晋化神·先行偷渡", "tier": 1, "spans": [[1250, 1260, "renjie"], [1261, 1744, "yuncheng"]], "events": [], "core": 1}, {"id": "yinyue", "name": "银月(玲珑)", "grp": "core", "who": "狼族公主·剑灵侍女", "tier": 1, "spans": [[1250, 2170, "tianyuan"], [2171, 2446, "wuyahai"]], "events": [], "core": 1}, {"id": "bingpo", "name": "冰魄仙子", "grp": "core", "who": "小极宫祖师·上古飞升", "tier": 1, "spans": [[1250, 2362, "wanyue"], [2363, 2446, "tianyuan"]], "events": [], "core": 1}], "groups": {"g1": "人族·天渊城/倚天城", "g2": "道侣·亲随", "g3": "妖族·异族", "g4": "魔界·反派", "g5": "冥河·地渊", "g6": "人界故人", "g7": "灵族·器灵·真灵世家", "g8": "血天·仙界相关", "core": "核心列传"}};
+/*__QUOTES__*/
+const QUOTES={"1261":["婉儿，这些宝物对我通过空间节点没有多大用处了。你在人界还不知道会遇到什么劫数，这些东西能助你一臂之力的。你收好吧。","南宫婉站在原地，望着二人消失的方向，眉宇间隐现一丝担心。"],"1262":["他的护身宝物已经毁掉了十之八九，连八灵尺这等灵宝都葬送在了其中。","韩立情急之下，只好采用元婴虚化之法……再将元婴自行散去，将元婴所化的庞大精元强行灌注到了身体各处。"],"1290":["此虫对韩立竟如同路人一般！将其抛掷在了这里，就自行离去了。","想当初在人界时，他不惜利用神秘小瓶苦心催育此灵虫，结果现在此虫成就了成熟体，反而根本无法控制了。"],"1311":["他是罕见的下界飞升修士，并未经服用过灭尘丹洗髓过体，所以引发的小天劫才是这种要命的两色雷劫。","仅仅几个呼吸间的工夫，就有缕缕阳光洞穿乌云射下。这小天劫，就这般硬生生的给破解了。"],"1323":["此鬼负伤下，再也无法用秘术凝固精魄，最终在和韩立的争斗中，还是被啼魂兽趁机的一吸而入。","将空间中的如此多凶魂一下吸入腹中，最后又吸了一名实力堪比化神修士的鬼王，啼魂兽原本进化的瓶颈，马上突破了，当场化为这么一只黑茧出来。"],"1460":["那名肌肤雪白的极美女子竟是当年乱星海的元瑶，旁边娇小女子自然就是其师姐，当年差点魂飞魄散的妍丽。","可是万万没想到，会在灵界异族之地重遇她们。不过看二人安然的样子，当年的还魂术竟然真的成了。"],"1512":["看来我当年在人界所留的青元剑诀，是落到了你的手中了，你应该是从人界飞升到此的飞升修士了。","只要你帮我在外面收齐了，然后在千年之内给我送进来。我就会用那一瓶冥河神乳和你交换。"],"1523":["突然一声龙吟般的啸声从巨山深处发出，巨山顶部金光一闪，浮现出一个三头六臂的巨相。","光幕中人影突然间身体一颤，体表五色霞光一阵流转后，终于睁开了双目。接着一长啸从人影口中脱口而出！……但是啸声明显欢喜异常。"],"1533":["玄天果实一端翠芒一闪，突然间射出尺许长的一道绿濛濛剑刃出来……而原来的玄天果实，此刻却赫然成了此剑的剑柄。","大惊之下的韩立，几乎是下意识的将手中剑柄猛然一抖，漫无方向的劈出了一剑去……"],"1636":["啼魂双目血红，两只硕大拳头一锤自己胸膛……竟化为了一只三目巨鬼。“刑兽”——虚空中突然响起了怪脸恐惧的尖叫。","“金篆文”“天罚神矛”——两种截然不同的声音，从韩立和黑气中同时失声传出。"],"1717":["炼虚初期的瓶颈在其花费一番工夫后，竟真的就此突破了，一举进入到了炼虚中期阶段。","他修为早在半刻钟之前就已经到了炼虚中期顶峰……再下一次的瓶颈冲击后，竟水到渠成般的一下成功了。"],"1745":["原本站在数丈外的向之礼，一见灰白光丝没入韩立身躯中，面上狞色一现，两手一掐诀，身躯骤然间爆裂而开。血肉横飞之下，一道朦朦胧胧的血影，在原处现身而出。","几个呼吸的工夫后，惨叫声嘎然而止！血影就此在火焰中化为了乌有。"],"1749":["而从风元大陆另一边走回到此地，竟已经花费了近百年时间。","韩立站在飞车上看着远处仿佛山岳般巨大的天渊城城墙，面上不由得满是复杂之色。如此多年的在族外流浪，他终于再次返回人妖两族了。"],"1756":["怪不得此人不愿加入我们谷家，原来本身就具有真灵血脉……难道对方是在突破合体瓶颈？","不过一个天外魔头分神，也想趁心魔入侵时扰乱我心神，这也太小瞧我了吧。"],"1819":["我用这头无意中得到了的冰凤，外加先前拿出的其他两样东西，换取这位道友想要的通天灵宝。","但就在这时，一个淡淡的男子声音突然间响起，仿佛人间仙乐般的传入血光人耳中。“好，我换了。”"],"1869":["只见先前万里无云的碧蓝高空，一下多出里许大小的一块巨大灰斑，并飞快扩散而开……仿佛正有什么东西在飞快侵蚀着整个天空。","“魔斑！不会错的，这一定是魔劫降临前的魔斑！”海大少脸色发白之下，忽然大声的喊道。"],"1857":["我被那雷兽所化巨禽惊醒，并无法控制的吸纳其体内天雷之力后，身躯就彻底被这一界天地之力所排斥了，恐怕顷刻间就要到那传闻中的真仙界去了。","韩立在下方虽然无法动弹，但仍能看到啼魂在光柱中勉强扭首回望了它一眼，目光含复杂异常，最终一闪的没入了那颗五色巨眼的瞳孔中。"],"1973":["这头豹麟兽竟在醒来的同时，开始了合体期的度劫。","豹麟兽度劫后幻化的人形，竟是一个比“曲儿”看起来还要年幼的女童。"],"1992":["魔族的确马上就要开始攻城了，这一次绝对不是以前的骚扰之战，所有的魔族和魔兽全都出动了，甚至连那位血光圣祖化身，似乎也出现在了魔族大军中。","“魔族圣祖已经被我等击毙，你们这些魔崽子还有何逞威的余地。魂飞魄散就是你们唯一的下场！”"],"2013":["只有用这里的节点，才能直达魔界的血石山脉中。那血石山脉即使在魔界中也是异常荒凉的地方，并没有多少魔族驻扎。","转眼间，一干人等就神不知鬼不觉的飞入了这片面积不知多广的珊瑚群岛中。"],"2112":["在大战结束的数日后，有高阶魔族在离沉水镇百万里外的一片山脉中，发现了血光圣祖惨不忍睹的残尸。","这具遗骸头颅天灵盖大开，里面空空如也，似乎血光圣祖不但肉身被毁掉，连元婴都被什么人硬生生的摄取走了。"],"2120":["玉容微微有些苍白，但那艳丽无双的容貌，赫然正是韩立在人界时的红颜“紫灵”。","但毫无疑问，在韩立认识的诸多女修中，除了南宫婉之外，最牵挂的就是此女了。"],"2183":["而在魔气上方，那些噬金虫竟还旁若无人般的互相吞噬着。如此长时间过去，整个虫群不过只剩下数百只而已，并且已经变成那些虫王向其他噬金虫大肆杀戮的场面。","这三只噬金虫，正是那数万成熟体噬金虫和十二只候选虫王互相吞噬之后，最终剩下的三只灵虫。"],"2186":["“三阳灌体，姓韩小子竟然真突破到了大乘境界！”","光茧原先所在之地，一个紫金色人影浮现而出，正是终于重铸肉身完成的韩立。"],"2242":["“这是神念之链，不可能！你……你还修炼有炼神术这门神通！这门秘术，怎可能流落到下界来了。”","“不，是天罚之雷！”……螟虫之母看似无坚不摧的身躯，竟在五色电光下寸寸的碎裂而开，不过几个呼吸间的工夫就飞灰湮灭了。"],"2247":["但是无论如何细想，却发现自己若真想在大道上有成，其实呆在魔界才是最好的。","小妹可不想韩兄到时候成功飞升仙界，成了一名真仙，而自己却还留在下界中，并在一次次天劫下只能静等陨落之时。"],"2258":["黑色虫卵在狂闪中一下寸寸碎裂而开，同时一道金光从中激射而出……一个三寸高紫金小人在高处一下现身而出。","“这就是传闻中的噬金虫王！”韩立看着紫金小人，神色不禁有些怪异起来。"],"2274":["至于豹麟兽那头小兽，因为相对韩立现在修为太低了一些，故而在出发前，将其留在圣岛好好闭关修炼去。"],"2305":["若真能到这一步，整座无涯海都算是固若金汤了，韩兄也算有一片真正的基业了。","这绿影赫然正是韩立的那具芝仙灵躯。……现在我修为大进，这具合体期灵躯并无太大作用了，送给你正好合用的。"],"2363":["此地却是天鼎宫的中枢所在，是一个被天鼎真人耗费偌大心血布置的独立空间。","在下和仙子来自同一处人界……当年我曾经进入虚天宫，并得仙子遗留虚天鼎和其他的一些好处。"],"2372":["这二人竟正是六翼霜蚣所化白袍男子和被其胁迫同行的冰凤。","不用十息，我现在就可以给你一个回答。当你灵奴！别白日做梦了。"],"2393":["“夫君，你终于找到这里了，我从不怀疑有这一天，只是如此长的等待，只是这份相思之苦实在太难挨了一些。”","“婉儿”——韩立口中吐出这两个字眼后……用手指从眼前绝美少女丝绸般光滑脸庞上轻轻一划而过，仿佛抚摸某种绝世珍宝，这一切尽在不言之中。"],"2417":["我的确感觉神魂某个原先未曾发觉的多余东西，似乎被去掉了。还是道友神通广大，小妹这个心头之患总算没了。","只要你能千年内帮我收集齐全，我就算你完成承诺，自会帮你解除血契。……今后人族若有劫难的话，你必须立下重誓会出手相帮三次。"],"2427":["一道墨绿细线一卷而出，直接斩碎马良护体灵气，从脖颈处一闪而过。骨碌碌一声响，一颗头颅干脆之极的滚落而下。","它竟然只是梵圣法相凝结而成的躯壳，韩立早和先前噬金虫王一般的脱壳而走，并潜到了马良上空，抓住时机的动用玄天之宝斩杀了这位真仙。"],"2431":["诸位道友，真魂丹我已经卖给你们一颗，怎么分配就是诸位的事情。但是我希望此事到此为止了。从今之后，若还有敢来骚扰韩某和其他族人的话，可别怪我翻脸无情了。","甚至有些对韩立有几分推崇的异族人，认为说韩立是灵界第一大乘也不算夸大的。"],"2442":["也只有设法动用专门破界的星盘，外加付出一些不小代价，才能让一缕分魂破界回到人界。","他自然正是重返人界的韩立，虽然其一缕分魂所带法力不多，但对人界来说，仍是近似元婴顶峰般的无敌般存在。"],"2446":["韩立在只隐约看到其中一道遁光中的南宫婉满是焦虑的丽容后，就感觉身躯一轻，立刻在无数金光包裹中，沿着光柱的向高空裂缝激射而去。","不知过了多久后，韩立在一股清凉之意中缓缓的张开双目……“在下高升，欢迎道友飞升来到北寒仙域！”","魔光火须子二人见此情景，也大喜的互望一眼，当即一个身躯一晃，化为一股黑气的没入韩立身体之中，一个则单手一掐诀，化为一团火球的遁入韩立大袖之内。"],"1254":["结果在准备了百多年时间后，向之礼、风老怪和呼老魔继车老妖之后，联手进入到了空间节点中。","看来银月当年所说的空间节点的危险程度，丝毫没有夸大之言，的确是一条九死一生之路。"],"1329":["韩某手中正好有一些万年玄玉，足够重新炼制飞剑了。既然许仙子和冰魄仙子真有渊源，就赠送给道友吧。也算在下还了此人情！","冰魄仙子！那是我们许家许久之前的先祖了，前辈如何知道的。"],"1354":["我来介绍一下，这位是我们两族派往木族的卧底，叶楚道友。","道友还真是眼光犀利。在下是人族之身，但身具木凤灵血，算半个妖族吧。"],"1356":["很简单，在知道阁下身份有问题后，才如此做的。就不知该继续称呼你雷罗真人，还是该叫你一声紫影大人。","天元兄！多亏你相借神香，否则这孽障还真不好除去的。"],"1396":["很简单，我二人就以刚才争执之事为赌注，分别出手诛杀这二人，谁先得手，就算谁赢得赌注如何？","不如各自派出自身的一个猖奴动手如何。如此一来，想来这两名人族也能应付一下，足够你我分出胜负的。"],"1479":["韩兄若是再来晚上一些，恐怕就见不到我二人了。","只要趁机找到一处精纯阴气凝结之地，替我驱除掉体内标记。偌大的冥河之地，鬼婆等人想找我们，可是大海捞针一般的。"],"1578":["你……你是向师兄！你还活着，怎会在此的！","向某如今情况，也根本丧失了冲击炼虚的可能，也不打算再冒什么风险，已经打算就在此地终老一生了。"],"1741":["你和冰魄仙子是什么关系，体内竟能有冰魄道友的虚灵宝鼎。","之所以叫你留下，是想让你回人族后，替我找到冰魄仙子，捎带一物和一枚信笺而已。"],"1773":["“噗”的一声，一根血丝从瓶口中一喷而出，在许蛟法决一催下，奔血池上空的晶棺激射而去。","接着此女长长睫毛一动之下，缓缓的睁开了美目，一对血色瞳孔在众人眼前一下呈现而出，闪动着毫无感情的寒光。"],"1809":["黛儿，果然是你这丫头！","韩大叔，我现在模样，不知和南宫姑姑相比有几分相似了。"],"1837":["况且我将你冰凤师姑也留在了洞府中，在修炼上也能指点他们一二的。","以冰凤师姑的修为，自然完全可以指点两位师兄的。"],"1886":["这样吧，谷兄若是放心，妾身就跑上一趟吧。我和天皇宗的林仙子是结交多年的好友，去助其一臂之力也是应该的。","这倚天城关系非小，韩某略尽些人力原本就是应该的。事不宜迟，我和银光道友略回去收拾一下，明日就出发如何！"],"1910":["本尊终于到了人界了，此种方法果然可行的。哈哈，大概是本圣祖是第一个能做到此事的人。","参见圣祖大人，恭喜圣祖大人降临灵界！"],"1937":["虚天鼎，虚灵鼎，虚皇鼎！哼，那几个家伙恐怕不知道，当初出发前本仙子刚好又仿制出了另外一只宝鼎。","正是韩立当年持之依仗的虚天鼎，而这娇媚的血甲女子，自然就是那位冰魄仙子血魂所化的血灵化身了。"],"1965":["不错，在下这次外出虽然遇到了一些危险，但同样也有了一些机缘，已经可以冲击合体后期瓶颈了。如今恐怕需要借道友的天凤元阴一用了。","当初要不是韩兄出手相救，妾身还不知沦为哪一人的灵兽……现在助韩兄冲破瓶颈，自是理所当然之事。"],"2050":["素女轮回功是家母所传授！","韩立一想到发妻，纵然修为已经修炼到现在的地步，也胸口不禁一阵异样的火热，恨不得马上插翅飞到南宫婉身边，好好倾诉一番相思之苦。"],"2095":["没想到，如此多年没见，元魇道友竟然还是这般大口气。妾身如今也在此岛上，是不是也打算一起斩杀掉了。","你若是没有将这件黑魔匕带在身上，我说不定还真有其他想法，但现在吗，我只是冲此人来的。"],"2101":["元魇前辈，只要肯答应不阻拦我进入洗灵池和寻找净灵莲，你要的炼魔草，我同样会在事后相赠的。","“好，本座也答应了。”元魇圣祖被宝花的言语一下提醒到了……终于一咬牙的也点了下头。"],"2110":["好，但不管有没有成功，以你供奉的仙露效力，我只能全力出手两次。你可确定？","祭品符合要求，我可以出手三击。第一击！"],"2123":["而等我飞升到魔界见到六极本人后，才真正知道她帮助我，只是想为自己多准备一具候选的化身之体而已。","我在六极这缕神念劝说下，最终被其借助那密地中残留的一些真魔气，进行了魔气灌体从而改修了魔道功法，还一日千里的进阶到了化神境界。"],"2133":["我不能不亲自过来一趟了。我师傅六极已经到了蓝瀑湖，并且不久前还召唤我带着所有手下赶过去相见！","只要我能进阶成功，一定马上返回魔界，将你从六极门下救出。"],"2145":["元刹，你若真有本事将我这把老骨头留下，老夫也不会出现在此地了。但现在的情形是，老夫加上这两位道友的话，不知你还能有几分胜算了。","在他旁边的银发女子，自然就是当年韩立人界昆吾山一别后，就再未见过的银月，也就是灵界的那位“玲珑仙子”。"],"2171":["玲珑！你过来。按照先前的约定，我将她也交给你了。希望你早日将秘术修成，好能压制住她体内的功法反噬之苦。","玲珑，以后暂时要听韩道友的吩咐，在没有我的亲口吩咐前，不得轻易离开其身边。否则，你也不要认我这个祖父了。"],"2188":["这样吧，你就将我那头六翼霜蚣的下落告诉韩某一二，就算结清了此事。","照你所说，六翼霜蚣得了你的逆灵真阴大法，不但已经进阶合体，甚至连以后进阶大乘都有一分可能的。"],"2190":["至于在下本体，正是真龙之一的紫睛龙！不过前些日在界面间遇到一名大敌，才不得已躲在此地一二的！","在下樊咆子，见过道友！不知道友尊姓大名。贵族的莫道友，和我可是有过一面之缘的。"],"2202":["本座这次来，一是为了想看看韩道友到底是何等人物。……二则是想向道友讨要一个人。不，现在我改变主意，打算讨要两个人了。","好，既然是恶客，那韩某作为主人，说不得只有亲自出手驱除，给一些教训了。"],"2205":["前辈明鉴，晚辈是奉冰魄先祖血魂之命，才将虚天鼎当做贺礼奉给前辈的。","血魂前辈却吩咐族中弟子将这只虚天鼎立刻给前辈送来，并希望前辈能带着此鼎到许家一趟。"],"2246":["现在你的六大化身，已经被我斩杀了个干干净净。而你本体也已经困在了玄天灵域中。现在就是有通天的本事，你也休想再翻身了。","好了，陪你说了这般多话，让你能够活到现在，我也算对你仁至义尽了。下面，我就好好送你上路吧。"],"2265":["好吧。我不管你如何得到的这件信物，那这次交易就也算上你们两个吧。不过你们是否真的能如愿以偿，还要看你们自己的本事了。","嘿嘿，不是我小看莫道友。单凭你的本事，想要完成这笔交易几乎是不可能的事情。倒是你旁边的这位，还有那么两三分可能的。"],"2304":["什么，我祖父七天后，就要度劫了。怎会来的这般快，不是应该还有一段时间的吗？","不过此刻，玉牌上的背影赫然遍布密密麻麻的裂纹。……几个呼吸间工夫后，整块玉牌就一下化为粉末的从手指间散落而下。"],"2312":["这次天劫，只有瑶儿才能帮上忙。瑶儿跟我过去。妍丽，你留在此地多加小心警戒一二。","瑶儿，你苦修那门神通如此多年，并最终进阶到合体境界，不就是为了想今日能报他老人家大恩吗。可惜我并非天阴之体，无法为师父渡劫尽上丝毫力量的。"],"2313":["这黄袍男子自然就是那黄元子，旁边二人则是另外两名赫赫有名的大乘强者“不灭天尊”和“三全道人”。","这一次，我和青元子只能有一人可以活着离开此空间。"],"2331":["我若是没有看走眼的话，这金龙的原形应该只是一滴灵血而已。","竟然真有人在拍卖会上动手，和黑袍男子硬生生配合的劫走了灵血。"],"2335":["原来韩兄早已看穿了小妹的掩饰，既然有此要求，那下次小妹就以真容相见吧。对了，小妹真名叫田飞儿，一样请道友铭记在心了。","它的确是一滴精血，但并非祖龙之血，而是魇龙之血。"],"2371":["愚蠢，在我万灵血玺威能笼罩下，又怎可能让一名区区大乘真跑掉。镇！","但若是此界其他大乘都是你们三个这样的水准，只要多花费些时间，全都杀掉也不是多难的事情。"],"2403":["数以万计的人妖两族修士全都拜伏在青石地面上，恭迎韩立这位祖师的归来。","哦，银月妹妹还在闭关，真是太可惜了。我还想和她好好聚聚，再聊一聊当年在人界的诸多事情。"],"2441":["韩道友，你还是如约而来了。看来炼神术的弊处，你已经再无任何怀疑了。","既然这样，你当初的条件，我答应了。前辈将炼神术第三层修炼之法如实相告吧。"],"2443":["呵呵，看来韩某来的正是时候。有旧友远来，想来凌仙子不会连杯水酒都不给一盏吧。","于是下面的时间，这位星宫之主和韩立在大殿中一呆就是半日之久。"],"2445":["另有十几名修为高低不一的男女站在一艘漆黑巨舟前方，其中三名风姿各异的绝色女子，神色凝重的眺望向荒岛中心处。正是南宫婉、元瑶、银月三女。","在三女稍后些的地方，冰凤带着器灵子、海大少、白果儿等一干门下弟子站在那里。"]};
+const modalEl=document.getElementById("modal"),
+      mCh=document.getElementById("mCh"),mTitle=document.getElementById("mTitle"),
+      mWho=document.getElementById("mWho"),mBody=document.getElementById("mBody"),
+      mClose=document.getElementById("mClose");
+let lastFocus=null;
+function openModal(c,l,d,who){
+  if(typeof tipEl!=="undefined")tipEl.style.display="none";lastFocus=document.activeElement;
+  mCh.textContent=`第 ${c} 章`;mTitle.textContent=l;mWho.textContent=who||"";
+  mBody.innerHTML="";
+  const qs=QUOTES[String(c)];
+  if(qs&&qs.length){htm("div","mh",mBody,"原文精炼");qs.forEach(q=>htm("div","mq",mBody,q));}
+  if(d){htm("div","mh",mBody,qs&&qs.length?"综述":"事件综述");htm("div","md",mBody,d);}
+  modalEl.classList.add("on");mClose.focus();
+}
+function closeModal(){modalEl.classList.remove("on");
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+mClose.addEventListener("click",closeModal);
+modalEl.addEventListener("click",ev=>{if(ev.target===modalEl)closeModal();});
+document.addEventListener("keydown",ev=>{
+  if(ev.key==="Escape"&&modalEl.classList.contains("on"))closeModal();});
+const NS="http://www.w3.org/2000/svg";
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const GRP_COLOR={g1:"--s1",g2:"--s2",g3:"--s3",g4:"--s4",g5:"--s5",g6:"--s6",g7:"--s7",g8:"--s8",
+  core:{hanli:"--s1",wan:"--s2",bingfeng:"--s3",ziling:"--s4",yuan:"--s5",xiang:"--s6",yinyue:"--s7",bingpo:"--s8"}};
+const pColor=p=>p.core?css(GRP_COLOR.core[p.id]||"--s1"):css(GRP_COLOR[p.grp]);
+const grpName=g=>DATA.groups[g]||"";
+const state={mode:"img",selNode:null,selPerson:null,route:true,theme:"auto"};
+const svg=document.getElementById("map"), tipEl=document.getElementById("tip"),
+      panel=document.getElementById("panel");
+function el(n,at,parent){const e=document.createElementNS(NS,n);
+  for(const k in at)e.setAttribute(k,at[k]);if(parent)parent.appendChild(e);return e;}
+function htm(n,cls,parent,txt){const e=document.createElement(n);if(cls)e.className=cls;
+  if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
+const NC=n=>state.mode==="img"?{x:n.ix,y:n.iy}:{x:n.x,y:n.y};
+
+const byNode={}; DATA.nodes.forEach(n=>byNode[n.id]={node:n,persons:[],hanli:[]});
+DATA.persons.forEach(p=>{
+  const seen={};
+  p.spans.forEach(s=>{
+    const b=byNode[s[2]];if(!b)return;
+    if(!seen[s[2]]){seen[s[2]]=1;b.persons.push(p);}
+    if(p.id==="hanli")b.hanli.push(s);
+  });
+});
+
+function drawBase(){
+  svg.innerHTML="";
+  if(state.mode==="img"){
+    el("image",{href:"灵界地图总览.png",x:0,y:0,width:1587,height:1123,
+      preserveAspectRatio:"xMidYMid meet"},svg);
+  }else{
+    const g0=el("g",{transform:"scale(1.22,1.26)"},svg);
+    const land=(x,y,w,h,label,dx,dy)=>{
+      el("rect",{x,y,width:w,height:h,rx:36,fill:css("--home-wash"),
+        stroke:css("--baseline"),"stroke-width":1.5},g0);
+      const t=el("text",{x:x+dx,y:y+dy,class:"clabel"},g0);t.textContent=label;
+    };
+    land(470,205,690,595,"风 元 大 陆",18,40);
+    land(60,240,360,460,"雷鸣大陆",16,36);
+    land(710,40,350,135,"血天大陆",14,30);
+    const t=el("text",{x:600,y:455,class:"clabel","text-anchor":"middle"},g0);t.textContent="中央海域";
+  }
+  /* 位面条带（两种模式同位）：竖向脊线串联 + 双层圈 */
+  const g1=el("g",{},svg);
+  const planes=DATA.nodes.filter(n=>n.kind==="plane").slice().sort((a,b)=>a.iy-b.iy);
+  el("text",{x:1745,y:34,class:"planetag","text-anchor":"middle"},g1).textContent="独立位面";
+  if(planes.length>1)
+    el("line",{x1:planes[0].ix,y1:planes[0].iy,x2:planes[0].ix,
+      y2:planes[planes.length-1].iy,stroke:css("--plane-edge"),"stroke-width":1.5,
+      "stroke-dasharray":"3 5",opacity:.55},g1);
+  planes.forEach(n=>{
+    const gp=el("g",{class:"node","data-id":n.id},g1);
+    el("circle",{cx:n.ix,cy:n.iy,r:50,fill:css("--plane-wash"),stroke:css("--plane-edge"),
+      "stroke-width":1.5,"stroke-dasharray":"5 4"},gp);
+    el("circle",{cx:n.ix,cy:n.iy,r:42,fill:"none",stroke:css("--plane-edge"),
+      "stroke-width":1,opacity:.45},gp);
+    n.name.split("·").slice(0,2).forEach((s2,i)=>{
+      el("text",{x:n.ix,y:n.iy-12+i*18,class:"nlabel sub","text-anchor":"middle"},gp).textContent=s2;
+    });
+    attach(gp,n);
+  });
+  const g2=el("g",{},svg);
+  DATA.nodes.filter(n=>n.kind!=="plane").forEach(n=>{
+    const cnt=byNode[n.id].persons.length;
+    const r=Math.max(8,Math.min(17,6+cnt*0.6));
+    const {x,y}=NC(n);
+    const gp=el("g",{class:"node","data-id":n.id},g2);
+    el("circle",{cx:x,cy:y,r:r+3,fill:"none",stroke:css("--card"),"stroke-width":1.5,opacity:.85},gp);
+    el("circle",{cx:x,cy:y,r,class:"ndot",fill:css("--ink-1")},gp);
+    const below=(y<1123*0.62);
+    el("text",{x,y:below?y+r+15:y-r-8,class:"nlabel","text-anchor":"middle"},gp)
+      .textContent=n.name.split("·")[0];
+    attach(gp,n);
+  });
+  drawRoute();
+}
+function routePoints(){
+  const seq=[];DATA.persons.find(p=>p.id==="hanli").spans.forEach(s=>{
+    if(!seq.length||seq[seq.length-1]!==s[2])seq.push(s[2]);});
+  if(seq[seq.length-1]!=="wuyahai")seq.push("wuyahai");
+  return seq;
+}
+let routeG=null;
+function drawRoute(){
+  if(routeG){routeG.remove();routeG=null;}
+  if(!state.route)return;
+  routeG=el("g",{class:"route"},svg);
+  const seq=routePoints();
+  const s1=css("--s1"),cardC=css("--card");
+  /* 分段绘制：大陆段=白衬实线；进出位面段=虚线淡化（避免斜线横穿地图搅乱底图） */
+  for(let i=0;i<seq.length-1;i++){
+    const a=byNode[seq[i]].node,b=byNode[seq[i+1]].node;
+    const pa=NC(a),pb=NC(b);
+    const planeSeg=a.kind==="plane"||b.kind==="plane";
+    if(!planeSeg)
+      el("line",{x1:pa.x,y1:pa.y,x2:pb.x,y2:pb.y,stroke:cardC,"stroke-width":5.5,
+        opacity:.8,"stroke-linecap":"round"},routeG);
+    el("line",{x1:pa.x,y1:pa.y,x2:pb.x,y2:pb.y,stroke:s1,
+      "stroke-width":planeSeg?1.6:2.6,opacity:planeSeg?.45:.92,
+      "stroke-dasharray":planeSeg?"6 5":"none","stroke-linecap":"round"},routeG);
+  }
+  seq.forEach((id,i)=>{
+    const {x,y}=NC(byNode[id].node);
+    el("circle",{cx:x,cy:y-2,r:9.5,fill:s1,stroke:cardC,
+      "stroke-width":2,opacity:.96},routeG);
+    el("text",{x,y:y+1.6,"text-anchor":"middle","font-size":"10.5",
+      fill:cardC,"font-weight":"700"},routeG).textContent=i+1;
+  });
+  const w=NC(byNode.wuyahai.node),c=NC(byNode.xianjie.node);
+  const dPath=`M${w.x+22},${w.y} C ${w.x+430},${w.y-140} ${c.x-70},${c.y+150} ${c.x-48},${c.y+8}`;
+  el("path",{d:dPath,fill:"none",stroke:cardC,"stroke-width":4.5,opacity:.7},routeG);
+  el("path",{d:dPath,fill:"none",stroke:s1,"stroke-width":2,
+    "stroke-dasharray":"5 5",opacity:.8},routeG);
+  el("text",{x:w.x+300,y:w.y-90,"font-size":"12",fill:s1,"font-weight":700},routeG)
+    .textContent="飞升 ▷";
+}
+function attach(gp,n){
+  const b=byNode[n.id];
+  gp.addEventListener("pointermove",ev=>{
+    tipEl.style.display="block";tipEl.innerHTML="";
+    htm("div","t1",tipEl,n.name);
+    htm("div","",tipEl,`${n.region} · 关联${b.persons.length}人`+(b.hanli.length?` · 韩立经此${b.hanli.length}段`:""));
+    const w2=tipEl.offsetWidth,h2=tipEl.offsetHeight;
+    let x=ev.clientX+14,y=ev.clientY-h2-8;
+    if(x+w2>innerWidth-8)x=ev.clientX-w2-14;
+    if(y<8)y=ev.clientY+16;
+    tipEl.style.left=x+"px";tipEl.style.top=y+"px";
+  });
+  gp.addEventListener("pointerleave",()=>tipEl.style.display="none");
+  gp.addEventListener("click",()=>selectNode(n.id));
+}
+function selectNode(id){state.selNode=id;state.selPerson=null;renderSel();showNodePanel(id);}
+function selectPerson(id){state.selPerson=id;state.selNode=null;renderSel();showPersonPanel(id);}
+function renderSel(){
+  document.querySelectorAll(".node").forEach(g=>g.classList.remove("dim","hl"));
+  if(state.selPerson){
+    const p=DATA.persons.find(x=>x.id===state.selPerson);
+    const mine={};p.spans.forEach(s=>mine[s[2]]=1);
+    document.querySelectorAll(".node").forEach(g=>{
+      if(mine[g.dataset.id])g.classList.add("hl");else g.classList.add("dim");});
+    const cf=document.getElementById("curFilter");
+    cf.style.display="";cf.querySelector(".nm").textContent=p.name;
+    cf.querySelector(".dot").style.background=pColor(p);
+  }else document.getElementById("curFilter").style.display="none";
+  if(state.selNode){
+    const g=document.querySelector(`.node[data-id="${state.selNode}"]`);
+    if(g)g.classList.add("hl");
+  }
+}
+function showNodePanel(id){
+  const b=byNode[id],n=b.node;
+  panel.innerHTML="";
+  htm("h3","",panel,n.name);
+  htm("div","reg",panel,n.region+"（节点为近似落位）");
+  htm("div","desc",panel,n.desc);
+  if(b.hanli.length){
+    htm("h4","",panel,"韩立经此");
+    b.hanli.forEach(s=>htm("div","evq",panel,`第${s[0]}–${s[1]}章`));
+  }
+  htm("h4","",panel,`此地人物（${b.persons.length}）`);
+  const list=htm("div","plist",panel);
+  b.persons.slice().sort((a,c2)=>(a.core?0:1)-(c2.core?0:1)||a.tier-c2.tier||a.name.localeCompare(c2.name,"zh"))
+   .forEach(p=>{
+    const r=htm("div","prow",list);
+    r.addEventListener("click",()=>selectPerson(p.id));
+    const d=htm("span","dot",r);d.style.background=pColor(p);
+    const box=htm("span","",r);
+    htm("div","nm",box,p.name+(p.core?"（核心列传）":""));
+    const sps=p.spans.filter(s=>s[2]===id).map(s=>s[0]===s[1]?s[0]:s[0]+"–"+s[1]).join("、");
+    htm("div","sp",box,`第${sps}章 · ${p.core?DATA.groups.core:grpName(p.grp)}`);
+    if(p.tier===2&&!p.core)htm("div","sp",box,p.who);
+  });
+}
+function showPersonPanel(id){
+  const p=DATA.persons.find(x=>x.id===id);
+  panel.innerHTML="";
+  htm("h3","",panel,p.name);
+  htm("div","reg",panel,(p.core?DATA.groups.core:grpName(p.grp))+(p.tier===2?" · 重点人物":""));
+  htm("div","desc",panel,p.core?p.who+"（详见时间线页列传）":p.who);
+  htm("h4","",panel,"足迹（点击定位）");
+  const nl=htm("div","nlist",panel);
+  const seen={};
+  p.spans.forEach(s=>{
+    if(seen[s[2]])return;seen[s[2]]=1;
+    const n=byNode[s[2]].node;
+    const r=htm("div","nrow",nl);
+    r.addEventListener("click",()=>selectNode(s[2]));
+    const d=htm("span","d",r);d.style.background=pColor(p);
+    htm("span","",r,n.name);
+    const sps=p.spans.filter(x=>x[2]===s[2]).map(x=>x[0]===x[1]?x[0]:x[0]+"–"+x[1]).join("、");
+    htm("span","t",r,`第${sps}章`);
+  });
+  if(p.events.length){
+    htm("h4","",panel,"关键事件");
+    p.events.forEach(e=>{
+      const q=htm("div","evq",panel);
+      q.style.cursor="pointer";
+      const b1=document.createElement("b");
+      b1.textContent=`第${e[0]}章 · ${e[1]}`+(e[3]?`（${byNode[e[3]].node.name.split("·")[0]}）`:"");
+      q.appendChild(b1);
+      if(e[2]){const br=document.createElement("br");q.appendChild(br);q.appendChild(document.createTextNode(e[2]));}
+      q.title="点击查看原文精炼弹窗";
+      q.addEventListener("click",()=>openModal(e[0],e[1],e[2],
+        p.name+"（"+(p.core?DATA.groups.core:grpName(p.grp))+"）"));
+    });
+  }
+}
+const dl=document.getElementById("plist");
+DATA.persons.slice().sort((a,b)=>a.name.localeCompare(b.name,"zh")).forEach(p=>{
+  const o=document.createElement("option");o.value=p.name;dl.appendChild(o);});
+document.getElementById("search").addEventListener("change",ev=>{
+  const q=ev.target.value.trim();
+  const p=DATA.persons.find(x=>x.name===q)||DATA.persons.find(x=>x.name.includes(q));
+  if(p)selectPerson(p.id);
+});
+function panelEmpty(){
+  panel.innerHTML="";
+  const e=htm("div","",panel,"点击地图节点查看该地人物与韩立行程；或搜索人物反向定位。");
+  e.style.cssText="color:var(--ink-3);padding:28px 10px;text-align:center;line-height:1.9";
+}
+document.getElementById("clearF").addEventListener("click",()=>{
+  state.selPerson=null;state.selNode=null;renderSel();
+  panelEmpty();
+});
+document.getElementById("routeBtn").addEventListener("click",ev=>{
+  state.route=!state.route;
+  ev.currentTarget.setAttribute("aria-pressed",state.route?"true":"false");
+  ev.currentTarget.textContent="韩立行程："+(state.route?"开":"关");
+  drawRoute();
+});
+document.getElementById("modeBtn").addEventListener("click",()=>{
+  state.mode=state.mode==="img"?"sch":"img";
+  drawBase();renderSel();
+  if(state.selNode)showNodePanel(state.selNode);
+  else if(state.selPerson)showPersonPanel(state.selPerson);
+});
+document.getElementById("themeBtn").addEventListener("click",ev=>{
+  state.theme=state.theme==="auto"?"light":state.theme==="light"?"dark":"auto";
+  ev.currentTarget.textContent="主题："+({auto:"跟随系统",light:"浅色",dark:"深色"})[state.theme];
+  if(state.theme==="auto")document.documentElement.removeAttribute("data-theme");
+  else document.documentElement.setAttribute("data-theme",state.theme);
+  drawBase();renderSel();
+  if(state.selNode)showNodePanel(state.selNode);
+  else if(state.selPerson)showPersonPanel(state.selPerson);
+});
+(function(){
+  const lg=document.getElementById("legend");
+  const s=htm("span","sec",lg,"人物色：");
+  [["核心列传","--ink-1"],...Object.keys(DATA.groups).filter(g=>g!=="core").map(g=>[grpName(g),GRP_COLOR[g]])]
+   .forEach(([nm,c])=>{const it=htm("span","it",lg);
+     const d=htm("span","dot",it);d.style.background=`var(${c})`;htm("span","",it,nm);});
+  htm("span","sec",lg,"图层：");
+  htm("span","",lg,"圆点大小∝关联人数 · 虚线圆=独立位面（图侧条带） · 蓝线=韩立行程 · 节点位置为近似落位");
+})();
+(function(){
+  const w=document.getElementById("tablewrap");
+  const tb=document.createElement("table");
+  tb.innerHTML="<thead><tr><th>地点</th><th>区域</th><th>关联人物</th></tr></thead>";
+  const body=document.createElement("tbody");
+  DATA.nodes.forEach(n=>{
+    const b=byNode[n.id];if(!b.persons.length)return;
+    const tr=document.createElement("tr");tr.style.cursor="pointer";
+    tr.addEventListener("click",()=>{selectNode(n.id);
+      document.querySelector(".mapcard").scrollIntoView({behavior:"smooth",block:"center"});});
+    const td1=document.createElement("td");td1.innerHTML="<b></b>";
+    td1.querySelector("b").textContent=n.name;
+    const td2=document.createElement("td");td2.textContent=n.region;
+    const td3=document.createElement("td");
+    td3.textContent=b.persons.map(p=>p.name).join("、");
+    tr.append(td1,td2,td3);body.appendChild(tr);
+  });
+  tb.appendChild(body);w.appendChild(tb);
+})();
+drawBase();
+panelEmpty();
+</script>
+</body>
+</html>

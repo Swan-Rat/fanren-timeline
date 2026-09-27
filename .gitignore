@@ -1,0 +1,12 @@
+# 版权全文与体量较大的本地研究材料不入库（仅本地使用）
+text/
+research/
+.idea/
+.DS_Store
+*.webp
+参考-*.md
+0[1-5]-*.md
+index_chapters.py
+analyze_locations.py
+CLAUDE.md
+LOCAL.md
