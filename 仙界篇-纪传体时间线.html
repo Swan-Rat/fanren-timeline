@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>凡人修仙传·仙界篇 — 韩立纪传体时间线（纵向·叠加泳道）</title>
+<style>
+/* ====== 令牌定义在 :root —— 悬浮提示等游离元素也能取到（修复弹窗透明重影 bug） ====== */
+:root{
+  --surface-1:#fdfcf8; --page:#f2f0e9; --card:#ffffff;
+  --ink-1:#1b1916; --ink-2:#57534a; --ink-3:#6f6a5c;
+  --grid:#e6e3d8; --baseline:#c8c4b6; --ring:rgba(27,25,22,.10);
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100;
+  --s5:#d55181; --s6:#008300; --s7:#4a3aa7; --s8:#e34948;
+  --gold:#d97706;
+  --plane-wash:rgba(42,120,214,.07); --plane-edge:rgba(42,120,214,.24);
+  --home-wash:rgba(137,135,129,.10);
+  --band-a:rgba(42,120,214,.040); --band-b:rgba(138,132,116,.055);
+  --sh-1:0 1px 2px rgba(27,25,22,.05),0 2px 8px rgba(27,25,22,.06);
+  --sh-2:0 2px 6px rgba(27,25,22,.07),0 10px 26px rgba(27,25,22,.12);
+}
+@media (prefers-color-scheme: dark){
+  :root:where(:not([data-theme="light"])){
+    color-scheme:dark;
+    --surface-1:#1d1c18; --page:#12110e; --card:#26251f;
+    --ink-1:#f2f0ea; --ink-2:#c6c3b8; --ink-3:#8f8b7f;
+    --grid:#2e2d28; --baseline:#3d3c35; --ring:rgba(255,255,255,.10);
+    --s1:#4b93ec; --s2:#e86a33; --s3:#199e70; --s4:#c98500;
+    --s5:#d55181; --s6:#2fa84f; --s7:#9085e9; --s8:#e66767;
+    --gold:#f0a128;
+    --plane-wash:rgba(75,147,236,.09); --plane-edge:rgba(75,147,236,.30);
+    --home-wash:rgba(137,135,129,.14);
+    --band-a:rgba(75,147,236,.05); --band-b:rgba(137,135,129,.06);
+    --sh-1:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.28);
+    --sh-2:0 2px 6px rgba(0,0,0,.35),0 10px 26px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --surface-1:#1d1c18; --page:#12110e; --card:#26251f;
+  --ink-1:#f2f0ea; --ink-2:#c6c3b8; --ink-3:#8f8b7f;
+  --grid:#2e2d28; --baseline:#3d3c35; --ring:rgba(255,255,255,.10);
+  --s1:#4b93ec; --s2:#e86a33; --s3:#199e70; --s4:#c98500;
+  --s5:#d55181; --s6:#2fa84f; --s7:#9085e9; --s8:#e66767;
+  --gold:#f0a128;
+  --plane-wash:rgba(75,147,236,.09); --plane-edge:rgba(75,147,236,.30);
+  --home-wash:rgba(137,135,129,.14);
+  --band-a:rgba(75,147,236,.05); --band-b:rgba(137,135,129,.06);
+  --sh-1:0 1px 2px rgba(0,0,0,.30),0 2px 8px rgba(0,0,0,.28);
+  --sh-2:0 2px 6px rgba(0,0,0,.35),0 10px 26px rgba(0,0,0,.45);
+}
+:root[data-theme="light"]{color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--page);color:var(--ink-1);
+  font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:14px;line-height:1.6}
+/* 标题走宋体系衬线，呼应古籍纪传体；正文保持无衬线，优先数据可读性 */
+h1,h2,.m-ti{font-family:"Songti SC","STSong","Source Han Serif SC","Noto Serif SC","SimSun",serif}
+
+header{padding:30px 20px 10px;max-width:1280px;margin:0 auto}
+h1{font-size:25px;margin:0 0 6px;font-weight:800;letter-spacing:1px;
+  background:linear-gradient(115deg,var(--ink-1) 25%,var(--s1) 70%,var(--s3));
+  -webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content}
+.sub{color:var(--ink-2);font-size:13px;margin:0;max-width:1150px}
+.sub b{color:var(--ink-1)}
+.sub a{font-weight:600}
+
+/* ====== 控件行 ====== */
+.controls{max-width:1280px;margin:14px auto 10px;padding:0 20px;
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;position:relative;z-index:20}
+.btn,.chip{border:1px solid var(--ring);background:var(--card);color:var(--ink-1);
+  border-radius:8px;padding:5px 11px;font-size:12px;cursor:pointer;line-height:1.5;
+  box-shadow:var(--sh-1);transition:transform .15s,box-shadow .15s,border-color .15s}
+.btn:hover,.chip:hover{border-color:var(--baseline);transform:translateY(-1px);box-shadow:var(--sh-2)}
+.chip{border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.chip .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.chip .sq{width:8px;height:8px;border-radius:2px;background:var(--ink-3);flex:none}
+.chip .x{margin-left:2px;color:var(--ink-3);font-weight:700;padding:0 2px}
+.chip .x:hover{color:var(--ink-1)}
+select.btn{padding:5px 7px}
+.pick-wrap{position:relative}
+.pop{position:absolute;top:calc(100% + 6px);left:0;min-width:240px;
+  background:var(--card);border:1px solid var(--ring);border-radius:12px;
+  box-shadow:var(--sh-2);padding:10px;display:none;z-index:60}
+.pop.on{display:block}
+.pop .grp{font-size:11px;color:var(--ink-3);margin:6px 4px 3px;font-weight:600;letter-spacing:.5px}
+.pop label{display:flex;align-items:center;gap:8px;padding:4px 6px;border-radius:6px;
+  cursor:pointer;font-size:12.5px}
+.pop label:hover{background:var(--home-wash)}
+.pop .ops{display:flex;gap:6px;margin-top:8px;border-top:1px solid var(--grid);padding-top:8px}
+.hint{color:var(--ink-3);font-size:12px}
+
+/* ====== 纵向图表 ====== */
+.card{background:var(--surface-1);border:1px solid var(--ring);border-radius:14px;
+  overflow:hidden;max-width:1280px;margin:8px auto;box-shadow:var(--sh-1)}
+.vscroll{overflow:auto;max-height:78vh;overscroll-behavior:contain}
+.vscroll::-webkit-scrollbar{width:10px;height:10px}
+.vscroll::-webkit-scrollbar-thumb{background:var(--baseline);border-radius:6px;
+  border:2.5px solid var(--surface-1);background-clip:content-box}
+.vscroll::-webkit-scrollbar-track{background:transparent}
+.canvas{display:flex;position:relative;min-width:100%}
+.bands{position:absolute;top:44px;left:0;right:0;bottom:0;z-index:0;pointer-events:none}
+.vband{position:absolute;left:0;right:0}
+.vline{position:absolute;left:0;right:0;height:1px;background:var(--grid);opacity:.55}
+
+.col{position:relative;flex:none}
+.col .colhead{position:sticky;top:0;z-index:5;height:44px;display:flex;align-items:center;
+  gap:7px;padding:0 12px;font-weight:700;font-size:12.5px;background:var(--surface-1);
+  border-bottom:1px solid var(--grid);border-right:1px solid var(--grid)}
+.col.axis{position:sticky;left:0;z-index:7;background:var(--surface-1);width:96px}
+.col.main{position:sticky;left:96px;z-index:6;background:var(--surface-1);width:372px}
+.col.main .colhead{box-shadow:inset 0 3px 0 var(--s1)}
+.col.lane{width:190px}
+.col.lane .items{box-shadow:inset -1px 0 0 var(--grid)}
+.colhead .dot{width:9px;height:9px;border-radius:50%;flex:none;
+  box-shadow:0 0 0 2.5px var(--surface-1),0 0 0 3.5px var(--ring)}
+.colhead .sq{width:9px;height:9px;border-radius:2px;background:var(--ink-3);flex:none}
+.colhead .rm{margin-left:auto;border:none;background:none;color:var(--ink-3);cursor:pointer;
+  font-size:15px;padding:0 3px;line-height:1;border-radius:4px}
+.colhead .rm:hover{color:var(--ink-1);background:var(--home-wash)}
+.colhead.clickable{cursor:pointer;transition:background .15s}
+.colhead.clickable:hover{background:var(--home-wash)}
+.items{position:absolute;left:0;top:44px;width:100%;height:calc(100% - 44px)}
+
+/* 轴列内容 */
+.tick{position:absolute;right:36px;height:1px;width:20px;background:var(--baseline);
+  transform:translateY(-0.5px)}
+.tick.major{width:28px;height:2px;background:var(--ink-3);transform:translateY(-1px)}
+.tickn{position:absolute;right:0;transform:translateY(-6px);font-size:10px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums}
+.tickn.major{font-weight:700;color:var(--ink-2);font-size:10.5px}
+.age{position:absolute;left:4px;transform:translateY(-6px);font-size:9.5px;color:var(--ink-3)}
+.vollab{position:absolute;left:6px;font-size:10px;color:var(--page);font-weight:700;
+  background:var(--ink-1);padding:2px 7px;border:none;border-radius:5px;letter-spacing:1px;
+  box-shadow:var(--sh-1);white-space:nowrap}
+
+/* 主列（韩立本纪）：0-12 所在地条 | 13-30 修为条 | 36 主轴 | 48+ 事件卡 */
+.spine{position:absolute;left:36px;width:2px;transform:translateX(-1px);
+  background:linear-gradient(var(--baseline),var(--grid))}
+.locseg{position:absolute;left:0;width:15px;border-radius:2px}
+.locseg .lt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:10px;color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;letter-spacing:.5px;overflow:hidden}
+.realmseg{position:absolute;left:16px;width:16px;border-radius:3px}
+.realmseg .rt{position:absolute;inset:0;writing-mode:vertical-rl;font-size:10px;color:var(--s1);
+  display:flex;align-items:center;justify-content:center;letter-spacing:.5px;overflow:hidden;
+  font-weight:600}
+.leader{position:absolute;left:34px;width:1px;background:var(--baseline)}
+.ev{position:absolute;left:48px;right:8px;background:var(--card);
+  border:1px solid var(--ring);border-left:3px solid var(--s1);border-radius:8px;
+  padding:8px 12px 9px 11px;box-shadow:var(--sh-1);
+  transition:box-shadow .15s,transform .15s}
+.ev:hover{box-shadow:var(--sh-2)}
+.ev.clickable,.lev.clickable{cursor:pointer}
+tr.evrow{cursor:pointer}
+.ev .t{font-size:12.5px;font-weight:700;color:var(--ink-1);line-height:1.42}
+.ev .m{font-size:10.5px;color:var(--ink-3);margin-top:3px;line-height:1.4}
+.ev .d{font-size:11.5px;color:var(--ink-2);margin-top:3px;line-height:1.55}
+.ev.maj{border-left-color:var(--gold);
+  background:linear-gradient(90deg,rgba(217,119,6,.05),transparent 40%),var(--card)}
+.ev.maj .t::before{content:"★ ";color:var(--gold)}
+.ev.dim{opacity:.35}
+.ev.hl,.mk.hl{outline:2px solid var(--ink-1);outline-offset:2px;border-radius:6px}
+
+/* 泳道列：0-14 交汇连线 | 16-28 阶段带(纯色,悬停看说明) | 22 主轴 | 34+ 事件卡/阶段标签 */
+.lspine{position:absolute;left:22px;width:2px;transform:translateX(-1px);
+  background:linear-gradient(var(--baseline),var(--grid))}
+.ph{position:absolute;left:16px;width:12px;border-radius:4px;cursor:default;
+  box-shadow:inset 0 0 0 1px var(--ring)}
+.conn{position:absolute;height:1px;opacity:.4}
+.lev{position:absolute;left:34px;right:6px;background:var(--card);
+  border:1px solid var(--ring);border-radius:7px;padding:6px 9px 7px;
+  box-shadow:var(--sh-1);transition:box-shadow .15s}
+.lev:hover{box-shadow:var(--sh-2)}
+.phchip{position:absolute;left:34px;right:6px;font-size:10.5px;font-weight:600;
+  padding:4px 7px 4px 8px;border-radius:6px;line-height:1.45;color:var(--ink-1);
+  box-shadow:var(--sh-1)}
+.lev .t{font-size:11.5px;font-weight:700;color:var(--ink-1);line-height:1.4}
+.lev .m{font-size:9.5px;color:var(--ink-3);line-height:1.35;margin-top:2px}
+.lev .d{font-size:10.5px;color:var(--ink-2);margin-top:3px;line-height:1.5}
+.phchip.idc{font-weight:500;color:var(--ink-2);border-radius:6px}
+.lev.hl{outline:2px solid var(--ink-1);outline-offset:2px;border-radius:6px}
+
+/* 事件标记（按钮） */
+.mk{position:absolute;width:14px;height:14px;padding:0;border:none;cursor:pointer;
+  transform:translate(-7px,-7px);box-shadow:0 0 0 2px var(--surface-1),0 1px 4px rgba(0,0,0,.25);
+  background:var(--s1);transition:transform .12s}
+.mk.cir{border-radius:50%}
+.mk.di{border-radius:2.5px;transform:translate(-7px,-7px) rotate(45deg)}
+.mk.sq{border-radius:2.5px}
+.mk.tri{border-radius:2.5px;transform:translate(-7px,-7px) rotate(45deg)}
+.mk:hover{transform:translate(-7px,-7px) scale(1.3)}
+.mk.di:hover,.mk.tri:hover{transform:translate(-7px,-7px) rotate(45deg) scale(1.3)}
+.mk:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px}
+.mk.hl{box-shadow:0 0 0 2px var(--surface-1),0 0 0 4px currentColor}
+
+/* 图例 / 提示 / 详情 / 纪传 */
+.legend{display:flex;flex-wrap:wrap;gap:9px 16px;align-items:center;
+  padding:12px 16px;border-top:1px solid var(--grid);font-size:12px;color:var(--ink-2);
+  background:var(--card)}
+.legend .it{display:inline-flex;align-items:center;gap:6px}
+.legend .dot{width:9px;height:9px;border-radius:50%;box-shadow:var(--sh-1)}
+.legend .mk2{width:10px;height:10px;box-shadow:none}
+.legend .sec{font-weight:700;color:var(--ink-1);background:var(--home-wash);
+  padding:2px 9px;border-radius:5px;font-size:11.5px;letter-spacing:.3px}
+.tip{position:fixed;z-index:99;max-width:340px;background:var(--card);
+  border:1px solid var(--ring);border-top:3px solid var(--s1);border-radius:10px;
+  padding:10px 13px;box-shadow:var(--sh-2);font-size:12.5px;color:var(--ink-2);
+  pointer-events:none;display:none}
+.tip .t-ch{font-variant-numeric:tabular-nums;font-weight:700;color:var(--s1);font-size:12px;
+  letter-spacing:.5px}
+.tip .t-ti{font-weight:700;color:var(--ink-1);margin:2px 0 4px;font-size:13px}
+.tip .t-ln{display:flex;align-items:center;gap:6px;margin-bottom:4px;color:var(--ink-3)}
+.tip .t-ln .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.tip .t-ln .sq{width:8px;height:8px;border-radius:2px;background:var(--ink-3);flex:none}
+.tip .t-de{margin:2px 0 4px;line-height:1.55}
+.tip .t-rf{color:var(--ink-3)}
+/* ====== 原文精炼弹窗 ====== */
+.modal{display:none;position:fixed;inset:0;z-index:120;padding:24px;
+  background:rgba(27,25,22,.45);backdrop-filter:blur(2px);
+  align-items:flex-start;justify-content:center;overflow:auto}
+.modal.on{display:flex}
+.mbox{background:var(--card);border:1px solid var(--ring);border-top:3px solid var(--s1);
+  border-radius:14px;box-shadow:var(--sh-2);width:min(620px,94vw);margin:auto 0;
+  position:relative;animation:mpop .18s ease}
+@keyframes mpop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.mclose{position:absolute;top:10px;right:10px;border:1px solid var(--ring);background:var(--card);
+  color:var(--ink-3);border-radius:8px;width:30px;height:30px;font-size:16px;cursor:pointer;line-height:1}
+.mclose:hover{color:var(--ink-1);border-color:var(--baseline)}
+.m-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  padding:16px 44px 10px 18px;border-bottom:1px solid var(--grid)}
+.m-ch{font-variant-numeric:tabular-nums;font-weight:800;font-size:13px;color:var(--card);
+  background:var(--s1);padding:2px 9px;border-radius:6px;letter-spacing:.5px}
+.m-ti{font-weight:800;font-size:16px;color:var(--ink-1)}
+.m-who{font-size:12px;color:var(--ink-3)}
+.m-body{padding:6px 18px 14px;max-height:62vh;overflow:auto}
+.mh{font-size:11.5px;font-weight:700;color:var(--ink-1);background:var(--home-wash);
+  padding:2px 9px;border-radius:5px;width:fit-content;margin:12px 0 6px;letter-spacing:.3px}
+.mq{margin:0 0 8px;padding:8px 12px;border-left:3px solid var(--gold);
+  background:linear-gradient(90deg,rgba(217,119,6,.05),transparent 55%),var(--surface-1);
+  border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2);line-height:1.7}
+.md{margin:2px 0 4px;font-size:13px;color:var(--ink-2);line-height:1.7}
+.m-foot{display:flex;gap:8px;padding:0 18px 16px}
+.m-foot .btn{box-shadow:none}
+section.bio{max-width:1280px;margin:38px auto 0;padding:0 20px}
+.bio-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+h2{font-size:19px;margin:0;font-weight:800;letter-spacing:.5px}
+h2 .en{color:var(--ink-3);font-size:12px;font-weight:400;letter-spacing:1px}
+.note{color:var(--ink-3);font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:14px;margin-top:12px}
+.card-b{background:var(--card);border:1px solid var(--ring);border-radius:12px;overflow:hidden;
+  box-shadow:var(--sh-1);transition:box-shadow .15s}
+.card-b:hover{box-shadow:var(--sh-2)}
+.card-b summary{cursor:pointer;padding:13px 16px 13px 18px;list-style:none;display:flex;
+  align-items:center;gap:9px;font-weight:700;font-size:14px}
+.card-b summary::-webkit-details-marker{display:none}
+.card-b summary .caret{margin-left:auto;color:var(--ink-3);transition:transform .15s;font-size:11px}
+.card-b[open] summary .caret{transform:rotate(90deg)}
+.card-b[open] summary{border-bottom:1px solid var(--grid)}
+.card-b summary:hover{background:var(--home-wash)}
+.card-b .body{padding:4px 18px 16px;color:var(--ink-2);font-size:13px}
+.card-b .body h4{margin:14px 0 4px;font-size:12.5px;color:var(--ink-1)}
+.card-b .who{font-size:12px;color:var(--ink-3);margin:0 0 6px;padding-left:18px}
+.card-b .nm-dot{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:var(--sh-1)}
+table{border-collapse:collapse;width:100%;font-size:12px;margin-top:4px}
+th{color:var(--ink-3);font-weight:700;text-align:left;border-bottom:2px solid var(--grid);
+  padding:5px 8px;font-size:11.5px;letter-spacing:.5px}
+td{border-bottom:1px solid var(--grid);padding:5px 8px;vertical-align:top;color:var(--ink-2)}
+td.ch{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-1);font-weight:600}
+tbody tr:hover{background:var(--home-wash)}
+.wide{grid-column:1/-1}
+mark{background:transparent;color:var(--ink-1);font-weight:700}
+footer{max-width:1280px;margin:40px auto 0;padding:0 20px 48px;color:var(--ink-3);
+  font-size:12px;line-height:1.8}
+
+/* ====== 无障碍：键盘焦点一律可见（原来的自定义按钮会吃掉默认焦点环） ====== */
+:where(a,button,select,input,summary,[tabindex]):focus-visible,
+.ev.clickable:focus-visible,.lev.clickable:focus-visible,tr.evrow:focus-visible{
+  outline:2px solid var(--s1);outline-offset:2px;border-radius:8px}
+.mk:focus-visible{outline:2px solid var(--ink-1);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ====== 触屏：命中区域撑到 ≥44px，视觉尺寸保持不变 ====== */
+@media (pointer:coarse){
+  .mk::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;
+    transform:translate(-50%,-50%);border-radius:50%}
+  .btn,.chip,select.btn{min-height:44px;padding:9px 14px;font-size:13px}
+  .pop label{padding:10px 6px;font-size:13px}
+  .colhead .rm{min-width:44px;min-height:44px;margin-right:-10px}
+  .mclose{width:44px;height:44px;font-size:19px}
+}
+
+/* ====== 尊重系统「减弱动效」 ====== */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .btn:hover,.chip:hover{transform:none}
+  .mk:hover{transform:translate(-7px,-7px)}
+  .mk.di:hover,.mk.tri:hover{transform:translate(-7px,-7px) rotate(45deg)}
+}
+
+@media (max-width:760px){
+  header{padding:22px 14px 8px}
+  .controls{padding:0 14px}
+  section.bio,footer{padding-left:14px;padding-right:14px}
+  .cards{grid-template-columns:1fr}
+  .vscroll{max-height:72vh}
+  .col.main{width:300px}.col.lane{width:160px}
+  h1{font-size:20px}
+  .pop{min-width:0;width:min(340px,88vw)}
+  .mbox{margin:auto 0}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>凡人修仙传 · 仙界篇 — 韩立纪传体时间线（纵向）</h1>
+  <p class="sub">纵轴为<b>章节序号</b>（外传＋第1→1394章，自上而下；章号为续作独立编号空间，与原作 full.txt 互不相干；轴上附秘境/时差空间“时标”）。
+  左侧主列为<b>韩立本纪</b>（左缘色带=所在地，底色段=修为进阶）；右侧泳道为<b>按需添加的人物列传/灵宠别传</b>——
+  用“＋ 添加泳道”选择后懒加载渲染。菱形=与韩立直接交汇的事件（悬停会联动高亮本纪中的对应事件）。
+  可视区之外的内容分段渲染，长卷滚动流畅。底本章号乱序一处（ch1259→1261→1260，内容顺序正确）与 35 行标题讹形已修。
+  前传：<a href="灵界篇-纪传体时间线.html" style="color:var(--s1)">灵界篇·纪传体时间线</a> ｜ <a href="灵界地图-选点展示.html" style="color:var(--s1)">灵界地图·选点展示</a>。</p>
+</header>
+
+<div class="controls" id="controls" role="group" aria-label="泳道与视图控制">
+  <div class="pick-wrap">
+    <button class="btn" id="pickBtn" aria-haspopup="true" aria-expanded="false">＋ 添加泳道 ▾</button>
+    <div class="pop" id="pop" role="menu"></div>
+  </div>
+  <span class="hint" style="margin-right:auto">纵向滚动 · 悬停/聚焦看详情 · 点击固定 · 泳道表头点名字看列传</span>
+</div>
+
+<div class="card">
+  <div class="vscroll" id="vscroll">
+    <div class="canvas" id="canvas"></div>
+  </div>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="mbox">
+    <button class="mclose" id="mClose" aria-label="关闭弹窗">×</button>
+    <div class="m-head"><span class="m-ch" id="mCh"></span><span class="m-ti" id="mTitle"></span><span class="m-who" id="mWho"></span></div>
+    <div class="m-body" id="mBody"></div>
+    <div class="m-foot" id="mFoot"></div>
+  </div>
+</div>
+
+<section class="bio" id="bio">
+  <div class="bio-head">
+    <h2>纪传 <span class="en">本纪 · 列传 · 别传</span></h2>
+    <span class="note">每传含：身份一行 · 灵界/来历回顾 · 仙界轨迹 · 事件表（兼作表格视图） · 结局。</span>
+  </div>
+  <div id="hanli-bio"></div>
+  <div class="cards" id="cards"></div>
+</section>
+
+<footer>
+  <div>依据：续作《凡人修仙之仙界篇》全本逐段核对（本项目 text/仙界篇.txt：外传二篇＋1394章）；考据底稿见 research/X1–X7 七份调研报告与 06-仙界篇时间线.md。
+  易错点已勘误：开局界面为灵寰界（下界）非仙界本域；仙界篇“厉飞雨”全为韩立化名（真身仅结局转世“厉飞羽”出现）；金仙实在 ch459–461 月华宫雷池洗婴、太乙实在魔域 ch775、大罗实在蛮荒 ch1194；蟹道人＝石空解（勿与石斩风混淆）；轮回殿主＝前一世的韩立；结局韩立弃道回落大罗巅峰。</div>
+  <div>口径：底本章号乱序一处（ch1259→1261→1260）；轴上“时标”为秘境/时差空间耗时，凡外界≈零耗者均已注明。</div>
+</footer>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+"use strict";
+/* ================= 数据 ================= */
+const CH0 = 0, CH1 = 1400;
+/*__QUOTES__ 原文精炼（仙界篇；外传=0）*/
+const QUOTES={
+"0":["“道祖？哈哈，韩道友志气之高还真不是一般人可想的。……现在仙界已知的数百道祖，每一人都是经历了不知多少次劫难，外加承受了常人难以想象的造化天缘，才能最终有此境地。”","“哪怕最高深莫测的仙家功法，也只能让人修炼到道祖下的大罗境，再往上的话，只能完全靠自己了。”"],
+"1":["是了，我想起来……我……我是韩立，人界第一修士，灵界第一大乘！"],
+"5":["这些年她和高大青年虽然相依为命，但仍不免和外人接触，为了方便，便给这位“石头哥哥”取了一个柳石的名字。"],
+"43":["说着，其一张口，喷出一枚黑色圆环，滴溜溜一转下，蓦然化为一只足有近百丈高的黑焰怪兽。"],
+"73":["“还有一个……难道你忘了数年前，那位一夜之间覆灭了天鬼宗的韩立前辈，他可正是一个力修！”黑袍老者压低了几分声音。"],
+"79":["在他的胸腹处，七颗蓝色光点光芒闪耀，熠熠生辉。第七玄窍，终于凝成！"],
+"83":["他急中生智下，脑中忽然灵光一闪，伸手将脖子中的掌天瓶一把扯下，朝着射来的白色光束一抛。出人意料的一幕出现了！"],
+"129":["而此刻在其身下，正亮着一圈圈如同浪花般的青色波纹……韩立知道，这正是他被封印良久的法力！"],
+"170":["道道青紫雷鞭仿佛握在天神手中一般，肆意鞭挞向四面八方，封谦之的元婴小人与肉身一起被卷入其中，顿时灰飞烟灭。"],
+"175":["“厉飞雨，出身珑玉山脉。”韩立平静的说道。……继续使用这个身份已经不再保险，还是换一个比较好。"],
+"262":["第十二个仙窍，正在凝现！"],
+"275":["韩立心中一紧，但未等他做出什么反应，大耳僧蓦然嘴唇略一翕动，也不知说了什么。"],
+"340":["人影一闪，韩立与蟹道人的身影一前一后的出现在了青年元婴附近，后者手中还各自抓着一物，正是元合五极山和黑色砚台。"],
+"368":["他的头顶悬浮着一根尺许长的金色晶丝，犹如一条灵蛇般在虚空中缓缓游动。……密室内的一切都处于某种看似静止的状态。"],
+"369":["“你师父的身体我暂时借用一下，你我也算有缘，这大衍诀就算是给你的报酬吧。”他淡淡说了一声。"],
+"460":["（蟹道人于城池边缘楼顶守候）“终于到了……”这时，他忽然开口，缓缓说道。"],
+"461":["他双眼能够看到虚空中的灵力流动痕迹……无需动用神识探查，他就能察觉到这处秘境中的每一个角落。"],
+"506":["不知是先前动用那翎羽消耗太大，还是什么别的缘故，这一击之后，公输久并未继续发动攻击，而是站在原地，一动不动。"],
+"511":["“韩道友？刚刚那些人不是称呼你厉飞羽吗……喂，你小子到底叫什么？”墨雨闻言，沉声问道。"],
+"549":["天地之间的一切尽数陡然静止，唯一能动的只有那只金色巨掌，朝着下方按下。"],
+"599":["“看这情形，是他们修士的天人五衰中的最后一衰，煞衰降临了。”魔光缓缓说道。"],
+"603":["“乐儿现在一切都很好。你们虽然在灵寰界有过一段过往，但我刚刚已经说过，你们之间因果已尽，日后不用再见面了。”"],
+"692":["“只可惜奇摩子那厮，将弥罗老祖会见轮回殿主一事，通告给了天庭。天庭就以勾结轮回殿和灰界为由，提前对真言门动手了。”"],
+"738":["啼魂：“那人将我召唤到真仙界，却也没有安什么好心，不过看中了我能够吞噬神魂的能力……斩掉的那具尸魂分身逃了出来，并且将我拘禁带走，辗转之下来到了灰界。”"],
+"740":["“就在方才，我与魔光之间的感应，彻底断开了……我尝试以心神联系与之沟通，却根本感应不到他了。”韩立目光一敛，摇了摇头。"],
+"775":["“恭喜了，厉兄你修为又进一步，成就太乙玉仙境界。”石穿空抱拳，笑着恭喜道。"],
+"843":["紫灵虽非他的道侣，但在其心目中，却与南宫婉一样，有着某种特别的意义。","（石穿空查访）“在黑水域的飞升台那里还真发现了一个百余年前飞升的女修，和厉道友你说的那个紫灵很是相像，可真是个绝色佳人啊。”"],
+"979":["“我的主人，不是别人，便是我自己。我的身份，乃是曾经的积鳞空境之主。”"],
+"980":["不是紫灵，还能是谁？韩立身形骤然一闪，来到了女子身旁，将其身上乱石拂去，横抱了起来。"],
+"994":["不是相似，而是确确实实就是自己的脸！“怎么回事……怎么可能？”韩立心中思绪如狂乱的波涛。"],
+"997":["韩立双手掐动法诀……一根根只有牙签粗细、表面却刻满复杂符纹的白色骨针便破体而出，被韩立收入了手中。"],
+"1140":["他和蓝颜都是用轮回殿面具幻化的容貌，就算对方是大罗存在，只要不是仔细探查，也难以发现他们的真身。"],
+"1152":["“不敢，在下既然拜前辈为师，自然要受师徒之礼。”他恭敬的说道。"],
+"1194":["这两千年的苦修不辍，终于让五件时间法则具象之物，全都达到了融圆平衡之境，破入大罗之境，便在此刻！"],
+"1213":["站在韩立身旁的啼魂上前一步，身上冒出刺目黑光……那团黑光和里面的东西尽数乖乖飞入其袖中，不见了踪影。"],
+"1244":["“我原本以为自己死定了，没想到之后却在一个昏暗世界醒来，体内法力已经转化成了仙灵力，而且身边之人，个个都是比当年的马良更为强大的真仙。”","“最后时刻，我曾向天呐喊，希望夫君能听到我最后的话语。”南宫婉苦笑着说道。"],
+"1269":["“乐儿，一门斩尸术何等珍贵，岂能随意给别人。”韩立下意识握紧了玉简，但立刻又松开手掌，将玉简递了回来。"],
+"1273":["与之相对而坐的韩立……身上的八百四十处仙窍却已经在方才全都贯通，修为赫然已经达到了大罗中期境界。"],
+"1305":["曲魂，墨大夫，厉飞羽，银月，元瑶，大衍神君，宝花……那些遇到的人，那些经历的事，都是他刻在骨子里的过往。"],
+"1314":["短短两百余年的时间，二人便走过了二三十处仙域，见识了无数奇特美景，异域风情。"],
+"1319":["“嗤啦”一声，善尸所化白光和识海的联系顿时断绝，“嗖”的一声飞了出去。"],
+"1322":["“她虽然已经有了两段记忆，但最终还是没有选择成为我的妻子，而是坚持要做回南宫婉。”轮回殿主说道。","“是大罗巅峰没错了，你不必担心……这境界是实打实修炼出来的，不是楼阁。”韩立握住紫灵的手，轻轻按了按。"],
+"1325":["当他看到自己手中拉着的，不是一柄青竹蜂云剑，而是一只袖珍玲珑的翡翠小手时，眉毛顿时上挑起来，满眼的惊讶之色。"],
+"1333":["“轮回殿代号蛟三，本名甘九真，是你上一世的女儿。你还有什么想问的，尽管问吧。”韩立点点头，平静的说道。","韩立听闻南宫婉述说的这一个个名字……往事历历在目，只是天地相隔，此生未必还能有再见之时。"],
+"1343":["轩辕杰本来根本不惧韩立这一掌，但只是这短暂的阻滞下，金童的巨口却已经咬合了下来，径直将轩辕杰吞入了腹中。"],
+"1350":["“经历过了这许多事情……恩情也好，仇怨也罢，都是浮云。多想无益，不如对酒当歌，人生几何？”呼言道人嘿嘿笑道。"],
+"1352":["“我非我，无我相，无我心，故执念非我念，念既不存，则离一切诸相。”韩立看着地祇化身，目光微微一闪，语气平静。"],
+"1383":["“这就是传说中的金脉玉骨，原来成就道祖之后，便是这般感受啊……”韩立满眼难以压抑的激动之色，喃喃自语道。"],
+"1385":["只见七色彩带在瓶灵的牵引下飞掠入空，如同一条七彩长龙搅入墨绿云海之内，继而翻腾着冲入了混沌漩涡之中。"],
+"1391":["“多谢瓶灵前辈指点，还请前辈助我散去体内道祖法则，我愿意放弃掌天瓶。”","“砰”的一声巨响，掌天瓶爆裂而开……很快凝聚成一个人形，化为一个八岁的绿发童子。"],
+"1393":["远处韩立看到此幕，急忙屈指轻轻一弹。一片柔和金光在几人身下出现而出，托住了她们，送到了远处安全之地。"],
+"1394":["只是根据下面的少年走路的步伐轨迹来判断，这次的自己，应该发现不了掌天瓶，似乎会直接从瓶子旁路过……韩立心念转动，抬腿一脚虚踢。","一个头扎冲天辫的粉嫩女娃有些蹒跚围着二人跑动……逗得女娃咯咯笑个不停。"]
+};
+
+const P = {
+  hanli:  {name:"韩立",   tag:"本纪 · 主角", color:"s1", main:true,  role:"本纪"},
+  ziling: {name:"紫灵",   tag:"妙音门主 · 倾世红颜", color:"s2", role:"列传"},
+  nan:    {name:"南宫婉", tag:"道侣 · 前世甘如霜", color:"s3", role:"列传"},
+  lele:   {name:"柳乐儿", tag:"云狐族 · 九尾天狐", color:"s4", role:"列传"},
+  xie:    {name:"蟹道人", tag:"石空解 · 积鳞旧主", color:"s5", role:"列传"},
+  lun:    {name:"轮回殿主", tag:"前世韩立 · 轮回法则", color:"s6", role:"列传"},
+  gan:    {name:"甘九真(蛟三)", tag:"轮回殿核心 · 前世之女", color:"s7", role:"列传"},
+  huyan:  {name:"呼言",   tag:"烛龙道百酒峰 · 恩师", color:"s8", role:"列传"}
+};
+const PETS = {
+  jin:  {name:"金童(噬金虫王)", shape:"di"},
+  ti:   {name:"啼魂(刑兽)",     shape:"cir"},
+  mog:  {name:"魔光",           shape:"tri"},
+  xb:   {name:"小白(貔貅)",     shape:"sq"}
+};
+
+const PHASES = [
+ {p:"ziling", f:1,t:775, s:"unknown", l:"灵界大乘→百余年前自黑水域飞升台飞升入圣域"},
+ {p:"ziling", f:776,t:852, s:"wash", l:"魔域：托石穿空查访→查明遭菊夫人嫉恨流放积鳞空境"},
+ {p:"ziling", f:853,t:995, s:"wash", l:"积鳞空境：被傀城主沙心封忆傀控为“小紫”"},
+ {p:"ziling", f:996,t:1290, s:"wash", l:"大墟解封忆尽前尘→留积鳞空境修《天煞镇狱功》与炼神术"},
+ {p:"ziling", f:1291,t:1394, s:"wash", l:"幽冥重逢（轮回盘窥前世）→结局同住黑土仙域，大罗中期"},
+ {p:"nan", f:1,t:1243, s:"unknown", l:"灵界青元宫大乘圆满→渡飞升劫身陨；前世魂甘如霜被轮回殿主收魂封忆"},
+ {p:"nan", f:1244,t:1332, s:"wash", l:"轮回殿“如霜”：九元城“梦中人”现身"},
+ {p:"nan", f:1333,t:1394, s:"wash", l:"恢复记忆自选做回南宫婉→韩立之妻，育一女；太乙巅峰修轮回法则"},
+ {p:"lele", f:1,t:13, s:"bar", l:"灵寰界云狐族（青云丘）孤女，满门遭血刀会屠灭"},
+ {p:"lele", f:14,t:74, s:"wash", l:"唤醒失忆韩立，取名“柳石”；血洗血刀会后随行"},
+ {p:"lele", f:75,t:1152, s:"unknown", l:"被白衣同族带走→蛮荒天狐族（“因果已尽”）"},
+ {p:"lele", f:1153,t:1394, s:"wash", l:"血祀大会继九尾圣祖血脉成九尾（柳青暗助）→近大罗；赠分身斩尸术；战后遥誓"},
+ {p:"xie", f:1,t:250, s:"unknown", l:"灵界魔源海所得黄金蟹傀（石空解封魂）随飞升→遭袭失联"},
+ {p:"xie", f:251,t:988, s:"wash", l:"烛龙道搜魂叶风夺回核心→金仙初期傀身（母豆＋仙傀三元）随行"},
+ {p:"xie", f:989,t:1394, s:"wash", l:"积鳞大墟借圣骸复活证道祖→结局轮椅弈棋，半身融虚空而心境平和"},
+ {p:"lun", f:378,t:1304, s:"unknown", l:"轮回殿主（真容未揭）：炼神术开山、无常盟为其下属；韩立以“龙五”入殿"},
+ {p:"lun", f:1305,t:1389, s:"wash", l:"真容＝前一世的韩立；黄泉揭底（妻甘如霜、女甘九真）→决战自爆道祖之身化轮回之力"},
+ {p:"lun", f:1390,t:1394, s:"wash", l:"残魂与甘如霜残魂相偕消散；六道轮回盘传女甘九真"},
+ {p:"gan", f:160,t:184, s:"wash", l:"荒澜大陆护商队结识（无常盟“蛟三”，实为轮回殿核心）"},
+ {p:"gan", f:185,t:1213, s:"unknown", l:"轮回殿往来：赠炼神术五层与蛮荒通道、晋升核心（黑色面具）"},
+ {p:"gan", f:1214,t:1394, s:"wash", l:"九元城/日月神舟同行→结局承六道轮回盘"},
+ {p:"huyan", f:221,t:342, s:"wash", l:"烛龙道百酒峰长老：三任务之约、大耳僧晶壁“偷道”八窍、讲道大会唯一护道者之一"},
+ {p:"huyan", f:391,t:541, s:"wash", l:"以《真言化轮经》四至六重为饵约同闯冥寒仙府；太乙殿之乱"},
+ {p:"huyan", f:542,t:1347, s:"unknown", l:"仙宫通缉下隐匿（无明写）"},
+ {p:"huyan", f:1348,t:1352, s:"wash", l:"“恩仇皆是浮云”——斩自我尸的最后点拨"},
+ {p:"jin", f:1,t:452, s:"unknown", l:"随飞升遭袭失散两千年：进化噬金仙、化形金发女童"},
+ {p:"jin", f:453,t:1127, s:"wash", l:"渠灵灵域围杀两度倒戈救主→蛮荒吞虫灵晋太乙→辞别赴金源寻同类→被九元观鬼灵子擒"},
+ {p:"jin", f:1128,t:1342, s:"wash", l:"囚为菩提宴礼品→九元宫获救→六道轮回盘觉醒虫祖渠鳞转世"},
+ {p:"jin", f:1343,t:1394, s:"wash", l:"吞噬全界噬金虫＋轩辕杰，合道复吞噬法则道祖——“道祖之尊仍以友相随”"},
+ {p:"ti", f:1,t:694, s:"unknown", l:"灵界自行飞升（原作ch1855）→被天庭大罗召至仙界、遭其三尸分身掳入灰界"},
+ {p:"ti", f:695,t:768, s:"wash", l:"九幽“幽络”：幽牢无间狱反水相救→洗煞池洗煞"},
+ {p:"ti", f:769,t:1311, s:"wash", l:"大罗（炼化乌巢鬼王）→真身刑兽、冥王转世，本源轮回法则"},
+ {p:"ti", f:1312,t:1394, s:"unknown", l:"入幽冥落魂深渊未返（结局未明写）"},
+ {p:"mog", f:1,t:739, s:"wash", l:"影中残魂随行（飞升班底唯一残存之力）"},
+ {p:"mog", f:740,t:741, s:"wash", l:"灰界独抗大罗鬼木断后——“感应彻底断开”"},
+ {p:"mog", f:742,t:1394, s:"unknown", l:"生死未卜，全篇未收束"},
+ {p:"xb", f:1153,t:1394, s:"wash", l:"墨眼貔貅王独子（父墨玉死于古或今之手）；白泽限“两百年之约”随行"}
+];
+
+const EV = [
+ {c:0,w:"hanli",l:"飞升北寒仙域·飞仙台",M:1,
+  d:"外传：渡飞升之劫（携魔光、噬金虫王、蟹道人），高升（石矶殿）讲解仙界格局——无数仙域、仙宫“监管而不统治”、真仙→金仙→太乙→大罗→道祖。正文开局即失忆三百年、石化痴傻。"},
+ {c:1,w:"hanli",l:"灵寰界苏醒·失忆三百年",M:1,r:["lele","mog"],
+  d:"被灵寰界（北冥仙域直属下界）狐女柳乐儿唤醒——“我……我是韩立，人界第一修士，灵界第一大乘！”遭袭真相后揭：方磐等三人受“身份极高的指使者”指使夺时间法则晶粒（掌天瓶之秘）；元婴被隔元法链封禁、法宝尽失。"},
+ {c:5,w:"hanli",l:"化名“柳石”",r:["lele"],
+  d:"柳乐儿为方便对外称呼所取（行865）——仙界篇第一个化名，黑风海域地祇身份沿用。"},
+ {c:14,w:"hanli",l:"入冷焰宗为客卿",r:["lele"],
+  d:"明远城天鬼宗屠宰相府后转入冷焰宗；得飞升祖师冷焰老祖亲传《小北斗星元功》（七层圆满凝七玄窍成“真极之躯”）；授柳乐儿《幻灵婵变》、封精炎火鸟于其左臂。"},
+ {c:41,w:"hanli",l:"掌天瓶复苏",d:"灵寰界两日一滴绿液（仙界本域后为一月一滴）；绿液可炼时间法则晶粒。"},
+ {c:43,w:"hanli",l:"血洗血刀会",m:1,M:1,r:["lele"],
+  d:"柳乐儿借火鸟手刃灭门仇人会主贾仁、血洗血刀会（满门屠灭云狐族之仇）。"},
+ {c:62,w:"hanli",l:"三大乘围杀·境元观",M:1,
+  d:"聚星台修小北斗星元功第六层；齐煊掳柳乐儿设伏，破紫冥塔救出；十方楼通缉令发往仙界，三大乘（童人垩/阖山/段人离）合围——雷鹏变、涅槃圣体连诛二敌、收服阖山。"},
+ {c:72,w:"hanli",l:"灭天鬼宗",M:1,d:"一夜之间覆灭灵寰界大宗天鬼宗（ch72–73）；数年后仍被修士引为“力修”谈资。"},
+ {c:74,w:"hanli",l:"柳乐儿被带走",m:1,r:["lele"],
+  d:"一名自称同族的白衣女子（疑上界真仙）将其从冷焰宗带走——狐女线就此悬置（行11205）。"},
+ {c:79,w:"hanli",l:"七玄窍·真极之躯",M:1,
+  d:"万丈雪山凝第七玄窍，小北斗星元功圆满成玄仙体，以力破空离开灵寰界——徒手斩大乘五爪墨蛟在前（黑雾海）。"},
+ {c:83,w:"hanli",l:"界面间隙·太蜚独目",M:1,
+  d:"渡空间风暴，误入黄色气泡空间诛独目巨人（太蜚），得太蜚独目（时间法则）与人面核桃——与“时间法则”正式结缘。"},
+ {c:85,w:"hanli",l:"坠乌蒙岛·地祇之道",d:"被误认祖神洛蒙（实已陨落千年）；研信念之力/地祇化身体系；顶替洛蒙入无常盟（代号蛟十五），执行刺杀红月岛主公输鸿任务晋升青级，易经换《黑海重水经》。"},
+ {c:129,w:"hanli",l:"破九链·复真仙初期",M:1,d:"海底炼成地祇化身；连破八链、拔出第九链（仙界师父隔空加持亦未能阻）——法力化仙灵力。"},
+ {c:131,w:"hanli",l:"黑风城千药斋",d:"炼丹比试获评人阶甲等；购重水雷珠×3；得烛龙道内门信物。"},
+ {c:170,w:"hanli",l:"诛方磐·封婴之仇了结",M:1,
+  d:"方磐（隔元法链持用者）与封谦之循精血追杀——重水雷珠轰杀二人；方磐背后另有指使者（伏笔至伏凌宗封天都）。"},
+ {c:175,w:"hanli",l:"起化名“厉飞雨”",d:"观月城渡海前弃“柳石”换名——纪念人界故人（行27975），此后成天庭通缉名（涨至五千万仙元石、诛仙榜前十）。"},
+ {c:185,w:"hanli",l:"入烛龙道",r:["huyan"],
+  d:"以烛龙令任内门执事长老（居赤霞峰）；《无相真轮经》实为《真言化轮经》（真言门传承）改称，三年凝真言宝轮（自带两团时间道纹）。"},
+ {c:208,w:"hanli",l:"天剑冢寻回青竹蜂云剑",d:"借剑元倒灌寻回并重炼七十二口青竹蜂云剑；此前搜魂叶风夺回蟹道人核心。"},
+ {c:262,w:"hanli",l:"第十二窍·真仙中期",M:1,d:"浮山秘境驻守两百年后突破。"},
+ {c:275,w:"hanli",l:"大耳僧“偷道”八窍",r:["huyan"],
+  d:"呼言百酒峰三任务之尾声：晶壁前一口气打通八窍（代价：百八道纹尽黯，行44380起）；自创“法言天地”。"},
+ {c:309,w:"hanli",l:"24窍·真仙后期",M:1,d:"烛龙道修为稳步攀升。"},
+ {c:315,w:"hanli",l:"讲道大会·仙宫发难",M:1,r:["huyan"],
+  d:"第一道主百里炎（轮回殿要犯）讲道“天有五衰，真仙临三衰”；仙宫八金仙围杀——百里炎召万丈人面烛龙、业火归身遁走；呼言、云霓唯一起而护道。"},
+ {c:340,w:"hanli",l:"诛陶羽·失忆案真凶",m:1,M:1,
+  d:"混战中诱杀华服青年陶羽——三百年前重伤封印韩立、致其失忆的真凶（“灭魂真光”黑砚）；收回元合五极山。杀出禁制离宗；萧晋寒与烛龙道悬赏“叛逃长老厉飞雨”两万仙元石。"},
+ {c:368,w:"hanli",l:"时间晶丝·法则入门",M:1,
+  d:"荒岛闭关炼二品时间道丹（丹劫唯元合五极山独抗），服丹凝出第一丝时间法则——仙界金云巨碑录名。"},
+ {c:369,w:"hanli",l:"神魂穿越·附身凌云子",M:1,
+  d:"掌天瓶共鸣，神魂穿越附身金源仙域凌云子，传其徒李元究《大衍诀》——跨仙局长线伏笔（结局“前世恩情报于今世”）。"},
+ {c:376,w:"hanli",l:"轮回殿揭底",d:"炼神术乃轮回殿开山祖师所创、无常盟为其下属（行60725起）；韩立以“轮回之子”（代号龙五）入殿，得炼神术第四层。此前封岛五百余年连服万轮丹至35窍。"},
+ {c:401,w:"hanli",l:"冥寒仙府出世",M:1,r:["huyan"],
+  d:"北寒仙域第一宝藏、万年一开；仙府＝上古冥寒仙宫遗迹（北寒前身“冥寒仙域”毁于灰仙入侵）；灵界的广寒界即其失落地域。七幅冥寒山河图齐聚，与呼言等同闯。"},
+ {c:460,w:"hanli",l:"月华宫·雷池洗婴成金仙",M:1,
+  d:"金色宫殿吞入韩立：时间秘境内两千年、外界零时耗——五百年《大周天星元功》大成（36玄窍）→渡第三衰（窍衰）→雷池洗婴成就金仙（ch459–461）→千余载凝煞至金仙中期。"},
+ {c:506,w:"hanli",l:"太乙殿混战·北寒变天",M:1,
+  d:"封天都（伏凌宗大长老、隔元法链创造者、袭杀飞升韩立的幕后师尊）与齐天霄授首；萧晋寒被联军伏杀、元婴为金童所吞——北寒旧格局连根拔起。"},
+ {c:510,w:"hanli",l:"阵斩太乙仙使公输久",M:1,
+  d:"涅槃圣体阵斩天庭太乙监察仙使（气之法则；天庭猎杀炼神术修士，与韩立先天敌对）——与天庭长期对抗线定型。"},
+ {c:531,w:"hanli",l:"北寒三大时间功法齐聚",d:"苍流宫以两枚元婴换《水衍四时诀》——真言化轮经/幻辰宝典/水衍四时诀“隐隐有相通之处”；携金童自元荒城东渡蛮荒。"},
+ {c:549,w:"hanli",l:"梦回真言门",M:1,
+  d:"掌天瓶第三次神魂穿梭，亲历灭门当日：金色巨掌一掌镇杀宗主弥罗——时间道祖亲至（行89325起）。此前虫兽大战、兽族八灵围杀、十年亡命祸水东引红螺河谷。"},
+ {c:586,w:"hanli",l:"107窍·金仙巅峰",M:1,d:"煞气深渊闭关：《玄煞暝灵功》冲窍至84窍→巨鼠残魂煞气灌体暴涨至107窍；合围斩杀太乙噬金仙（虫灵）。"},
+ {c:599,w:"hanli",l:"第五衰（煞衰）降临",M:1,
+  d:"玄煞暝灵功＋炼神术之代价（行97456）；两枚太乙丹＋光阴之丝压制——终以九幽洗煞池化解（ch740前后）。"},
+ {c:603,w:"hanli",l:"金童辞别",m:1,r:["jin"],
+  d:"化人形辞别，赴金源仙域寻同类（行98024）。"},
+ {c:606,w:"hanli",l:"黑山蛰伏·大道归一",M:1,
+  d:"闲云山野鹤谷蛰伏约六百年；三门时间功法强行压合为“金色圆环”；掌天瓶瓶灵初醒、神秘之河（时间长河）穿梭体系成形；炼成九幽魔瞳。后化名“厉寒”入聚琨城火叶宗。"},
+ {c:692,w:"hanli",l:"真言门遗迹·灭宗之谜",M:1,
+  d:"幻烟沼泽候迷尘幻烟一百三十余年，入遗迹空间碎片；揭底：奇摩子告密——“天庭就以勾结轮回殿和灰界为由，提前对真言门动手了”（行112082）；得《水衍四时诀》全本、《真言化轮经》九重＋《须弥感应篇》《东乙枯荣经》等。"},
+ {c:738,w:"hanli",l:"灰界·啼魂反水相救",m:1,M:1,r:["ti"],
+  d:"修罗城三域会盟；幽牢无间狱被植幽魂虫——啼魂（幽络）反水：真身刑兽，被天庭大罗召至仙界、遭其三尸分身掳入灰界（行119186起）。"},
+ {c:740,w:"hanli",l:"洗煞池·魔光断联",m:1,M:1,r:["mog"],
+  d:"闯洗魂区放太古异兽焜睺；百里炎为众人断后殒身；四雷池（青紫银金）洗尽煞气；魔光独抗大罗鬼木断后——“感应彻底断开”，此后全篇未收束（行119663）。天狐老祖柳岐断三链，罗吒琵琶跨界遁走落点竟是魔域。"},
+ {c:775,w:"hanli",l:"进阶太乙玉仙",M:1,
+  d:"魔域（圣域）护法三月，天地元气倒灌——至净玉体（行124901）；青竹蜂云剑72柄同时在金雷池进阶雷之法则仙器。此后大皇子石斩风买凶追杀，照骨真人（大罗）两年追杀——太乙境越阶斩大罗（ch821）。"},
+ {c:843,w:"hanli",l:"觅紫灵·查明流放",m:1,M:1,r:["ziling"],
+  d:"ch776 托石穿空寻访；查明紫灵百余年前自黑水域飞升台飞升入圣域、遭菊夫人嫉恨流放积鳞空境——“紫灵虽非他的道侣，但在其心目中，却与南宫婉一样，有着某种特别的意义。”"},
+ {c:853,w:"hanli",l:"入积鳞空境",M:1,
+  d:"远古道祖开辟的流放绝境，无灵气魔气、大罗以上禁入；境内只修肉身玄窍、用星辰之力。沦为青羊城玄斗士（绰号“幻影”），得《天煞镇狱功》（上限1800玄窍）。"},
+ {c:979,w:"hanli",l:"蟹道人真身揭底",m:1,M:1,r:["xie"],
+  d:"大墟远征（厄脍泣血大阵阴谋）中揭底：蟹道人＝前积鳞空境之主石空解（圣皇胞弟、石穿空之叔），争位败被抽空间法则、转修傀儡法则，冲道祖遭徒厄脍出卖而陨——“我的主人，不是别人，便是我自己”（行156923）。"},
+ {c:980,w:"hanli",l:"倾世红颜·紫灵相认",m:1,M:1,r:["ziling"],
+  d:"大墟决战：被傀城主沙心封忆傀控的“小紫”正是紫灵；厄脍伏诛后解封，忆尽前尘——留积鳞空境修《天煞镇狱功》与炼神术。韩立地底五百年苦修（三头六臂魔化形态、玄窍九百余）。"},
+ {c:988,w:"hanli",l:"蟹道人复活证道祖",m:1,M:1,r:["xie"],
+  d:"借圣骸＋心脏＋本命晶核复活，道天大劫证道祖（行158394起）。"},
+ {c:994,w:"hanli",l:"黑袍蒙面人之谜",d:"神魂穿越目击“当年那一战”，见黑袍蒙面人半张脸正是韩立自己（行159376）——全篇悬案。"},
+ {c:997,w:"hanli",l:"唤醒啼魂本源",m:1,M:1,r:["ti"],
+  d:"夜阳城大祭司（轮回殿同道）借天元卜算唤醒啼魂：真身刑兽、本源轮回法则（行159746）；解傀禁白色骨针尽出。"},
+ {c:999,w:"hanli",l:"越空塔跨界·遭暗算",M:1,
+  d:"与石破空协定经越空塔跨界——遭标记玉玦暗算，坠入金源仙域九元观伏击圈（三皇子“摆了一道”）。"},
+ {c:1006,w:"hanli",l:"复用真名“韩立”",d:"连杀金源仙宫势力，起对外报真名；救青狐族叶素素（“骨肉亲情”＝叶素素舍血脉救母叶螺，非韩立家人线）。"},
+ {c:1029,w:"hanli",l:"诛东方白·独闯仙宫",d:"诛金源仙宫主东方白。"},
+ {c:1032,w:"hanli",l:"太乙巅峰（359窍）",M:1,d:"太岁仙府闭关两百余年（行166090）。"},
+ {c:1042,w:"hanli",l:"岁月塔夺宝",M:1,
+  d:"岁月塔七层（十八层狱鬼王、幻囚柳自在、曲鳞“一拳之约”等）；岁月神灯＝太岁仙尊（前天庭仙狱主闻太岁）叛天庭卷走的时间至宝。"},
+ {c:1128,w:"hanli",l:"入手岁月神灯",M:1,
+  d:"联手败奇摩子（真言门叛徒、仙狱主）；太岁残魂自爆、通天剑派引爆诛灭阵毁仙府与小半个金源山脉。金童被九元观鬼灵子擒，囚为菩提宴礼品；首冲大罗失败，瓶灵首次现身（行181520起）。"},
+ {c:1150,w:"hanli",l:"肉身穿梭光阴之河",M:1,
+  d:"瓶灵携韩立回到真言门未灭之时；观日峰听道被弥罗一眼看穿时空来客。"},
+ {c:1152,w:"hanli",l:"拜弥罗为第七关门弟子",m:1,M:1,
+  d:"授大五行幻世诀总纲、真言转灵法、光阴天璇大阵图；预警奇摩子叛门，弥罗拒改天机；临别嘱托赴“阎罗之府”。"},
+ {c:1184,w:"hanli",l:"血祀大会·九尾",m:1,M:1,r:["lele"],
+  d:"误落地龙族边地救小白（其父墨玉与袁罡皆死于古或今之手）；八荒山遇柳乐儿（已成天狐族至高血脉），继九尾仙狐圣祖血脉成九尾（柳青暗助一滴精血）；真言转灵法复燃岁月神灯。"},
+ {c:1194,w:"hanli",l:"进阶大罗",M:1,
+  d:"蛮荒山腹光阴天璇大阵时差空间（外20年＝内2000年）：蟹道人所赠玄真丹成大罗真魂＋五件时间法则具象融圆平衡；被困己方灵域又九万余年，十八万年时差苦修开百窍至460窍。"},
+ {c:1213,w:"hanli",l:"万宝节·晋升轮回殿核心",d:"鎏金城万宝节再战赤梦；日月神舟上收“阎罗之鼎”、了结余梦寒因果（白衣女尼——灵寰界故人收尾）。"},
+ {c:1240,w:"hanli",l:"九元观·恶尸初现",M:1,
+  d:"菩提令选拔授令仪式剧变；虎穴潜行入鬼谷恶斗鬼灵子——濒死施斩尸仙符，大罗初期强行引出恶尸，借啼魂神念＋隔元锁链勉强封禁（行197006起）。"},
+ {c:1244,w:"hanli",l:"如霜现身",m:1,M:1,r:["nan"],
+  d:"九元宫混战诛曲鳞分身、救金童；“梦中人”——如霜（南宫婉前世身）现身：南宫婉渡飞升劫身陨，前世甘如霜（轮回殿主之妻）之魂被殿主收魂封忆养于轮回殿。"},
+ {c:1258,w:"hanli",l:"李元究断因果",M:1,
+  d:"九元道祖李元究（当年韩立附身凌云子所传之徒）断因果放行、还掌天瓶——“前世恩情报于今世”（行200024）。"},
+ {c:1261,w:"hanli",l:"提壶山恶战岳青",d:"赝品真相（五色小瓶）；借解开一半锁链半开仙窍自通，金雷重创大罗后期；真灵王岳冕（游天鲲鹏）救场。"},
+ {c:1269,w:"hanli",l:"柳乐儿赠分身斩尸术",m:1,r:["lele"],
+  d:"天狐族《分身斩尸术》（移尸于分身再斩，行201615）。"},
+ {c:1273,w:"hanli",l:"斩恶尸·大罗中期",M:1,
+  d:"容器＝乌蒙岛地祇化身；识海诱敌＋阴阳双鱼逆转——恶尸离体入地仙之躯，840仙窍全通（行202436）。⚠️恶尸因信仰之力契合反夺躯遁入幽冥，全篇未再收束。此前天外天三层时差空间三万年打通839窍。"},
+ {c:1284,w:"hanli",l:"幽冥·阎罗之府",M:1,
+  d:"鬼门入幽冥（洗阳城→黑河域→阎罗域）；弥罗残魂讲“道祖与大道相融”之秘、交付三件时间仙器，助五行幻世彻底炼成——出关大罗中期巅峰（1319窍、晶丝1800根）。"},
+ {c:1305,w:"hanli",l:"轮回殿主真容",M:1,r:["lun","gan"],
+  d:"黄泉大泽六道轮回盘之争，骨皇被一转轮盘送入轮回；“另一个我”——轮回殿主真容与韩立一模一样＝前一世的韩立（行207573起）：曾登时间法则顶点，败亡之际散尽法则灌入掌天瓶，时空穿梭回数千万年前，转修轮回法则重建轮回殿。"},
+ {c:1308,w:"hanli",l:"轮回盘窥前世",r:["jin","ziling"],
+  d:"金童＝虫祖渠鳞转世（前世道祖被轩辕杰逼得自毁金身化亿万噬金虫散于诸界）；紫灵前世＝人界无灵根凡女“一生等一人不至”。"},
+ {c:1314,w:"hanli",l:"携紫灵游历天下",r:["ziling"],
+  d:"黑风海诛监察水长天后闭关天外，此后孤身游历：天瀑山脉、天巢之湖、火鸟山脉……“短短两百余年的时间，二人便走过了二三十处仙域”。"},
+ {c:1319,w:"hanli",l:"斩善尸·大罗后期",M:1,
+  d:"鹤冈仙域襄邑城（天庭过度开采的灵气枯竭废域）行医百年——无心之善；识海与白衣善尸“坐论善恶之道”五问五答，善尸自愿化白光入地仙傀儡（行209721）；时间法则大成。"},
+ {c:1322,w:"hanli",l:"大罗巅峰",M:1,r:["nan"],
+  d:"南宫婉经六道轮回盘复前世记忆，自选做回南宫婉（行210148）；旋被冯清水掳走（要挟筹码）。"},
+ {c:1325,w:"hanli",l:"雷海炼剑·剑灵童子",M:1,
+  d:"北寒雷暴海洋雷夔之眼淬剑——通天剑阵“大炼”爆出七十二剑灵童子，青竹蜂云剑齐升三品仙器（行210613）。"},
+ {c:1330,w:"hanli",l:"诛水道祖冯清水",M:1,r:["nan"],
+  d:"大五行灭绝拳＋时间灵域破其本尊灵域；水之本源道祖陈如烟到场归还南宫婉。"},
+ {c:1333,w:"hanli",l:"重逢南宫婉",m:1,M:1,r:["nan"],
+  d:"血色试练/墨蛟/青竹蜂云剑/元合五极山验身相认（行212013起）；转述灵界旧况——器灵子海大少合体巅峰、白果儿大乘、冰凤银月大乘、元瑶渡劫陨落（后被结局回溯改命）。"},
+ {c:1343,w:"hanli",l:"金童合道复道祖",m:1,M:1,r:["jin"],
+  d:"ch1332 仙界大劫起（明线轮回殿对天庭战争，真劫＝古或今“三千道神大阵”灭世重开）；韩立悟“以天道同化杀道祖”助轩辕杰吸尽本源反被天道侵蚀——金童吞噬全界噬金虫＋轩辕杰，重归吞噬法则道祖。"},
+ {c:1347,w:"hanli",l:"重走仙界旧路",M:1,
+  d:"据道祖野史“重返初心之地”，携南宫婉重走：乌蒙岛→黑风城→烛龙道赤霞峰→元荒城→野鹤谷→幻烟沼泽（行214399起）。"},
+ {c:1350,w:"hanli",l:"呼言点拨",m:1,r:["huyan"],
+  d:"“恩情也好，仇怨也罢，都是浮云”（行214770）——斩自我尸的最后点拨。"},
+ {c:1352,w:"hanli",l:"斩自我尸·巅峰圆满",M:1,
+  d:"斩念五重幻相（恐惧/美色/权位/亲情/力量）——“离一切诸相”；自我尸入地祇化身放逐时空乱流；1800玄窍全开、炼神术七层圆满、大罗巅峰圆满。"},
+ {c:1374,w:"hanli",l:"菩提宴·天道终焉",M:1,
+  d:"陈抟（预言道祖）“半卦”卜出异数＝韩立，被天道吞尽而亡；瑶池胜境菩提宴（五百万年一度）；轮回殿主孤身揭古或今预谋——古或今吸三道祖法则、三千道神大阵成，诸界法则灵力被抽（行218682起）。"},
+ {c:1383,w:"hanli",l:"成就时间道祖",M:1,
+  d:"韩立金童破十方万仙阵参战；古或今融混沌漩涡——韩立濒死之际天地时间法则倒灌，渡道天大劫（灰云心魔劫/红莲灭魂雷/光阴之雷），金脉玉骨（ch1382–1383）。"},
+ {c:1385,w:"hanli",l:"大道归一·吞混沌漩涡",M:1,
+  d:"掌天瓶本相＝混沌所生第一玄天之物（内蕴三千大道）；引三千法则归一，吞尽三千道神大阵混沌漩涡（行220485起）。"},
+ {c:1388,w:"hanli",l:"诛古或今·魔主",M:1,
+  d:"轮回殿主自爆道祖之身化轮回之力逼出古或今神魂，韩立永恒一剑（代价左臂被天道吞噬）；ch1389 魔主石空鱼趁虚夺瓶被诛（灌混沌法则爆体）；轮回殿主残魂与甘如霜相偕消散，轮回盘传甘九真。"},
+ {c:1391,w:"hanli",l:"弃道·瓶碎",M:1,
+  d:"天道侵蚀不可逆，瓶灵言唯一解＝道祖本源注入掌天瓶——弃“真仙界第一人”之位，散道祖法则，修为回落大罗巅峰（行221481）；掌天瓶爆碎，瓶灵化八岁绿发童子获自由。"},
+ {c:1393,w:"hanli",l:"回溯改命",M:1,
+  d:"以瓶灵所赠“临时小瓶”返回过去：救元瑶飞升之劫（金镜挡天雷；妍丽、冰凤、银月、南宫婉皆在场观礼）；黑光入少年厉飞雨眉心。"},
+ {c:1394,w:"hanli",l:"闭环·大结局",M:1,
+  d:"足踢掌天瓶数寸令少年自己撞上——亲手促成自己得瓶的闭环；归隐黑土仙域山谷：南宫婉携幼女、紫灵、蟹道人（轮椅弈棋）、金童随侍；真言门成真仙界第一宗门。厉飞雨转世“厉飞羽”持仙器黑刀“飞羽”飞升，接引者正是高升——“雪花纷飞，如同飞羽”全书终。"},
+
+ {c:1,w:"lele",l:"唤醒失忆韩立",m:1,M:1,r:["hanli"],
+  d:"云狐族（青云丘）狐妖幼女，满门遭丰国血芒山血刀会屠灭；为韩立取名“柳石”。"},
+ {c:43,w:"lele",l:"手刃灭门仇人",m:1,M:1,r:["hanli"],d:"借韩立所封精炎火鸟诛会主贾仁、血洗血刀会。"},
+ {c:74,w:"lele",l:"被白衣同族带走",r:["hanli"],d:"自称同族的白衣女子（疑上界真仙）将其带走——狐女线悬置。"},
+ {c:603,w:"lele",l:"“因果已尽”",r:["hanli"],d:"天狐族传话：乐儿一切安好，但“你们之间因果已尽，日后不用再见面了”。"},
+ {c:1184,w:"lele",l:"八荒山重逢",m:1,M:1,r:["hanli"],d:"已成天狐族至高血脉；血祀大会继九尾仙狐圣祖血脉成九尾（柳青暗助一滴精血）。"},
+ {c:1269,w:"lele",l:"赠分身斩尸术",m:1,r:["hanli"],d:"天狐族秘术（移尸于分身再斩）——韩立斩恶尸的关键。"},
+ {c:1391,w:"lele",l:"战后遥誓",r:["hanli"],d:"近大罗；“有朝一日光明正大走到你面前”（行221385）。"},
+
+ {c:776,w:"ziling",l:"托石穿空寻访",r:["hanli"],d:"韩立自魔域托石穿空查访紫灵下落（“觅红颜”）。"},
+ {c:843,w:"ziling",l:"查明流放积鳞空境",m:1,M:1,r:["hanli"],d:"百余年前自黑水域飞升台飞升入圣域，遭菊夫人嫉恨流放积鳞空境。"},
+ {c:980,w:"ziling",l:"大墟相认“倾世红颜”",m:1,M:1,r:["hanli"],
+  d:"被傀城主沙心封忆傀控为“小紫”；厄脍伏诛后解封，忆尽前尘——“再回首，红颜依旧……自上次分别已万年之隔”。留积鳞空境修《天煞镇狱功》与炼神术（ch984 转述：南宫婉已大乘、争取早日渡飞升雷劫，行157766）。"},
+ {c:1291,w:"ziling",l:"幽冥重逢",m:1,r:["hanli"],d:"轮回盘窥前世：人界无灵根凡女“一生等一人不至”。"},
+ {c:1322,w:"ziling",l:"陪伴巅峰之路",r:["hanli"],d:"“是大罗巅峰没错了……这境界是实打实修炼出来的，不是楼阁。”韩立握住她的手。"},
+ {c:1394,w:"ziling",l:"结局",r:["hanli"],d:"同住黑土仙域，大罗中期，与蟹道人对弈（行222004）。"},
+
+ {c:1244,w:"nan",l:"如霜现身",m:1,M:1,r:["hanli"],
+  d:"九元城“梦中人”：南宫婉渡飞升劫身陨（“最后时刻，我曾向天呐喊，希望夫君能听到我最后的话语”），前世甘如霜之魂被轮回殿主收魂封忆养于轮回殿。"},
+ {c:1305,w:"nan",l:"身世揭底",r:["hanli","lun"],d:"轮回殿主之妻甘如霜的前世；其女甘九真（蛟三）。"},
+ {c:1322,w:"nan",l:"自选做回南宫婉",m:1,M:1,r:["hanli"],d:"经六道轮回盘复前世记忆，“坚持要做回南宫婉”；旋被冯清水掳走。"},
+ {c:1333,w:"nan",l:"重逢·验身相认",m:1,M:1,r:["hanli"],d:"血色试练/墨蛟/青竹蜂云剑/元合五极山——记忆全归。"},
+ {c:1394,w:"nan",l:"结局",r:["hanli"],d:"韩立之妻，育一女；太乙巅峰，修轮回法则（行221998）。"},
+
+ {c:251,w:"xie",l:"夺回核心",r:["hanli"],d:"烛龙道搜魂叶风，夺回蟹道人核心（此前随飞升遭袭失联）。"},
+ {c:281,w:"xie",l:"金仙初期傀身",r:["hanli"],d:"圣傀门保卫战后得母豆＋仙傀三元融合傀身。"},
+ {c:979,w:"xie",l:"真身揭底",m:1,M:1,r:["hanli"],
+  d:"前积鳞空境之主石空解：争位败被抽空间法则、转修傀儡法则，冲道祖遭徒厄脍出卖而陨，封神魂于黄金蟹傀投入下界（灵界魔源海遇韩立）。"},
+ {c:988,w:"xie",l:"复活证道祖",m:1,M:1,r:["hanli"],d:"借圣骸＋心脏＋本命晶核复活，渡道天大劫证道祖。"},
+ {c:1394,w:"xie",l:"结局",r:["hanli"],d:"轮椅弈棋，半身融虚空而心境平和（行222004）。"},
+
+ {c:376,w:"lun",l:"炼神术之源揭底",d:"炼神术乃轮回殿开山祖师所创、无常盟为其下属；韩立以“龙五”入殿。"},
+ {c:1305,w:"lun",l:"真容＝前世韩立",m:1,M:1,r:["hanli","nan"],
+  d:"黄泉大泽揭底：曾登时间法则顶点，与古或今决战败亡之际散尽法则灌入掌天瓶，时空穿梭回数千万年前（掌天瓶因此诞生瓶灵），转修轮回法则重建轮回殿。"},
+ {c:1374,w:"lun",l:"菩提宴揭古或今",M:1,r:["hanli"],d:"孤身赴宴揭古或今灭世预谋、分化与会者。"},
+ {c:1388,w:"lun",l:"自爆道祖之身",M:1,r:["hanli"],d:"化轮回之力逼出古或今神魂，成全韩立永恒一剑；残魂与甘如霜残魂相偕消散，轮回盘传女甘九真。"},
+
+ {c:160,w:"gan",l:"荒澜结识",r:["hanli"],d:"护商队相识，即无常盟“蛟三”——实为轮回殿核心。"},
+ {c:531,w:"gan",l:"赠炼神术五层与蛮荒通道",r:["hanli"],d:"太乙殿之乱后再度出手相助。"},
+ {c:1213,w:"gan",l:"晋升核心同行",r:["hanli"],d:"万宝节晋升轮回殿核心（黑色面具），日月神舟同行。"},
+ {c:1305,w:"gan",l:"身世揭底",m:1,M:1,r:["hanli","lun","nan"],d:"轮回殿代号蛟三，本名甘九真——前世韩立与甘如霜之女。"},
+ {c:1388,w:"gan",l:"承六道轮回盘",r:["hanli"],d:"轮回殿主残魂消散前传女。"},
+
+ {c:221,w:"huyan",l:"百酒峰三任务",r:["hanli"],d:"烛龙道呼言长老（百酒峰）；三任务之约开启师徒线。"},
+ {c:275,w:"huyan",l:"大耳僧晶壁“偷道”",r:["hanli"],d:"一口气为韩立打通八窍（代价：百八道纹尽黯）。"},
+ {c:315,w:"huyan",l:"讲道大会护道",r:["hanli"],d:"百里炎遭仙宫八金仙围杀，呼言、云霓唯一起而护道者。"},
+ {c:401,w:"huyan",l:"约闯冥寒仙府",r:["hanli"],d:"以《真言化轮经》四至六重为饵约韩立同闯。"},
+ {c:1350,w:"huyan",l:"“恩仇皆是浮云”",m:1,M:1,r:["hanli"],d:"斩自我尸前的最后点拨——“多想无益，不如对酒当歌，人生几何？”"},
+
+ {c:455,w:"jin",l:"两度倒戈救主",m:1,M:1,r:["hanli"],
+  d:"渠灵（真灵梦魇）灵域围杀——金童两度倒戈：即失散两千余年的噬金虫王，已进化噬金仙、化形金发女童（行74230）。"},
+ {c:506,w:"jin",l:"吞萧晋寒元婴",r:["hanli"],d:"太乙殿之乱中吞叛徒萧晋寒元婴。"},
+ {c:598,w:"jin",l:"吞虫灵晋太乙",r:["hanli"],d:"蛮荒合围斩杀太乙噬金仙（虫灵），金童吞并进阶太乙。"},
+ {c:603,w:"jin",l:"辞别寻同类",m:1,r:["hanli"],d:"化人形辞别，赴金源仙域寻同类。"},
+ {c:1128,w:"jin",l:"被九元观擒",r:["hanli"],d:"吞九元观噬金仙晋大罗后，被鬼灵子擒，囚为菩提宴礼品。"},
+ {c:1244,w:"jin",l:"九元宫获救",m:1,M:1,r:["hanli"],d:"韩立诛曲鳞分身救出。"},
+ {c:1308,w:"jin",l:"觉醒虫祖渠鳞转世",M:1,r:["hanli"],d:"六道轮回盘窥前世：前世道祖被轩辕杰逼得自毁金身化亿万噬金虫散于诸界。"},
+ {c:1343,w:"jin",l:"合道复道祖",m:1,M:1,r:["hanli"],d:"吞噬全界噬金虫＋轩辕杰，重归吞噬法则道祖——“道祖之尊仍以友相随”（行213993）。"},
+
+ {c:738,w:"ti",l:"“幽络”反水相救",m:1,M:1,r:["hanli"],
+  d:"灰界九幽幽牢无间狱反水：真身刑兽，当年被天庭大罗召至仙界、遭其三尸分身掳入灰界（行119186起）。"},
+ {c:740,w:"ti",l:"洗煞",r:["hanli"],d:"随众闯洗魂区、洗煞池洗煞。"},
+ {c:997,w:"ti",l:"本源唤醒",m:1,M:1,r:["hanli"],d:"夜阳城大祭司借天元卜算唤醒：本源轮回法则，真身刑兽、冥王转世。"},
+ {c:1240,w:"ti",l:"神念封恶尸",r:["hanli"],d:"韩立濒死之际，借啼魂神念＋隔元锁链勉强封禁恶尸。"},
+ {c:1312,w:"ti",l:"入落魂深渊",r:["hanli"],d:"入幽冥落魂深渊未返，结局未明写（行207792）。"},
+
+ {c:1,w:"mog",l:"影中残魂随行",r:["hanli"],d:"飞升班底（魔光、噬金虫王、蟹道人）中唯一残存之力——遭袭后仅剩影中残魂（行2063起）。"},
+ {c:599,w:"mog",l:"断言煞衰",r:["hanli"],d:"识得天人五衰中的最后一衰——煞衰。"},
+ {c:740,w:"mog",l:"断后·感应断开",m:1,M:1,r:["hanli"],d:"占灰仙尸身（战力太乙后期）独抗大罗鬼木断后——“我与魔光之间的感应，彻底断开了”。此后全篇无实质出场，未收束。"},
+
+ {c:1184,w:"xb",l:"获救随行",m:1,r:["hanli"],d:"墨眼貔貅王独子；其父墨玉与山岳巨猿王袁罡皆死于时间道祖古或今之手（行188540）；白泽限“两百年之约”。"},
+ {c:1261,w:"xb",l:"提壶山在侧",r:["hanli"],d:"岳青之战旁观（真身被其识破异常）。"},
+ {c:1394,w:"xb",l:"结局",r:["hanli"],d:"随侍韩立归隐黑土仙域山谷。"}
+];
+
+
+const LOC = [
+ {f:1,t:13,l:"北寒飞仙台→灵寰界(下界)",p:1},{f:14,t:73,l:"灵寰界",p:1},
+ {f:74,t:84,l:"灵寰界→界面间隙",p:1},{f:85,t:136,l:"北寒·黑风海域"},
+ {f:137,t:184,l:"北寒·荒澜→古云"},{f:185,t:342,l:"北寒·烛龙道"},
+ {f:343,t:400,l:"北寒·黑风蛰伏"},{f:401,t:468,l:"冥寒仙府(上古秘境)",p:1},
+ {f:469,t:512,l:"冥寒仙府·太乙殿",p:1},{f:513,t:540,l:"北寒→蛮荒界域"},
+ {f:541,t:603,l:"蛮荒界域",p:1},{f:604,t:637,l:"黑山仙域",p:1},
+ {f:638,t:694,l:"黑土仙域·真言门遗迹",p:1},{f:695,t:768,l:"灰界",p:1},
+ {f:769,t:852,l:"魔域(圣域)",p:1},{f:853,t:995,l:"积鳞空境",p:1},
+ {f:996,t:1000,l:"魔域→金源仙域",p:1},{f:1001,t:1033,l:"小金源仙域"},
+ {f:1034,t:1133,l:"太岁仙府·岁月塔",p:1},{f:1134,t:1152,l:"过去时空·真言门",p:1},
+ {f:1153,t:1192,l:"蛮荒界域",p:1},{f:1193,t:1213,l:"蛮荒→大金源仙域"},
+ {f:1214,t:1258,l:"大金源·九元城"},{f:1259,t:1274,l:"楚余→天外天→北寒",p:1},
+ {f:1275,t:1312,l:"幽冥界",p:1},{f:1313,t:1320,l:"诸仙域游历"},
+ {f:1321,t:1330,l:"北寒·雷暴海洋"},{f:1331,t:1343,l:"诸界·仙界大劫",p:1},
+ {f:1344,t:1352,l:"诸仙域故地"},{f:1353,t:1375,l:"中土仙域·瑶池",p:1},
+ {f:1376,t:1390,l:"中土→域外",p:1},{f:1391,t:1394,l:"诸界→黑土仙域",p:1}
+];
+const VOLS = [];
+const AGES = [
+ {c:13,l:"失忆三百年"},{c:461,l:"秘境两千年"},{c:599,l:"亡命十年"},
+ {c:637,l:"蛰伏约六百年"},{c:688,l:"候幻烟130年"},{c:775,l:"魔域辗转十年"},
+ {c:995,l:"地底五百年"},{c:1032,l:"闭关两百年"},{c:1194,l:"时差十八万年"},
+ {c:1264,l:"天外天三万年"},{c:1314,l:"游历两百年"}
+];
+const REALMS = [
+ {c:0,l:"大乘飞升(伪仙)"},{c:14,l:"元婴被封禁"},{c:79,l:"真极之躯"},
+ {c:129,l:"真仙初期"},{c:262,l:"真仙中期"},{c:309,l:"真仙后期"},
+ {c:368,l:"时间法则入门"},{c:459,l:"金仙"},{c:467,l:"金仙中期"},
+ {c:586,l:"金仙巅峰"},{c:775,l:"太乙玉仙"},{c:1013,l:"太乙中期"},
+ {c:1032,l:"太乙巅峰"},{c:1194,l:"大罗"},{c:1273,l:"大罗中期"},
+ {c:1289,l:"大罗中期巅峰"},{c:1319,l:"大罗后期"},{c:1322,l:"大罗巅峰"},
+ {c:1352,l:"大罗巅峰圆满"},{c:1382,l:"时间道祖"},{c:1391,l:"弃道·大罗巅峰"}
+];
+const JUMPS = [
+ {c:0,l:"外传·飞升定场"},{c:14,l:"灵寰界·冷焰宗"},{c:74,l:"破碎虚空"},
+ {c:129,l:"复真仙"},{c:185,l:"烛龙道"},{c:341,l:"诛陶羽·离宗"},
+ {c:459,l:"雷池洗婴·金仙"},{c:541,l:"蛮荒界域"},{c:692,l:"真言门遗迹"},
+ {c:775,l:"进阶太乙"},{c:853,l:"积鳞空境"},{c:980,l:"倾世红颜"},
+ {c:1128,l:"岁月神灯"},{c:1152,l:"拜师弥罗"},{c:1194,l:"进阶大罗"},
+ {c:1273,l:"斩恶尸"},{c:1305,l:"轮回殿主真容"},{c:1333,l:"重逢南宫婉"},
+ {c:1383,l:"时间道祖"},{c:1394,l:"大结局"}
+];
+
+const BIO = {
+ hanli:{who:"本纪 · 人界青牛镇韩家子，灵界第一大乘，携魔光、噬金虫王、蟹道人渡飞升之劫",
+  rows:[["灵寰界·失忆","飞升即遭方磐等伏击（幕后：伏凌宗封天都，为夺掌天瓶时间晶粒之秘）——元婴被隔元法链封禁、法宝尽失、失忆三百年，坠入北冥仙域直属下界灵寰界。狐女柳乐儿唤醒；冷焰宗客卿得《小北斗星元功》，灭天鬼宗后以七玄窍真极之躯破碎虚空。"],
+   ["北寒仙域","乌蒙岛地祇之道复真仙；观月城起化名“厉飞雨”；入烛龙道凝真言宝轮、寻回青竹蜂云剑与蟹道人，诛陶羽（失忆案真凶）离宗；封岛蛰伏至35窍，服时间道丹凝第一丝时间法则。"],
+   ["冥寒仙府·金仙","月华宫时间秘境两千年：36玄窍→渡第三衰→雷池洗婴成金仙；太乙殿之乱北寒变天，阵斩天庭太乙监察仙使公输久——与天庭对抗线定型。"],
+   ["蛮荒·黑山·黑土","东渡蛮荒：金仙巅峰（107窍）、第五衰煞衰降临、梦回真言门（时间道祖一掌镇杀弥罗）；黑山六百年大道归一；真言门遗迹揭灭宗之谜，得时间功法群。"],
+   ["灰界·魔域·积鳞","九幽洗煞池洗尽煞气（魔光断联未收束）；魔域进阶太乙、越阶斩大罗照骨真人；觅紫灵；积鳞空境五百年苦修，紫灵重逢、蟹道人复活证道祖。"],
+   ["金源·拜师·大罗","岁月塔夺岁月神灯；瓶灵首秀携肉身穿梭光阴之河，拜弥罗为第七关门弟子；蛮荒血祀复燃神灯、救小白；光阴天璇大阵十八万年时差苦修进阶大罗。"],
+   ["斩尸·重逢·道祖","九元城如霜现身（南宫婉前世）→提壶山斩恶尸→幽冥阎罗之府师恩、轮回殿主真容（前世韩立）→斩善尸→雷海炼剑→诛冯清水→重逢南宫婉→金童合道→斩自我尸巅峰圆满→菩提宴天道终焉→诛古或今、成就时间道祖。"],
+   ["弃道·大结局","天道侵蚀不可逆，散道祖本源入掌天瓶，弃“真仙界第一人”回落大罗巅峰；回溯改命救元瑶、促成自己得瓶闭环；归隐黑土仙域山谷，南宫婉携幼女、紫灵、蟹道人、金童随侍——真言门成真仙界第一宗门。"]]},
+ ziling:{who:"列传·妙音门少门主｜魔界圣域流放者→积鳞空境“小紫”→黑土仙域",
+  rows:[["灵界回顾","乱星海妙音门少门主，韩立红颜知己；魔界蓝瀑城重逢后拒绝归灵界，自愿留魔界修大乘谋飞升——“哪怕我只有百分之一的希望，我也不愿轻易放弃的”。"],
+   ["仙界轨迹","百余年前自黑水域飞升台飞升入圣域，遭菊夫人嫉恨流放积鳞空境（绝境无灵气，只修肉身）；被傀城主沙心封忆傀控为“小紫”；ch980大墟决战“倾世红颜”相认——忆尽前尘，“自上次分别已万年之隔”；留积鳞修《天煞镇狱功》与炼神术；ch1291幽冥重逢，轮回盘窥前世：人界无灵根凡女“一生等一人不至”。"],
+   ["结局","同住黑土仙域，大罗中期，与蟹道人对弈。韩立自评：“紫灵虽非他的道侣，但在其心目中，却与南宫婉一样，有着某种特别的意义。”"]]},
+ nan:{who:"列传·道侣｜掩月宗→灵界青元宫→前世甘如霜→轮回殿“如霜”",
+  rows:[["灵界回顾","韩立道侣；韩立飞升后居青元宫，修至大乘圆满待渡飞升劫。"],
+   ["仙界轨迹","渡飞升劫身陨（“最后时刻，我曾向天呐喊，希望夫君能听到我最后的话语”）；前世甘如霜（轮回殿主之妻）之魂被殿主收魂封忆养于轮回殿；ch1244九元城“梦中人”如霜现身；ch1322经六道轮回盘复前世记忆，“坚持要做回南宫婉”；ch1333血色试练/墨蛟/青竹蜂云剑/元合五极山验身相认；ch1330韩立诛冯清水救回。"],
+   ["结局","韩立之妻，育一女；太乙巅峰，修轮回法则。"]]},
+ lele:{who:"列传·云狐族孤女｜唤醒韩立者→天狐族九尾圣祖血脉",
+  rows:[["灵寰界","青云丘云狐族狐妖幼女，满门遭丰国血芒山血刀会屠灭；唤醒失忆韩立并取名“柳石”；借精炎火鸟手刃灭门仇人；ch74被自称同族的白衣女子（疑上界真仙）带走。"],
+   ["仙界轨迹","辗转入蛮荒天狐族（传话“你们之间因果已尽”）；ch1184八荒山重逢——血祀大会继九尾仙狐圣祖血脉成九尾（柳青暗助一滴精血）；ch1269赠天狐族《分身斩尸术》（移尸于分身再斩——韩立斩恶尸关键）。"],
+   ["结局","近大罗；战后遥誓“有朝一日光明正大走到你面前”。"]]},
+ xie:{who:"列传·石空解｜前积鳞空境之主→黄金蟹傀→复活证道祖",
+  rows:[["来历","当今圣皇石空鱼胞弟、石穿空之叔；争位失败被抽空间法则、转修傀儡法则，冲道祖时遭徒厄脍出卖而陨，封神魂于黄金蟹傀儡投入下界——灵界魔源海遇韩立（原作ch2110）。"],
+   ["仙界轨迹","随飞升遭袭失联→烛龙道搜魂叶风夺回核心→金仙初期傀身（母豆＋仙傀三元融合）随行；ch979大墟揭底“我的主人，不是别人，便是我自己”；ch988借圣骸＋心脏＋本命晶核复活，道天大劫证道祖。"],
+   ["结局","轮椅弈棋，半身融虚空而心境平和。"]]},
+ lun:{who:"列传·轮回殿主｜前一世的韩立·轮回法则重建轮回殿",
+  rows:[["来历","ch1305黄泉大泽揭真容与韩立一模一样：前一世的韩立——曾登时间法则顶点，与古或今决战败亡之际散尽法则灌入掌天瓶，阴差阳错时空穿梭回数千万年前（掌天瓶因此诞生瓶灵），转修轮回法则重建轮回殿。炼神术为其开山祖师所创、无常盟为下属。"],
+   ["仙界轨迹","韩立以“轮回之子”（龙五）入殿；其妻甘如霜（南宫婉前世）、其女甘九真（蛟三）；ch1374菩提宴孤身揭古或今灭世预谋；ch1388决战自爆道祖之身化轮回之力，逼出古或今神魂成全韩立永恒一剑。"],
+   ["结局","残魂与甘如霜残魂相偕消散；六道轮回盘传女甘九真。"]]},
+ gan:{who:"列传·甘九真（蛟三）｜无常盟核心→轮回殿核心→前世之女",
+  rows:[["荒澜相识","护商队结识韩立——无常盟“蛟三”，实为轮回殿核心。"],
+   ["仙界轨迹","屡次暗中相助：赠炼神术五层与蛮荒通道、晋升核心（黑色面具）、日月神舟同行；ch1305身世揭底——轮回殿代号蛟三，本名甘九真，前世韩立与甘如霜之女。"],
+   ["结局","承六道轮回盘。"]]},
+ huyan:{who:"列传·烛龙道百酒峰长老｜三任务之约→斩自我尸的最后点拨",
+  rows:[["烛龙道","呼言长老居百酒峰：三任务之约开启师徒线；大耳僧晶壁“偷道”一口气为韩立打通八窍；讲道大会百里炎遭围杀时与云霓唯一起而护道；以《真言化轮经》四至六重为饵约同闯冥寒仙府。"],
+   ["仙界轨迹","仙宫通缉下长期隐匿；ch1350“恩情也好，仇怨也罢，都是浮云。多想无益，不如对酒当歌，人生几何？”——斩自我尸前的最后点拨。"],
+   ["结局","（底本未再明写行止）点拨之义成全韩立大罗巅峰圆满。"]]},
+ jin:{who:"别传·灵宠｜噬金虫王→噬金仙“金童”→虫祖渠鳞合道",
+  rows:[["失散与重逢","随飞升遭袭失散两千年，进化噬金仙、化形金发女童；ch455渠灵灵域围杀中两度倒戈救主。"],
+   ["进阶","太乙殿吞萧晋寒元婴→蛮荒吞虫灵（太乙噬金仙）晋太乙→辞别赴金源寻同类→被九元观鬼灵子擒为菩提宴礼品→ch1244获救。"],
+   ["结局","ch1308六道轮回盘觉醒：前世虫祖渠鳞（道祖，被轩辕杰逼得自毁金身化亿万噬金虫散于诸界）；ch1343吞噬全界噬金虫＋轩辕杰，合道复吞噬法则道祖——“道祖之尊仍以友相随”。"]]},
+ ti:{who:"别传·灵宠｜啖魂灵猴→刑兽→冥王转世（轮回法则）",
+  rows:[["被掳灰界","灵界自行飞升（原作ch1855）→被天庭大罗召至仙界、遭其三尸分身掳入灰界为“幽络”；ch738幽牢无间狱反水相救韩立。"],
+   ["洗煞与本源","九幽洗煞池洗煞；ch997夜阳城大祭司借天元卜算唤醒本源——真身刑兽、冥王转世，本源轮回法则；炼化乌巢鬼王成大罗。"],
+   ["结局","ch1240神念助封恶尸；入幽冥落魂深渊未返，结局未明写。"]]},
+ mog:{who:"别传·随行｜天外魔头→影中残魂→灰界断后（未收束）",
+  rows:[["随行","飞升班底之一；遭袭后仅剩影中残魂（行2063起），全程随行出谋划策。"],
+   ["断后","ch740占灰仙尸身（战力太乙后期）独抗大罗鬼木断后——“我与魔光之间的感应，彻底断开了”（行119663）。"],
+   ["结局","生死未卜——此后全篇无实质出场，为仙界篇最大未收束线之一。"]]},
+ xb:{who:"别传·灵宠｜墨眼貔貅王独子·“两百年之约”",
+  rows:[["获救","ch1184蛮荒：其父墨玉与山岳巨猿王袁罡鏖战天庭三道祖后死于古或今之手；韩立误落地龙族边地救之。"],
+   ["随行","蛮荒共主白泽限“两百年之约”允其随行；提壶山之战真身被岳青识破异常。"],
+   ["结局","随侍韩立归隐黑土仙域山谷。"]]}
+};
+/* ==== 扩展人物库（依 research/X1–X7 与逐章词频挖掘；spans=[起章,止章,地点]，events=[章,题,述]）==== */
+const GROUPS={g1:'烛龙道·北寒',g2:'魔域·积鳞空境',g3:'天庭·道祖',g4:'轮回殿·灰界',g5:'金源仙域',g6:'灵寰界·旧人',g7:'真言门·过往',g8:'蛮荒·器灵·其他'};
+const GRP_COLOR={g1:'--s1',g2:'--s2',g3:'--s4',g4:'--s5',g5:'--s7',g6:'--s6',g7:'--s8',g8:'--s3'};
+const CHARS={
+ "yefan":{"name":"叶风","grp":"g1","who":"烛龙道同门，夺蟹道人核心之人（被搜魂）","tier":3,"spans":[[194,210,"北寒·烛龙道"]],"events":[[208,"核心易主","韩立搜魂叶风夺回蟹道人核心；同期天剑冢借剑元重祭青竹蜂云剑"]]},
+ "xiaojinhan":{"name":"萧晋寒","grp":"g1","who":"烛龙道执法长老，联合悬赏“叛逃长老厉飞雨”","tier":2,"spans":[[329,349,"北寒·烛龙道"],[381,410,"北寒·黑风蛰伏"],[476,520,"冥寒仙府"]],"events":[[476,"太乙殿伏诛","太乙殿之乱被联军伏杀，元婴为金童所吞"]]},
+ "taoyu":{"name":"陶羽","grp":"g1","who":"金仙：三百年前重伤封印韩立、致其失忆的真凶（“灭魂真光”黑砚）","tier":2,"spans":[[329,376,"北寒·烛龙道"],[453,455,"冥寒仙府（追述）"]],"events":[[340,"被诱杀","讲道大会混战中韩立诱杀陶羽，收回元合五极山（姓名于340前后揭示，前文以“华服青年”暗线）"]]},
+ "fengtiandu":{"name":"封天都","grp":"g1","who":"伏凌宗大长老：隔元法链创造者，袭杀飞升韩立的幕后师尊","tier":2,"spans":[[381,408,"北寒·黑风蛰伏"],[476,518,"冥寒仙府"],[561,565,"蛮荒界域"]],"events":[[506,"太乙殿授首","太乙殿混战中伏诛——伏击案幕后线收束"]]},
+ "fangpan":{"name":"方磐","grp":"g1","who":"受“身份极高的指使者”指使伏击飞升韩立（隔元法链封婴）","tier":2,"spans":[[44,48,"灵寰界"],[165,215,"北寒·荒澜/古云"],[296,308,"北寒·烛龙道（追述）"]],"events":[[170,"伏诛","重水雷珠轰杀方磐与封谦之——封婴之仇了结；其师兄重銮后亦被韩立斩"]]},
+ "lengyanlz":{"name":"冷焰老祖","grp":"g6","who":"灵寰界飞升祖师：传韩立《小北斗星元功》","tier":2,"spans":[[35,39,"灵寰界"],[73,75,"灵寰界"],[295,297,"北寒·烛龙道"],[412,430,"冥寒仙府"]],"events":[[296,"赠《大周天星元功》半篇","圣傀门之役来援（灵寰界故人重逢），赠半篇功法——月华宫五百年大成之所本"]]},
+ "gongshujiu":{"name":"公输久","grp":"g1","who":"天庭太乙监察仙使（气之法则）：猎杀炼神术修士","tier":2,"spans":[[488,541,"冥寒仙府"],[548,618,"蛮荒界域（追述）"],[687,691,"黑土仙域（追述）"]],"events":[[510,"被阵斩","韩立涅槃圣体阵斩太乙仙使——与天庭长期对抗线定型"]]},
+ "qitianxiao":{"name":"齐天霄","grp":"g1","who":"北寒巨头，太乙殿之乱授首","tier":3,"spans":[[476,501,"冥寒仙府"]],"events":[]},
+ "shikongyu":{"name":"石空鱼(魔主)","grp":"g2","who":"圣域魔主/圣皇：魔族飞升所归之共主，石空解之兄","tier":2,"spans":[[990,995,"积鳞空境"],[1362,1366,"中土·瑶池"]],"events":[[1389,"夺瓶被诛","趁韩立大战虚脱夺掌天瓶，被灌混沌法则爆体诛杀"]]},
+ "shizhanfeng":{"name":"石斩风","grp":"g2","who":"圣域大皇子：买凶追杀韩立","tier":2,"spans":[[781,837,"魔域(圣域)"],[934,991,"积鳞空境"]],"events":[[978,"被诛","大墟远征中被韩立诛杀"]]},
+ "shipokong":{"name":"石破空","grp":"g2","who":"三皇子：越空塔跨界协定者，标记玉玦暗算韩立","tier":2,"spans":[[825,847,"魔域(圣域)"],[931,935,"积鳞空境"],[987,1000,"积鳞→魔域"]],"events":[[999,"越空塔暗算","以标记玉玦暗算，令韩立坠入金源仙域九元观伏击圈——“摆了一道”"]]},
+ "shikongmo":{"name":"石空墨","grp":"g2","who":"疯魔黑天：寻妻金铃夫人母子（ch1121“寻妻觅儿”正主，非韩立线）","tier":3,"spans":[[1135,1138,"蛮荒界域"],[1252,1257,"大金源·九元城"]],"events":[]},
+ "ekui":{"name":"厄脍","grp":"g2","who":"玄城主：魔君叛徒、出卖石空解之人；大墟泣血大阵阴谋主谋","tier":2,"spans":[[854,938,"积鳞空境"],[949,994,"积鳞空境"]],"events":[[980,"伏诛","大墟决战伏诛——紫灵解封、蟹道人复生前怨得报"]]},
+ "shaxin":{"name":"沙心","grp":"g2","who":"傀城主：封忆傀控紫灵为“小紫”","tier":3,"spans":[[915,931,"积鳞空境"],[966,995,"积鳞空境"]],"events":[[980,"傀控紫灵","所控“小紫”即紫灵；厄脍伏诛后解封忆尽前尘"]]},
+ "yuemian":{"name":"岳冕","grp":"g2","who":"真灵王·游天鲲鹏（与白泽、罗睺并列仅存三真灵王）","tier":2,"spans":[[1185,1189,"蛮荒界域"],[1264,1269,"天外天"],[1362,1377,"中土·瑶池"]],"events":[[1262,"提壶山救场","岳青恶战中救韩立于危局"]]},
+ "zhaogu":{"name":"照骨真人","grp":"g2","who":"大罗：石斩风买凶，两年追杀韩立","tier":2,"spans":[[808,844,"魔域(圣域)"],[887,891,"积鳞空境"],[983,1004,"积鳞空境"]],"events":[[821,"被越阶斩杀","韩立太乙境越阶斩大罗——魔域十年追杀落幕"]]},
+ "guhuojin":{"name":"古或今","grp":"g3","who":"时间道祖·天庭至尊·天道七君之首：真言门灭门的元凶","tier":2,"spans":[[1186,1187,"蛮荒界域"],[1287,1335,"幽冥界"],[1341,1391,"诸界·大劫"]],"events":[[549,"一掌镇杀弥罗","梦回真言门所见灭门当日：时间道祖亲至（此时尚未点名，后文揭为古或今）"],[1374,"三千道神大阵","吸尽三千法则、灭世重开、自立新天道——“天道终焉”"],[1388,"伏诛","轮回殿主自爆逼其神魂，韩立永恒一剑；代价左臂被天道吞噬"]]},
+ "fengqingshui":{"name":"冯清水","grp":"g3","who":"水道祖：掳南宫婉为要挟筹码","tier":2,"spans":[[772,773,"魔域(圣域)"],[1325,1335,"北寒→龙渊"]],"events":[[1330,"被诛","大五行灭绝拳＋时间灵域破其本尊灵域；水之本源道祖陈如烟到场归还南宫婉"]]},
+ "yinchengquan":{"name":"阴丞全","grp":"g4","who":"九幽域主：灰界双道祖之一（破界压境者）","tier":3,"spans":[[713,773,"灰界"],[1373,1375,"中土·瑶池"]],"events":[]},
+ "xuantan":{"name":"陈抟","grp":"g3","who":"预言道祖：“半卦”卜出异数＝韩立","tier":3,"spans":[[1299,1322,"幽冥界"],[1353,1384,"中土·瑶池"]],"events":[[1374,"被天道吞尽而亡","“半卦”卜出韩立为异数——预言之尽即性命之尽"]]},
+ "xuanyuanjie":{"name":"轩辕杰","grp":"g3","who":"土之本源道祖：伐金童合道的执刀者","tier":2,"spans":[[1308,1345,"幽冥界"],[1354,1361,"中土·瑶池"]],"events":[[1343,"被金童吞噬","韩立“以天道同化杀道祖”算计其吸尽本源反遭天道侵蚀；金童巨口咬合吞入腹中"]]},
+ "chenruyan":{"name":"陈如烟","grp":"g3","who":"水之本源道祖：冯清水伏诛后到场归还南宫婉","tier":3,"spans":[[1332,1334,"北寒→龙渊"],[1359,1391,"中土·瑶池"]],"events":[]},
+ "bailiyan":{"name":"百里炎","grp":"g4","who":"轮回殿第一道主：讲道大会主讲（天庭要犯）","tier":2,"spans":[[327,346,"北寒·烛龙道"],[381,383,"北寒"],[478,490,"冥寒仙府"],[708,751,"灰界"]],"events":[[315,"讲道大会","讲“天有五衰，真仙临三衰”；遭仙宫八金仙围杀，召万丈人面烛龙业火归身遁走"],[740,"断后殒身","洗魂区为众人断后；此前授轮回令指路九幽洗煞池"]]},
+ "liuqi":{"name":"柳岐","grp":"g4","who":"天狐老祖（道祖）：被四根雷鏊之链锁于洗煞池心","tier":2,"spans":[[754,772,"灰界"],[1167,1182,"蛮荒界域"]],"events":[[740,"断三链助遁","洗煞池心断三根雷鏊之链；须弥分界＋罗吒琵琶跨界遁走——柳乐儿远祖"]]},
+ "guhuang":{"name":"骨皇","grp":"g4","who":"白骨道祖：黄泉大泽争轮回盘","tier":3,"spans":[[1298,1320,"幽冥界"]],"events":[[1305,"被送入轮回","轮回殿主一转轮盘将其送入轮回"]]},
+ "liyuanjiu":{"name":"李元究","grp":"g5","who":"九元道祖：当年韩立附身凌云子所传之徒（《大衍诀》）","tier":2,"spans":[[369,371,"北寒（神魂穿梭）"],[1258,1267,"大金源·九元城"],[1359,1391,"中土·瑶池"]],"events":[[1258,"断因果放行","九元观菩提令选拔放行韩立、还掌天瓶——“前世恩情报于今世”"],[1374,"五色瓶克道神印","菩提宴大战参战"]]},
+ "lingyunzi":{"name":"凌云子","grp":"g5","who":"金源仙域修士：韩立神魂穿越附身之躯","tier":3,"spans":[[369,371,"北寒（神魂穿梭）"],[1258,1259,"大金源·九元城（追述）"]],"events":[[369,"被附身传法","掌天瓶共鸣，韩立神魂附身其体、传其徒李元究《大衍诀》——跨仙局长线伏笔"]]},
+ "dongfangbai":{"name":"东方白","grp":"g5","who":"金源仙宫主","tier":3,"spans":[[1011,1035,"小金源仙域"]],"events":[[1029,"被诛","韩立独闯仙宫诛之"]]},
+ "yesusu":{"name":"叶素素","grp":"g5","who":"青狐族：舍血脉救母叶螺（ch1008“骨肉亲情”正主）","tier":3,"spans":[[1005,1016,"小金源仙域"]],"events":[[1008,"骨肉亲情","舍自身血脉救母——章名“骨肉亲情”非韩立家人线"]]},
+ "yeluo":{"name":"叶螺","grp":"g5","who":"青狐族叶素素之母","tier":3,"spans":[[1009,1014,"小金源仙域"]],"events":[]},
+ "qulin":{"name":"曲鳞","grp":"g5","who":"岁月塔“一拳之约”；九元城有分身","tier":2,"spans":[[1080,1085,"太岁仙府·岁月塔"],[1109,1135,"太岁仙府·岁月塔"],[1202,1246,"蛮荒→大金源"]],"events":[[1109,"一拳之约","岁月塔中以“一拳之约”阻路"],[1244,"分身被诛","九元宫混战诛其分身、救金童"]]},
+ "liuzizai":{"name":"柳自在","grp":"g5","who":"岁月塔幻囚（十八层狱之一）","tier":3,"spans":[[1124,1137,"太岁仙府·岁月塔"],[1180,1187,"蛮荒界域"]],"events":[]},
+ "chimeng":{"name":"赤梦","grp":"g5","who":"岁月塔对手，万宝节再战","tier":3,"spans":[[1138,1151,"过去时空→蛮荒"],[1202,1216,"蛮荒→大金源"],[1222,1260,"大金源"]],"events":[[1213,"万宝节再战","鎏金城万宝节再战韩立"]]},
+ "miaofa":{"name":"妙法","grp":"g5","who":"赤梦同伴（岁月塔—万宝节一线）","tier":3,"spans":[[1137,1151,"过去时空→蛮荒"],[1168,1171,"蛮荒界域"]],"events":[]},
+ "guilingzi":{"name":"鬼灵子","grp":"g5","who":"九元观：擒金童为菩提宴礼品","tier":2,"spans":[[1233,1250,"大金源·九元城"],[1266,1268,"大金源·九元城"]],"events":[[1240,"鬼谷恶斗","韩立虎穴潜行入鬼谷濒死施斩尸仙符——恶尸初现之祸端"]]},
+ "jinlingfuren":{"name":"金铃夫人","grp":"g5","who":"石空墨之妻（“寻妻觅儿”线）","tier":3,"spans":[[1122,1124,"太岁仙府·岁月塔"]],"events":[]},
+ "gaosheng":{"name":"高升","grp":"g6","who":"飞仙台接待者（石矶殿）＝补天宗扶风长老早年化名","tier":2,"spans":[[13,13,"北寒·飞仙台"],[1394,1394,"黑土仙域"]],"events":[[13,"飞仙台定场","外传讲解仙界体制与境界体系（真仙→金仙→太乙→大罗→道祖）"],[1394,"接引厉飞羽","真言门接引仙使——与外传首尾呼应（“凡人修仙，风云再起”）"]]},
+ "lifeiyu":{"name":"厉飞羽","grp":"g6","who":"人界故人厉飞雨的转世（ch825-837段“厉飞羽”为韩立变体化名，非此人）","tier":2,"spans":[[1394,1394,"黑土仙域"]],"events":[[1394,"飞升接引","持仙器黑刀“飞羽”飞升黑土仙域，闻“韩天尊”旧名而莫名熟悉——“雪花纷飞，如同飞羽”全书终"]]},
+ "yumenghan":{"name":"余梦寒","grp":"g6","who":"灵寰界故人：结局日月神舟上白衣女尼","tier":3,"spans":[[19,78,"灵寰界"],[1208,1214,"蛮荒→大金源"],[1356,1365,"中土·瑶池"]],"events":[[1213,"因果了结","日月神舟上白衣女尼——灵寰界故人收尾"]]},
+ "moyu":{"name":"墨雨","grp":"g6","who":"太乙灰仙：伪装“无生道人”残魂","tier":2,"spans":[[465,468,"冥寒仙府"],[507,512,"冥寒仙府"],[584,589,"北寒"]],"events":[[465,"伪装无生道人","冥寒仙府金色宫殿内伪装残魂；后复活携道侣陆云（陆雨晴复生）离去"]]},
+ "luyuqing":{"name":"陆雨晴","grp":"g6","who":"红月岛主之女→无生道人转世（复生为陆云）","tier":3,"spans":[[144,152,"北寒·黑风海域"],[351,353,"北寒"],[404,477,"冥寒仙府"],[510,511,"冥寒仙府"]],"events":[[144,"红月岛失踪","岛主之女（千药斋白袍少女）——后于冥寒仙府再现"]]},
+ "qixuan":{"name":"齐煊","grp":"g6","who":"天鬼宗：掳柳乐儿设伏","tier":3,"spans":[[49,53,"灵寰界"]],"events":[[62,"掳柳乐儿","韩立破紫冥塔救出；三大乘围杀之引"]]},
+ "jiaren":{"name":"贾仁","grp":"g6","who":"血刀会主：屠灭柳乐儿满门","tier":3,"spans":[[43,43,"灵寰界"],[48,48,"灵寰界"]],"events":[[43,"被手刃","柳乐儿借精炎火鸟手刃灭门仇人、血洗血刀会"]]},
+ "miluo":{"name":"弥罗","grp":"g7","who":"真言门宗主：被时间道祖（古或今）一掌镇杀；时间功法之源","tier":2,"spans":[[550,551,"北寒（梦回）"],[674,695,"黑土仙域·真言门遗迹"],[1121,1153,"过去时空·真言门"],[1267,1289,"幽冥界（残魂）"]],"events":[[549,"灭门当日","梦回真言门：金色巨掌一掌镇杀宗主——时间道祖亲至"],[1152,"收第七关门弟子","过去时空拜师：授大五行幻世诀总纲、真言转灵法、光阴天璇大阵图；预警奇摩子叛门，拒改天机"],[1284,"阎罗之府师恩","残魂讲“道祖与大道相融”之秘、交付三件时间仙器"]]},
+ "qimozi":{"name":"奇摩子","grp":"g7","who":"真言门叛徒：告密灭门，叛为天庭星官/仙狱主","tier":2,"spans":[[676,692,"黑土仙域·真言门遗迹"],[1012,1013,"小金源仙域"],[1026,1130,"太岁仙府·岁月塔"],[1158,1159,"蛮荒界域"],[1215,1216,"蛮荒→大金源"]],"events":[[692,"灭门告密者","将弥罗密会轮回殿主一事通告天庭——“天庭就以勾结轮回殿和灰界为由，提前对真言门动手了”"],[1128,"岁月塔被败","争岁月神灯被韩立联手击败"]]},
+ "wuyang":{"name":"武阳","grp":"g7","who":"真言门五长老：入轮回殿为副殿主","tier":3,"spans":[[676,692,"黑土仙域·真言门遗迹"],[722,752,"灰界"],[1215,1287,"蛮荒→大金源→幽冥"],[1356,1356,"中土·瑶池"]],"events":[]},
+ "jinyuanzi":{"name":"金元子","grp":"g7","who":"真言门五长老：挑战道祖身死","tier":3,"spans":[[676,692,"黑土仙域·真言门遗迹"]],"events":[]},
+ "heze":{"name":"禾泽","grp":"g7","who":"真言门五长老：陨落魂传《水衍四时诀》九卷","tier":3,"spans":[[676,692,"黑土仙域·真言门遗迹"]],"events":[]},
+ "muyan":{"name":"木延","grp":"g7","who":"真言门五长老：遗迹相关（被杀）；韩立神魂穿梭曾借其目击灭门","tier":3,"spans":[[550,551,"北寒（梦回）"],[669,692,"黑土仙域·真言门遗迹"],[1148,1149,"过去时空·真言门"]],"events":[]},
+ "baize":{"name":"白泽","grp":"g8","who":"蛮荒共主（真灵王）：限小白“两百年之约”","tier":2,"spans":[[1167,1189,"蛮荒界域"],[1261,1269,"天外天"],[1362,1375,"中土·瑶池"]],"events":[[1184,"两百年之约","允小白随行韩立，限两百年之期"]]},
+ "liuqing":{"name":"柳青","grp":"g8","who":"天狐族：血祀大会暗助柳乐儿一滴精血","tier":3,"spans":[[754,754,"灰界"],[1169,1188,"蛮荒界域"],[1269,1269,"天外天"]],"events":[[1184,"暗助精血","柳乐儿继九尾圣祖血脉成九尾的暗手；后赠分身斩尸术亦经柳乐儿"]]},
+ "pingling":{"name":"瓶灵","grp":"g8","who":"掌天瓶器灵：混沌所生第一玄天之物的灵","tier":2,"spans":[[607,608,"黑山仙域（初醒）"],[838,842,"魔域(圣域)"],[992,992,"积鳞空境"],[1146,1156,"太岁仙府·岁月塔"],[1209,1230,"蛮荒→大金源"],[1257,1306,"大金源→幽冥"],[1343,1343,"诸界·大劫"],[1384,1392,"中土→结局"]],"events":[[1146,"肉身穿梭首秀","岁月塔败退之际现身，携韩立肉身穿梭光阴之河回到真言门未灭之时"],[1391,"获自由","掌天瓶爆碎，瓶灵化八岁绿发童子；赠“临时小瓶”成全回溯改命"]]}
+};
+
+
+/* ================= 状态与工具 ================= */
+const AXIS_W=96, MAIN_W=372, LANE_W=190;
+const state={px:9, sel:["ziling","lele","xie"], theme:"auto"};
+const THEME_LABEL={auto:"跟随系统",light:"浅色",dark:"深色"};
+const scrollEl=document.getElementById("vscroll");
+const canvasEl=document.getElementById("canvas");
+const tipEl=document.getElementById("tip");
+/* 令牌读取带缓存：滚动时 renderWindow 会成百次调用 css()，每次都走 getComputedStyle 会强制样式重算 */
+const _tok=new Map();
+const css=v=>{let c=_tok.get(v);if(c===undefined){
+    c=getComputedStyle(document.documentElement).getPropertyValue(v).trim();_tok.set(v,c);}return c;};
+const clearTok=()=>_tok.clear();
+/* 系统偏好：减弱动效 / 本地记忆（file:// 下 localStorage 可能不可用，全部包一层） */
+const RM=window.matchMedia("(prefers-reduced-motion: reduce)");
+const reveal=(el,block)=>{if(el)el.scrollIntoView({behavior:RM.matches?"auto":"smooth",block:block||"start"});};
+const store={
+  get(k,d){try{const v=localStorage.getItem("frxxz:tlxj:"+k);return v==null?d:JSON.parse(v);}catch(e){return d;}},
+  set(k,v){try{localStorage.setItem("frxxz:tlxj:"+k,JSON.stringify(v));}catch(e){}}};
+const Y=c=>(c-CH0)*state.px;
+const hexA=(hex,a)=>{const h=hex.replace("#","");const n=parseInt(h,16);
+  return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;};
+const laneColor=id=>P[id]?css("--"+P[id].color):(PETS[id]?css("--ink-2"):css(GRP_COLOR[CHARS[id].grp]));
+const laneName=id=>P[id]?P[id].name:(PETS[id]?PETS[id].name:(CHARS[id]?CHARS[id].name:id));
+const laneTag=id=>P[id]?P[id].tag:(PETS[id]?"灵宠别传":(CHARS[id]?GROUPS[CHARS[id].grp]:""));
+const isPet=id=>!!PETS[id];
+const isChar=id=>!!CHARS[id];
+/* 事件/地点按泳道预索引：避免每次窗口化渲染都全量 filter + 线性查找 */
+const EV_BY_LANE={};
+EV.forEach(e=>{(EV_BY_LANE[e.w]||(EV_BY_LANE[e.w]=[])).push(e);});
+const CH_LOC={},CH_EV={};
+for(const cid in CHARS){
+  const v=CHARS[cid];
+  CH_LOC[cid]=c=>{const s=v.spans.find(s=>s[0]<=c&&c<=s[1]);return s?s[2]:"";};
+  CH_EV[cid]=(v.events||[]).map(e=>({c:e[0],l:e[1],d:e[2]||"",r:[],__loc:CH_LOC[cid](e[0])}));
+}
+function findEvent(lane,c){
+  if(P[lane]||PETS[lane])return (EV_BY_LANE[lane]||[]).find(e=>e.c===c);
+  if(CH_EV[lane])return CH_EV[lane].find(x=>x.c===c)||null;
+  return null;
+}
+/* 恢复上次的泳道与主题（读不到就用默认，静默降级） */
+(function(){
+  const s=store.get("sel",null);
+  if(Array.isArray(s)&&s.every(id=>P[id]||PETS[id]||CHARS[id]))state.sel=s;
+  const t=store.get("theme","auto");
+  if(["auto","light","dark"].includes(t))state.theme=t;
+  if(state.theme!=="auto")document.documentElement.setAttribute("data-theme",state.theme);
+})();
+function htm(n,cls,parent,txt){const e=document.createElement(n);if(cls)e.className=cls;
+  if(txt!=null)e.textContent=txt;if(parent)parent.appendChild(e);return e;}
+
+/* ================= 泳道管理（懒加载：仅渲染已选） ================= */
+function buildPicker(){
+  const pop=document.getElementById("pop"), btn=document.getElementById("pickBtn");
+  const CORE=["ziling","nan","lele","xie","lun","gan","huyan"];
+  const PETS_IDS=["jin","ti","mog","xb"];
+  const row=(parent,id,extra)=>{
+    const lab=htm("label","",parent);
+    const cb=document.createElement("input");cb.type="checkbox";cb.checked=state.sel.includes(id);
+    lab.appendChild(cb);lab.dataset.id=id;
+    const d=htm("span","dot",lab);d.style.background=isPet(id)?css("--ink-3"):laneColor(id);
+    lab.appendChild(document.createTextNode(laneName(id)));
+    if(extra)htm("span","hint",lab," "+extra);
+    cb.addEventListener("change",()=>{toggleLane(id);renderChips();});
+  };
+  const render=()=>{
+    pop.innerHTML="";
+    const search=htm("input","",pop);
+    search.type="search";search.placeholder="搜索人物…";
+    search.style.cssText="width:100%;box-sizing:border-box;margin:2px 0 6px;padding:4px 8px;border:1px solid var(--ring);border-radius:6px;background:var(--surface-1);color:var(--ink-1);font-size:12px";
+    const sections=[];
+    const sec=(title,open,fill)=>{
+      const d=document.createElement("details");d.open=open;
+      const s=document.createElement("summary");
+      s.style.cssText="cursor:pointer;font-size:11px;color:var(--ink-3);padding:3px 4px";
+      s.textContent=title;d.appendChild(s);pop.appendChild(d);
+      const body=htm("div","",d);fill(body);sections.push(d);
+    };
+    sec("核心列传（人界旧识）",true,b=>CORE.forEach(id=>row(b,id)));
+    sec("灵宠别传",true,b=>PETS_IDS.forEach(id=>row(b,id)));
+    for(const g of ["g1","g2","g3","g4","g5","g6","g7","g8"]){
+      const ids=Object.keys(CHARS).filter(id=>CHARS[id].grp===g)
+        .sort((a,b)=>CHARS[a].tier-CHARS[b].tier||CHARS[a].spans[0][0]-CHARS[b].spans[0][0]);
+      sec(`${GROUPS[g]}（${ids.length}）`,false,b=>ids.forEach(id=>row(b,id,
+        `${CHARS[id].spans[0]?CHARS[id].spans[0][0]:""}–${CHARS[id].spans.length?CHARS[id].spans[CHARS[id].spans.length-1][1]:""}章`)));
+    }
+    const ops=htm("div","ops",pop);
+    [["恢复默认",()=>{state.sel=["wan","bingfeng","ziling"];}],
+     ["清空泳道",()=>{state.sel=[];}]]
+     .forEach(([t,fn])=>{const b=htm("button","btn",ops,t);
+       b.addEventListener("click",()=>{fn();store.set("sel",state.sel);
+         rebuild();render();renderChips();});});
+    search.addEventListener("input",()=>{
+      const q=search.value.trim();
+      sections.forEach(d=>{
+        d.open=!!q||d.open===true&&d.querySelector("summary").textContent.startsWith("核心")||d.querySelector("summary").textContent.startsWith("灵宠");
+        [...d.querySelectorAll("label")].forEach(l=>{
+          l.style.display=!q||l.textContent.includes(q)?"":"none";});
+      });
+      if(q)sections.forEach(d=>d.open=true);
+    });
+  };
+  btn.addEventListener("click",()=>{
+    const on=pop.classList.toggle("on");
+    btn.setAttribute("aria-expanded",on?"true":"false");
+    if(on){render();const s=pop.querySelector("input[type=search]");if(s)s.focus();}
+  });
+  document.addEventListener("click",ev=>{
+    if(!ev.target.closest(".pick-wrap"))pop.classList.remove("on");
+  });
+}
+function renderChips(){
+  const c=document.getElementById("chips"); if(!c)return;
+  c.innerHTML="";
+  state.sel.forEach(id=>{
+    const ch=htm("button","chip",c);
+    const d=htm("span",isPet(id)?"sq":"dot",ch);
+    d.style.background=isPet(id)?css("--ink-3"):laneColor(id);
+    ch.appendChild(document.createTextNode(laneName(id)));
+    ch.title=laneTag(id);
+    const x=htm("span","x",ch,"×");
+    x.title="移除泳道";
+    ch.addEventListener("click",ev=>{
+      if(ev.target===x){toggleLane(id);renderChips();}
+      else{const t=document.getElementById("bio-"+id);
+        if(t){t.open=true;reveal(t,"start");}}
+    });
+  });
+  if(!state.sel.length)htm("span","hint",c,"（未添加泳道 — 点“＋ 添加泳道”选择）");
+}
+function toggleLane(id){
+  const i=state.sel.indexOf(id);
+  if(i>=0)state.sel.splice(i,1);else state.sel.push(id);
+  store.set("sel",state.sel);
+  rebuild();
+}
+
+/* ================= 控件 ================= */
+function buildControls(){
+  const c=document.getElementById("controls");
+  const cs=document.createElement("span");cs.id="chips";
+  c.insertBefore(cs,c.lastElementChild);
+  const jump=htm("select","btn",c);jump.title="跳转到";
+  htm("option","",jump,"跳转…").value="";
+  JUMPS.forEach(j=>{const o=htm("option","",jump,(j.c===0?"外传":"第"+j.c+"章")+" · "+j.l);o.value=j.c;});
+  jump.addEventListener("change",()=>{if(jump.value){
+    const top=Math.max(0,Y(+jump.value)-120);
+    if(RM.matches)scrollEl.scrollTop=top;else scrollEl.scrollTo({top,behavior:"smooth"});
+    jump.selectedIndex=0;}});
+  const zOut=htm("button","btn",c,"密度−");const zIn=htm("button","btn",c,"密度＋");
+  zOut.title="每章更矮（更紧凑）";zIn.title="每章更高（更舒展）";
+  const keep=fn=>{const cy=scrollEl.scrollTop+scrollEl.clientHeight/2;
+    const ch=CH0+cy/state.px;fn();scrollEl.scrollTop=ch*state.px-CH0*state.px-scrollEl.clientHeight/2;};
+  zOut.addEventListener("click",()=>keep(()=>{state.px=Math.max(4,state.px-2);rebuild();}));
+  zIn.addEventListener("click",()=>keep(()=>{state.px=Math.min(20,state.px+2);rebuild();}));
+  const th=htm("button","btn",c,"主题："+THEME_LABEL[state.theme]);
+  th.addEventListener("click",()=>{
+    state.theme=state.theme==="auto"?"light":state.theme==="light"?"dark":"auto";
+    th.textContent="主题："+THEME_LABEL[state.theme];
+    if(state.theme==="auto")document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme",state.theme);
+    store.set("theme",state.theme);
+    clearTok();          /* 主题换色后令牌缓存必须失效，否则仍旧色重绘 */
+    rebuild();
+  });
+}
+
+/* ================= 列骨架 ================= */
+let cols={};
+function rebuild(){
+  cols={};
+  canvasEl.innerHTML="";
+  const totalH=Y(CH1)+160;
+  const w=AXIS_W+MAIN_W+state.sel.length*LANE_W;
+  canvasEl.style.width=Math.max(w,scrollEl.clientWidth)+"px";
+  /* 显式画布高度（绝对定位的 .items 不撑高 flex 列，必须直接给定，否则容器塌缩成表头一行） */
+  canvasEl.style.height=(totalH+44)+"px";
+  cols.bands=htm("div","bands",canvasEl);
+  cols.bands.style.height=totalH+"px";
+  /* 轴列 */
+  const ax=htm("div","col axis",canvasEl);
+  const ah=htm("div","colhead",ax,"章节 ▸");
+  ah.title="纵轴=章节序号；左侧≈参考年龄（网友推算）";
+  cols.axis=htm("div","items",ax);cols.axis.style.height=totalH+"px";
+  /* 主列 */
+  const mn=htm("div","col main",canvasEl);
+  const mh=htm("div","colhead clickable",mn);
+  const md=htm("span","dot",mh);md.style.background=css("--s1");
+  mh.appendChild(document.createTextNode("韩立 · 本纪"));
+  mh.addEventListener("click",()=>{const t=document.getElementById("bio-hanli");
+    if(t){t.open=true;reveal(t,"start");}});
+  cols.main=htm("div","items",mn);cols.main.style.height=totalH+"px";
+  htm("div","spine",cols.main);
+  /* 泳道 */
+  cols.lanes={};
+  state.sel.forEach(id=>{
+    const pet=isPet(id);
+    const ln=htm("div","col lane",canvasEl);
+    const lh=htm("div","colhead clickable",ln);
+    const lc=pet?css("--ink-3"):laneColor(id);
+    lh.style.boxShadow="inset 0 3px 0 "+lc;
+    const d=htm("span",pet?"sq":"dot",lh);
+    d.style.background=lc;
+    lh.appendChild(document.createTextNode(laneName(id)));
+    lh.title=laneTag(id)+(CHARS[id]?"（扩展人物）":"")+"（点名看索引/列传，×移除）";
+    lh.addEventListener("click",ev=>{
+      if(ev.target.classList.contains("rm"))return;
+      const t=document.getElementById("bio-"+id);
+      if(t){t.open=true;reveal(t,"start");}
+      else{const r=document.getElementById("charrow-"+id);
+        if(r){reveal(r,"center");
+          r.style.transition="background .4s";r.style.background="var(--home-wash)";
+          setTimeout(()=>r.style.background="",1500);}}
+    });
+    const rm=htm("button","rm",lh,"×");rm.title="移除泳道";
+    rm.addEventListener("click",()=>{toggleLane(id);renderChips();});
+    const it=htm("div","items",ln);it.style.height=totalH+"px";
+    htm("div","lspine",it);
+    cols.lanes[id]=it;
+  });
+  renderWindow(true);
+}
+
+/* ================= 布局预算（卡片堆叠） ================= */
+function layoutCards(list,opt){
+  const out=[];let lastBottom=-1e9;
+  list.forEach(e=>{
+    const y=Y(e.c);
+    if(e.__ph||e.__idc){
+      const h=8+Math.max(1,Math.ceil((e.l.length+4)*10.5/136))*15+8;
+      const cy=Math.max(y,lastBottom+8);
+      out.push({e,y,cy,h});lastBottom=cy+h;return;
+    }
+    const tl=opt.wide?288:132, fs=opt.wide?12.5:11.5, fw=opt.wide?11.5:10.5;
+    const tLines=Math.max(1,Math.ceil(e.l.length*fs/tl));
+    const dLines=e.d?Math.ceil(e.d.length*fw/tl):0;
+    const lhT=opt.wide?17.8:16.1, lhD=opt.wide?17.8:15.8;
+    const h=10+tLines*lhT+(opt.wide?16:15)+dLines*lhD+10;
+    const cy=Math.max(y,lastBottom+8);
+    out.push({e,y,cy,h});
+    lastBottom=cy+h;
+  });
+  return out;
+}
+
+/* ================= 窗口化渲染（分段加载） ================= */
+let rafPending=false,lastSig="";
+function scheduleRender(){if(rafPending)return;rafPending=true;
+  requestAnimationFrame(()=>{rafPending=false;renderWindow(false);});}
+function renderWindow(full){
+  const st=scrollEl.scrollTop,vh=scrollEl.clientHeight;
+  const pad=900,y0=st-pad,y1=st+vh+pad;
+  const c0=Math.max(CH0,CH0+y0/state.px),c1=Math.min(CH1,CH0+y1/state.px);
+  const sig=Math.floor(c0/10)+"-"+Math.floor(c1/10)+"|"+state.px+"|"+state.sel.join(",");
+  if(!full&&sig===lastSig)return;
+  lastSig=sig;
+  /* 重渲染前记住聚焦的标记，渲染后恢复焦点（防止滚动重渲染打断悬停/键盘浏览） */
+  const ae=document.activeElement,fk=ae&&ae.classList&&ae.classList.contains("mk")?ae.dataset.key:null;
+  const vis=o=>o.y<y1&&o.y+o.h+80>y0;
+  /* 背景卷带与百章线 */
+  cols.bands.innerHTML="";
+  VOLS.forEach((v,i)=>{const y=Y(v.f),h=Y(v.t+1)-y;
+    if(y>y1||y+h<y0)return;
+    const b=htm("div","vband",cols.bands);
+    b.style.cssText=`top:${y}px;height:${h}px;background:${i%2?css("--band-a"):css("--band-b")}`;
+  });
+  for(let c=Math.ceil(c0/100)*100;c<=c1;c+=100){
+    const l=htm("div","vline",cols.bands);l.style.top=Y(c)+"px";
+  }
+  /* 轴列 */
+  cols.axis.innerHTML="";
+  for(let c=Math.ceil(c0/25)*25;c<=c1;c+=25){
+    const y=Y(c),maj=c%100===0;
+    const t=htm("div","tick"+(maj?" major":""),cols.axis);t.style.top=y+"px";
+    const n=htm("div","tickn"+(maj?" major":""),cols.axis,String(c));n.style.top=y+"px";
+  }
+  AGES.forEach(a=>{const y=Y(a.c);if(y<y0||y>y1)return;
+    const el=htm("div","age",cols.axis,a.l);el.style.top=y+"px";});
+  VOLS.forEach(v=>{const y=Y(v.f);if(y<y0||y>y1)return;
+    const el=htm("div","vollab",cols.axis,v.l);el.style.top=(y+6)+"px";});
+  /* 主列 */
+  cols.main.innerHTML="";
+  htm("div","spine",cols.main);
+  LOC.forEach(s=>{const y=Y(s.f),h=Y(s.t+1)-y;if(y>y1||y+h<y0)return;
+    const seg=htm("div","locseg",cols.main);
+    seg.style.cssText=`top:${y}px;height:${h}px;background:${s.p?css("--plane-wash"):css("--home-wash")};`+
+      (s.p?`border-left:2px solid ${css("--plane-edge")};`:"");
+    /* 竖排条带高度有限，文字必被截断——补 title 悬停可读全文 */
+    seg.title=`所在地：${s.l}（第${s.f}–${s.t}章）${s.p?" · 独立位面":""}`;
+    if(h>=50){const t=htm("span","lt",seg,
+      s.l.length>Math.floor(h/12)?s.l.slice(0,Math.floor(h/12))+"…":s.l);
+      if(s.p)t.style.fontWeight="600";}
+  });
+  REALMS.forEach((r,i)=>{const y=Y(r.c),h=(i<REALMS.length-1?Y(REALMS[i+1].c):Y(CH1))-y;
+    if(y>y1||y+h<y0)return;
+    const seg=htm("div","realmseg",cols.main);
+    seg.style.cssText=`top:${y}px;height:${h}px;background:${hexA(css("--s1"),.10)};`+
+      `box-shadow:inset 1px 0 0 ${hexA(css("--s1"),.25)}`;
+    if(h>=44){const n=Math.floor((h-6)/12);
+      htm("span","rt",seg,r.l.length>n?r.l.slice(0,n)+"…":r.l);}
+    seg.title=`修为：${r.l}（自第${r.c}章起）`;
+  });
+  const hl=layoutCards(EV_BY_LANE.hanli||[],{wide:true});
+  hl.forEach(o=>{if(!vis(o))return;addMainCard(o);});
+  /* 泳道 */
+  state.sel.forEach(id=>{
+    const box=cols.lanes[id];box.innerHTML="";
+    htm("div","lspine",box);
+    const color=laneColor(id);
+    const srcPh=(P[id]||PETS[id])?PHASES.filter(p=>p.p===id)
+      :CHARS[id].spans.map(s=>({f:s[0],t:s[1],s:"wash",
+          l:`出现 · ${s[2]}（${s[0]===s[1]?s[0]:s[0]+"–"+s[1]}章）`,__loc:s[2],__char:1}));
+    srcPh.forEach(p=>{
+      const y=Y(p.f),h=Y(p.t+1)-y;if(y>y1||y+h<y0)return;
+      const b=htm("div","ph"+(p.s==="unknown"?" unknown":""),box);
+      b.style.cssText=`top:${y}px;height:${h}px;`+
+        `background:${hexA(color,p.s==="bar"?.55:.20)};color:${color}`;
+      if(p.s==="unknown")b.style.background=
+        `repeating-linear-gradient(135deg,${hexA(color,.15)} 0 5px,${hexA(color,.05)} 5px 10px)`;
+      b.title=p.l;
+      b.addEventListener("pointermove",ev=>showTip(
+        {c:p.f,l:"阶段带",d:p.l+`（第${p.f}–${p.t}章${p.s==="unknown"?"，时点不详":""}）`,r:[],__loc:p.__loc},id,ev.clientX,ev.clientY));
+      b.addEventListener("pointerleave",hideTip);
+    });
+    const evs=(P[id]||PETS[id])?(EV_BY_LANE[id]||[]):CH_EV[id];
+    const flow=[...(CHARS[id]&&CHARS[id].spans.length?[{c:CHARS[id].spans[0][0],l:CHARS[id].who,__idc:1}]:[]),
+                ...srcPh.map(p=>({c:p.f,l:p.l,__ph:p})),
+                ...evs].sort((a,b)=>a.c-b.c);
+    layoutCards(flow,{wide:false}).forEach(o=>{
+      if(!vis(o))return;
+      if(o.e.__idc)addIdCard(o,id,box,color);
+      else if(o.e.__ph)addPhaseChip(o,id,box,color);
+      else addLaneCard(o,id,box,color);});
+  });
+  if(fk){
+    const nm=document.querySelector(`.mk[data-key="${fk}"]`);
+    if(nm)nm.focus({preventScroll:true});
+  }
+  /* 悬停中的标记若已滚出窗口，收起提示框 */
+  if(tipEl.style.display==="block"&&tipCur){
+    const tk=tipCur.__key;
+    if(!tk||!document.querySelector(`.mk[data-key="${tk}"]`))hideTip();
+  }
+  if(full)buildLegend();
+}
+function addMainCard(o){
+  const e=o.e,box=cols.main;
+  if(o.cy>o.y+6){const ld=htm("div","leader",box);
+    ld.style.cssText=`top:${o.y+8}px;height:${Math.max(0,o.cy-o.y-8)}px`;}
+  const card=htm("div","ev"+(e.M?" maj":""),box);
+  card.dataset.key="hanli:"+e.c;
+  card.classList.add("clickable");
+  card.addEventListener("click",()=>openModal(e,"hanli"));
+  card.style.top=o.cy+"px";
+  htm("div","t",card,e.l);
+  const meta=htm("div","m",card,(e.c===0?"外传":"第"+e.c+"章")+
+    (e.r&&e.r.length?" · 关联："+e.r.map(laneName).join("、"):"")+
+    (e.M?" · ★大事":""));
+  if(e.d)htm("div","d",card,e.d);
+  addMarker(box,"hanli",e,36,o.y,"cir");
+}
+function addIdCard(o,id,box,color){
+  const chip=htm("div","phchip idc",box);
+  chip.style.top=o.cy+"px";
+  chip.style.borderLeft=`3px dotted ${color}`;
+  htm("span","",chip,o.e.l);
+  chip.title="身份："+CHARS[id].who;
+}
+function addPhaseChip(o,id,box,color){
+  const p=o.e.__ph;
+  const chip=htm("div","phchip",box);
+  chip.style.top=o.cy+"px";
+  chip.style.borderLeft=`3px solid ${color}`;
+  chip.style.background=hexA(color,.08);
+  htm("span","",chip,(p.__char?"▸ ":"阶段 · ")+p.l);
+  chip.title=`${p.__char?"出现段":"阶段带"}：${p.l}${p.__char?"":"（第"+p.f+"–"+p.t+"章"+(p.s==="unknown"?"，时点不详":"")+"）"}`;
+}
+function addLaneCard(o,id,box,color){
+  const e=o.e;
+  if(o.cy>o.y+6){const ld=htm("div","leader",box);
+    ld.style.cssText=`top:${o.y+8}px;height:${Math.max(0,o.cy-o.y-8)}px;left:21px`;}
+  const card=htm("div","lev",box);
+  card.dataset.key=id+":"+e.c;
+  card.classList.add("clickable");
+  card.addEventListener("click",()=>openModal(e,id));
+  card.style.top=o.cy+"px";
+  card.style.borderLeft=`3px solid ${color}`;
+  htm("div","t",card,e.l);
+  htm("div","m",card,`第${e.c}章${e.m?" · ✦交汇":""}${e.__loc?" · "+e.__loc:""}`);
+  if(e.d)htm("div","d",card,e.d);
+  if(e.m){const cn=htm("div","conn",box);
+    cn.style.cssText=`top:${o.y}px;width:14px;background:${color}`;}
+  const shape=isPet(id)?PETS[id].shape:(e.m?"di":"cir");
+  addMarker(box,id,e,22,o.y,shape,color);
+}
+function addMarker(box,lane,e,x,y,shape,color){
+  const m=htm("button","mk "+(shape==="di"?"di":shape==="tri"?"tri":shape==="sq"?"sq":"cir"),box);
+  m.dataset.lane=lane;m.dataset.c=e.c;m.dataset.key=lane+":"+e.c;
+  if(!color)color=lane==="hanli"?css("--s1"):laneColor(lane);
+  m.style.cssText=`left:${x}px;top:${y}px;background:${color}`;
+  m.setAttribute("aria-label",`第${e.c}章，${laneName(lane)}：${e.l}`);
+  m.addEventListener("pointermove",ev=>{showTip(e,lane,ev.clientX,ev.clientY);highlight(e,lane);});
+  m.addEventListener("pointerleave",()=>{hideTip();clearHl();});
+  m.addEventListener("focus",()=>{const b=m.getBoundingClientRect();
+    showTip(e,lane,b.left+b.width/2,b.top-6);highlight(e,lane);});
+  m.addEventListener("blur",()=>{hideTip();clearHl();});
+  m.addEventListener("click",ev=>{ev.stopPropagation();openModal(e,lane);});
+}
+
+/* ================= 高亮联动（同章交汇） ================= */
+function highlight(e,lane){
+  clearHl();
+  let keys=[];
+  if(lane==="hanli"){
+    (e.r||[]).forEach(id=>{if(state.sel.includes(id))keys.push(id+":"+e.c);});
+  }else if(e.m||((e.r||[]).includes("hanli"))){
+    keys.push("hanli:"+e.c);
+  }
+  keys.forEach(k=>{
+    document.querySelectorAll(`[data-key="${k}"]`).forEach(n=>n.classList.add("hl"));
+  });
+}
+function clearHl(){
+  document.querySelectorAll(".hl").forEach(n=>n.classList.remove("hl"));
+}
+
+/* ================= 提示框（缓存；背景已不透明） ================= */
+let tipCur=null;
+function showTip(e,lane,px,py){
+  if(tipCur!==e){
+    e.__key=lane+":"+e.c;
+    tipCur=e;tipEl.innerHTML="";
+    htm("div","t-ch",tipEl,(e.c===0?"外传":"第 "+e.c+" 章"));
+    htm("div","t-ti",tipEl,e.l);
+    const ln=htm("div","t-ln",tipEl);
+    if(isPet(lane)){htm("span","sq",ln);}
+    else{const d=htm("span","dot",ln);d.style.background=laneColor(lane);}
+    htm("span","",ln,laneName(lane)+(isPet(lane)?"（灵宠）":"")+(isChar(lane)?"（"+GROUPS[CHARS[lane].grp]+"）":"")+(e.m?" · 与韩立交汇":""));
+    if(isChar(lane))htm("div","t-de",tipEl,CHARS[lane].who);
+    if(e.d)htm("div","t-de",tipEl,e.d);
+    if(e.__loc)htm("div","t-rf",tipEl,"地点："+e.__loc);
+    if(e.r&&e.r.length)
+      htm("div","t-rf",tipEl,"关联："+e.r.map(laneName).join("、"));
+  }
+  tipEl.style.display="block";
+  const w=tipEl.offsetWidth,h=tipEl.offsetHeight;
+  let x=px+16,y=py-h-10;
+  if(x+w>innerWidth-8)x=px-w-16;
+  if(y<8)y=py+18;
+  tipEl.style.left=x+"px";tipEl.style.top=y+"px";
+}
+function hideTip(){tipEl.style.display="none";tipCur=null;}
+/* ================= 原文精炼弹窗 ================= */
+const modalEl=document.getElementById("modal"),
+      mCh=document.getElementById("mCh"),mTitle=document.getElementById("mTitle"),
+      mWho=document.getElementById("mWho"),mBody=document.getElementById("mBody"),
+      mFoot=document.getElementById("mFoot"),mClose=document.getElementById("mClose");
+let lastFocus=null;
+function openModal(e,lane){
+  hideTip();
+  lastFocus=document.activeElement;
+  mCh.textContent=(e.c===0?"外传":"第 "+e.c+" 章");
+  mTitle.textContent=e.l;
+  mWho.textContent=laneName(lane)+(isPet(lane)?"（灵宠）":"")+
+    (isChar(lane)?"（"+GROUPS[CHARS[lane].grp]+"）":"")+(e.m?" · 与韩立交汇":"");
+  mBody.innerHTML="";
+  const qs=QUOTES[String(e.c)];
+  if(qs&&qs.length){
+    htm("div","mh",mBody,"原文精炼");
+    qs.forEach(q=>htm("div","mq",mBody,q));
+  }
+  if(e.d){
+    htm("div","mh",mBody,qs&&qs.length?"综述":"事件综述");
+    htm("div","md",mBody,e.d);
+  }
+  if(e.r&&e.r.length)
+    htm("div","md",mBody,"关联："+e.r.map(laneName).join("、")).style.color=css("--ink-3");
+  mFoot.innerHTML="";
+  const b1=htm("button","btn",mFoot,"查看列传/索引");
+  b1.addEventListener("click",()=>{closeModal();
+    const t=document.getElementById("bio-"+lane);
+    if(t){t.open=true;reveal(t,"start");return;}
+    const ix=document.getElementById("char-index");if(ix)ix.open=true;
+    const r=document.getElementById("charrow-"+lane);
+    if(r)reveal(r,"center");
+  });
+  const b2=htm("button","btn",mFoot,"关闭");
+  b2.addEventListener("click",closeModal);
+  modalEl.classList.add("on");
+  document.documentElement.style.overflow="hidden";
+  mClose.focus();
+}
+function closeModal(){
+  modalEl.classList.remove("on");
+  document.documentElement.style.overflow="";
+  if(lastFocus&&lastFocus.focus)lastFocus.focus();
+}
+mClose.addEventListener("click",closeModal);
+modalEl.addEventListener("click",ev=>{if(ev.target===modalEl)closeModal();});
+/* 焦点陷阱：Tab 在弹窗内循环，不逃到背后的长卷上 */
+modalEl.addEventListener("keydown",ev=>{
+  if(ev.key!=="Tab")return;
+  const f=[...modalEl.querySelectorAll(
+    "button,[href],input,select,textarea,[tabindex]:not([tabindex='-1'])")]
+    .filter(n=>!n.disabled&&n.offsetParent!==null);
+  if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}
+  else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}
+});
+document.addEventListener("keydown",ev=>{
+  if(ev.key!=="Escape")return;
+  const pop=document.getElementById("pop");
+  if(pop&&pop.classList.contains("on")){
+    pop.classList.remove("on");
+    const pb=document.getElementById("pickBtn");
+    pb.setAttribute("aria-expanded","false");pb.focus();
+  }
+  if(modalEl.classList.contains("on")){closeModal();hideTip();}
+});
+
+/* ================= 图例 ================= */
+function buildLegend(){
+  const lg=document.getElementById("legend");lg.innerHTML="";
+  htm("span","sec",lg,"泳道颜色＝人物：");
+  ["hanli","ziling","nan","lele","xie","lun","gan","huyan"].forEach(k=>{
+    const it=htm("span","it",lg);const d=htm("span","dot",it);
+    d.style.background=css("--"+P[k].color);htm("span","",it,P[k].name);});
+  htm("span","sec",lg,"标记：");
+  const i1=htm("span","it",lg);const d1=htm("span","mk2 cir",i1);
+  d1.style.background=css("--s1");htm("span","",i1,"事件");
+  const i2=htm("span","it",lg);const d2=htm("span","mk2 di",i2);
+  d2.style.background=css("--s2");htm("span","",i2,"与韩立交汇（悬停联动高亮）");
+  const i3=htm("span","it",lg);const d3=htm("span","mk2 sq",i3);
+  d3.style.background=css("--ink-2");htm("span","",i3,"灵宠●■◆▲按形区分");
+  htm("span","sec",lg,"主列：");
+  htm("span","",lg,"左缘竖带=所在地（描边=独立位面/下界）· 底色段=修为 · 虚线竖带=时点不详");
+  htm("span","sec",lg,"扩展人物：");
+  htm("span","",lg,"颜色=阵营（同“＋添加泳道”分组），竖带=出现章节段，悬停看身份与地点；详见页底“人物索引”");
+}
+
+/* ================= 纪传体区块 ================= */
+function eventTable(id){
+  const evs=(EV_BY_LANE[id]||[]).slice().sort((a,b)=>a.c-b.c);
+  if(!evs.length)return "";
+  let t='<table><thead><tr><th style="width:86px">章节</th><th>事件</th></tr></thead><tbody>';
+  evs.forEach(e=>{
+    t+=`<tr class="evrow" data-lane="${id}" data-c="${e.c}"><td class="ch">${e.c===0?"外传":e.c}${e.m?" ✦":""}</td><td><mark>${e.l}</mark> — ${e.d}</td></tr>`;
+  });
+  return t+"</tbody></table>";
+}
+function fillCard(det,def,color){
+  det.style.boxShadow="inset 4px 0 0 "+color+",var(--sh-1)";
+  const s=document.createElement("summary");
+  const dot=document.createElement("span");dot.className="nm-dot";
+  dot.style.background=color;dot.style.borderRadius=def.sq?"2px":"50%";
+  s.appendChild(dot);s.appendChild(document.createTextNode(def.name));
+  const car=document.createElement("span");car.className="caret";car.textContent="▶";
+  s.appendChild(car);det.appendChild(s);
+  const b=document.createElement("div");b.className="body";
+  const w=document.createElement("p");w.className="who";w.textContent=BIO[def.id].who;b.appendChild(w);
+  BIO[def.id].rows.forEach(r=>{
+    const h4=document.createElement("h4");h4.textContent=r[0];b.appendChild(h4);
+    const p=document.createElement("p");p.textContent=r[1];b.appendChild(p);
+  });
+  const h5=document.createElement("h4");h5.textContent="事件表（✦=与韩立交汇）";b.appendChild(h5);
+  const hd=document.createElement("div");hd.innerHTML=eventTable(def.id);
+  while(hd.firstChild)b.appendChild(hd.firstChild);
+  det.appendChild(b);
+}
+function buildBio(){
+  const hb=document.getElementById("hanli-bio");
+  const det=document.createElement("details");
+  det.className="card-b wide";det.open=true;det.id="bio-hanli";
+  fillCard(det,{id:"hanli",name:"韩立本纪"},css("--s1"));
+  hb.appendChild(det);
+  const cards=document.getElementById("cards");
+  for(const k of ["ziling","nan","lele","xie","lun","gan","huyan"]){
+    const d=document.createElement("details");d.className="card-b";d.id="bio-"+k;
+    fillCard(d,{id:k,name:P[k].name},css("--"+P[k].color));
+    cards.appendChild(d);
+  }
+  const grp=document.createElement("div");grp.className="card-b wide";grp.style.marginTop="14px";
+  const gh=document.createElement("div");gh.className="body";
+  const t=document.createElement("h4");t.textContent="灵宠别传";gh.appendChild(t);
+  grp.appendChild(gh);cards.appendChild(grp);
+  for(const k in PETS){
+    const d=document.createElement("details");d.id="bio-"+k;
+    fillCard(d,{id:k,name:PETS[k].name,sq:true},css("--ink-3"));
+    grp.appendChild(d);
+  }
+  /* 人物索引（扩展人物库；含出现章节与地点 —— 兼作表格视图与未来地图联动的数据源） */
+  const idx=document.createElement("details");idx.className="card-b wide";
+  idx.open=false;idx.id="char-index";idx.style.marginTop="14px";
+  const s=document.createElement("summary");
+  const dot=document.createElement("span");dot.className="nm-dot";
+  dot.style.background="var(--ink-3)";s.appendChild(dot);
+  s.appendChild(document.createTextNode(`人物索引 · 扩展人物库（${Object.keys(CHARS).length}人，含出现章节与地点）`));
+  const c=document.createElement("span");c.className="caret";c.textContent="▶";s.appendChild(c);
+  idx.appendChild(s);
+  const b=document.createElement("div");b.className="body";
+  const p=document.createElement("p");p.className="who";
+  p.textContent="依 research/X1–X7 逐段精读与逐章词频挖掘生成（“金童/小白/如霜/妙法/高升”等兼常用词者已按章节钳制）；“地点”为该段出现章节对应的场景地（按韩立行程段映射）。";
+  b.appendChild(p);
+  const tb=document.createElement("table");
+  tb.innerHTML="<thead><tr><th>人物</th><th>阵营</th><th>身份</th><th>出现章节</th><th>主要地点</th></tr></thead>";
+  const tbBody=document.createElement("tbody");
+  Object.keys(CHARS).sort((a,c2)=>CHARS[a].spans[0]?CHARS[a].spans[0][0]-CHARS[c2].spans[0][0]:0)
+   .forEach(id=>{
+      const v=CHARS[id];
+      if(!v.spans.length)return;
+      const tr=document.createElement("tr");tr.id="charrow-"+id;
+      const locs=[...new Set(v.spans.map(s2=>s2[2]))].join("、");
+      const td1=document.createElement("td");td1.className="ch";
+      const dot2=document.createElement("span");dot2.className="dot";dot2.style.cssText="display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle";
+      dot2.style.background="var("+GRP_COLOR[v.grp]+")";
+      td1.appendChild(dot2);td1.appendChild(document.createTextNode(v.name));
+      const td2=document.createElement("td");td2.textContent=GROUPS[v.grp];
+      const td3=document.createElement("td");td3.textContent=v.who;
+      const td4=document.createElement("td");td4.className="ch";
+      td4.textContent=v.spans.map(s2=>s2[0]===s2[1]?s2[0]:s2[0]+"–"+s2[1]).join("、");
+      const td5=document.createElement("td");td5.textContent=locs;
+      tr.append(td1,td2,td3,td4,td5);tbBody.appendChild(tr);
+   });
+  tb.appendChild(tbBody);b.appendChild(tb);idx.appendChild(b);cards.appendChild(idx);
+}
+
+/* ================= 启动 ================= */
+buildPicker();
+/* 纪传事件表行 → 弹窗（委托） */
+document.getElementById("bio").addEventListener("click",ev=>{
+  const tr=ev.target.closest("tr.evrow");
+  if(!tr)return;
+  const e=findEvent(tr.dataset.lane,+tr.dataset.c);
+  if(e)openModal(e,tr.dataset.lane);
+});
+
+buildControls();
+buildBio();
+rebuild();
+renderChips();
+scrollEl.addEventListener("scroll",scheduleRender,{passive:true});
+window.addEventListener("resize",scheduleRender);
+</script>
+</body>
+</html>

@@ -9,7 +9,7 @@ research/
 # WorkBuddy 工作区记忆（本地数据，不入库）
 .workbuddy/
 参考-*.md
-0[1-5]-*.md
+0[1-9]-*.md
 index_chapters.py
 analyze_locations.py
 CLAUDE.md
