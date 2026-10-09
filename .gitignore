@@ -8,6 +8,10 @@ research/
 !灵界地图总览.webp
 # WorkBuddy 工作区记忆（本地数据，不入库）
 .workbuddy/
+# 部署产物：site/ 是各页面的英文文件名副本（含 index 导航页），由部署流程生成，不入库
+site/
+# WorkBuddy「应用发布」的本地记录（appId ↔ site/ 目录映射），属会话产物
+.wbapp_*.genie
 参考-*.md
 0[1-9]-*.md
 index_chapters.py
