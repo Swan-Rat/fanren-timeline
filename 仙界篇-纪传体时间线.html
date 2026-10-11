@@ -2136,13 +2136,17 @@ const XP=(()=>{
     $("xpCur").textContent=fmt(au.currentTime);$("xpDur").textContent=fmt(d);
     const now=Date.now();if(now-lastSave>3000){lastSave=now;savePos();}
   }
-  /* 线上(http/https)走 GitHub Release 资产；本地 file:// 走 audiobook/ 相对路径 */
-  const XP_BASE=(location.protocol==="file:")?"":
-    "https://github.com/Swan-Rat/fanren-timeline/releases/download/pingshu-audio-v1/";
+  /* 音频源：file:// 走本地 audiobook/；http(s) 同域 audiobook/ 优先（自有服务器），GitHub Release 兜底 */
+  const XP_REL="https://github.com/Swan-Rat/fanren-timeline/releases/download/pingshu-audio-v1/";
   function onlineName(i){
     const b=PSBOOK.blocks[i];let k=0;
     for(let j=0;j<i;j++)if(PSBOOK.blocks[j].v===b.v)k++;
     return "v"+String(b.v+1).padStart(2,"0")+"-"+String(k+1).padStart(2,"0")+".mp3";
+  }
+  let cands=[],candIx=0;
+  function srcList(i){
+    if(location.protocol==="file:")return [encodeURI(PSAUDIO[i])];
+    return [encodeURI(PSAUDIO[i]),XP_REL+onlineName(i)];
   }
   function load(i,autoplay){
     if(i<0||i>=PSBOOK.blocks.length)return;
@@ -2153,13 +2157,16 @@ const XP=(()=>{
     $("xpTitle").textContent=t;$("xpSub").textContent="有声评书 · "+sub;
     $("xpMiniT").firstChild.textContent=t;$("xpMiniS").textContent=sub;
     $("xpPrev").disabled=i<=0;$("xpNext").disabled=i>=PSBOOK.blocks.length-1;
-    au.src=XP_BASE?XP_BASE+onlineName(i):encodeURI(src);
+    cands=srcList(i);candIx=0;au.src=cands[0];
     const rs=store.get("paud",null);
     au.onloadedmetadata=()=>{
       if(rs&&rs.bi===i&&rs.t>5&&rs.t<au.duration-10){au.currentTime=rs.t;toast("已从上次 "+fmt(rs.t)+" 续播");}
       seekPaint();if(autoplay)au.play().catch(()=>toast("浏览器拦截了自动播放，请再点一次 ▶"));
     };
-    au.onerror=()=>{toast("音频加载失败："+src);paint();};
+    au.onerror=()=>{
+      if(candIx+1<cands.length){candIx++;au.src=cands[candIx];au.load();
+        if(!au.paused)au.play().catch(()=>{});return;}
+      toast("音频加载失败（同域与 Release 源均不可达）："+src);paint();};
     if(autoplay)au.load();
     paint();
   }
