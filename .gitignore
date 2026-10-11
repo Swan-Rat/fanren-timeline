@@ -10,6 +10,8 @@ research/
 .workbuddy/
 # 部署产物：site/ 是各页面的英文文件名副本（含 index 导航页），由部署流程生成，不入库
 site/
+# EPUB 成书为 md2epub.py 的生成物（源 md 在 research/ 亦不入库），仅本地使用
+ebook/
 # WorkBuddy「应用发布」的本地记录（appId ↔ site/ 目录映射），属会话产物
 .wbapp_*.genie
 参考-*.md
