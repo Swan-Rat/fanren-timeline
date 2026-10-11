@@ -179,6 +179,11 @@ def parse_volume(path):
             i += 1
             continue
         # 正文段（跨行无空行相接者并入）
+        # ⚠️ 兜底：本回若通篇纯正文（无 ### 小节、无 > 引用块），cur_sec 仍为 None，
+        # flush_para() 的 `cur_sec is not None` 条件会把整回正文静默丢弃
+        # （卷1 第8回「灭天鬼宗」11 段即因此丢失）。此处补建空标题小节。
+        if cur_sec is None:
+            new_sec('')
         if para is None:
             para = L.strip()
         else:
@@ -228,6 +233,7 @@ def self_check(vols, data):
     nst = sum(1 for b in data['blocks'] if b.get('st'))
     print('[pingshu] 卷=%d 块=%d 小节(H3)=%d 脉络块=%d 块首统计=%d'
           % (len(vols), nb, nsec, nmo, nst))
+    ok = True
     # 章号覆盖自检
     covered = {}
     for i, b in enumerate(data['blocks']):
@@ -236,7 +242,21 @@ def self_check(vols, data):
                 covered[c] = i
     miss = [c for c in range(0, 1395) if c not in covered]
     print('[pingshu] 章号覆盖 0–1394：缺口 %s' % (miss if miss else '无'))
-    return not miss
+    if miss:
+        ok = False
+    # 空块自检：正文被静默丢弃时章号覆盖仍完整，必须单独查
+    # （卷1 第8回曾因纯正文无 H3/引用块导致 sec=[] 而未被发现）
+    empty = []
+    for b in data['blocks']:
+        chars = sum(len(it[-1]) for s in b['sec'] for it in s['i']
+                    if isinstance(it[-1], str))
+        if not b['sec'] or chars < 50:
+            empty.append('卷%d第%d回《%s》(%d字)'
+                         % (b['v'] + 1, b['h'], b['t'], chars))
+    print('[pingshu] 空块/内容过少：%s' % (empty if empty else '无'))
+    if empty:
+        ok = False
+    return ok
 
 
 def inject(html_path, js):
