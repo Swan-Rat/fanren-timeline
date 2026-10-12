@@ -2165,7 +2165,8 @@ const XP=(()=>{
   let cands=[],candIx=0;
   function srcList(i){
     if(location.protocol==="file:")return [encodeURI(PSAUDIO[i])];
-    return [encodeURI(PSAUDIO[i]),XP_REL+onlineName(i)];
+    /* 同域中文目录(本地http) → 同域ASCII平铺(服务器) → Release 兜底 */
+    return [encodeURI(PSAUDIO[i]),"audiobook/"+onlineName(i),XP_REL+onlineName(i)];
   }
   function load(i,autoplay){
     if(i<0||i>=PSBOOK.blocks.length)return;
