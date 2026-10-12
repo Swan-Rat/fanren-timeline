@@ -436,14 +436,15 @@ footer{max-width:1280px;margin:40px auto 0;padding:0 20px 48px;color:var(--ink-3
 .xpm-t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
 .xpm-t small{display:block;color:#a89e90;font-size:11px}
 .xpmini button{background:none;border:0;color:#f3efe9;font-size:18px;cursor:pointer;padding:6px}
-/* 滚动字幕（喜马拉雅歌词页式） */
-.xp.lyrmode .xp-disc,.xp.lyrmode .xp-mid .xp-ctrl{display:none}
-.xp-lyr{display:none;width:min(92vw,560px);flex:1;min-height:0;overflow-y:auto;padding:26px 8px;
-  -webkit-mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent);
-  mask-image:linear-gradient(transparent,#000 12%,#000 88%,transparent);scrollbar-width:none}
+/* 滚动字幕（原地替换唱片图；播放条全部保留） */
+.xp.lyrmode .xp-disc{display:none}
+.xp.lyrmode .xp-stage{justify-content:flex-start;gap:10px;overflow:hidden}
+.xp-lyr{display:none;width:min(94vw,560px);flex:1 1 0;min-height:0;overflow-y:auto;
+  padding:18px 10px 30vh;overscroll-behavior:contain;
+  -webkit-mask-image:linear-gradient(transparent,#000 8%,#000 88%,transparent);
+  mask-image:linear-gradient(transparent,#000 8%,#000 88%,transparent);scrollbar-width:none}
 .xp-lyr::-webkit-scrollbar{display:none}
 .xp.lyrmode .xp-lyr{display:block}
-.xp.lyrmode .xp-stage{gap:8px}
 .xp-lyr .ln{color:rgba(243,239,233,.42);font-size:14px;line-height:1.75;margin:9px 0;cursor:pointer;
   transition:color .25s,font-size .25s;text-align:justify}
 .xp-lyr .ln:hover{color:rgba(243,239,233,.75)}
@@ -532,6 +533,7 @@ footer{max-width:1280px;margin:40px auto 0;padding:0 20px 48px;color:var(--ink-3
     <button id="xpClose" title="停止并关闭" aria-label="停止并关闭">✕</button>
   </div>
   <div class="xp-stage">
+    <div class="xp-lyr" id="xpLyr" aria-label="滚动字幕"></div>
     <div class="xp-disc"><div class="xp-label"><b>凡</b><i>评书版</i></div></div>
     <div class="xp-title"><h3 id="xpTitle">—</h3><p id="xpSub">—</p></div>
     <div class="xp-mid">
@@ -544,7 +546,6 @@ footer{max-width:1280px;margin:40px auto 0;padding:0 20px 48px;color:var(--ink-3
         <button id="xpF15" title="快进15秒" aria-label="快进15秒">15↻</button>
         <button id="xpNext" title="下一回" aria-label="下一回">⏭</button>
       </div>
-      <div class="xp-lyr" id="xpLyr" aria-label="滚动字幕"></div>
       <div class="xp-row">
         <button id="xpLyrBtn" title="滚动字幕开关">词</button>
         <button id="xpRate">倍速 1.0×</button>
@@ -2154,6 +2155,7 @@ const XP=(()=>{
     const s=$("xpSeek");s.value=Math.round(p*1000);s.style.setProperty("--xpp",(p*100).toFixed(2)+"%");
     $("xpCur").textContent=fmt(au.currentTime);$("xpDur").textContent=fmt(d);
     const now=Date.now();if(now-lastSave>3000){lastSave=now;savePos();}
+    lyrTick(); /* timeupdate 监听注册在本函数上，字幕随播放推进（勿再后置重绑定） */
   }
   /* 音频源：file:// 走本地 audiobook/；http(s) 同域 audiobook/ 优先（自有服务器），GitHub Release 兜底 */
   const XP_REL="https://github.com/Swan-Rat/fanren-timeline/releases/download/pingshu-audio-v1/";
@@ -2298,12 +2300,13 @@ const XP=(()=>{
     store.set("plyr",on?1:0);
     if(on){renderLyrics();lyrTick();}
   });
-  $("xpLyr").addEventListener("scroll",()=>{lyrTouch=Date.now();},{passive:true});
+  /* 只认用户手势为"手动翻阅"；程序化 scrollIntoView 触发的 scroll 事件不能进冷却，
+     否则每次自动居中都会把后续 5 秒的跟随锁死（字幕看似不滚动的次生病根） */
+  ["wheel","touchstart","pointerdown"].forEach(ev=>
+    $("xpLyr").addEventListener(ev,()=>{lyrTouch=Date.now();},{passive:true}));
   if(store.get("plyr",0))$("xp").classList.add("lyrmode");
   const _load=load;
   load=function(i,a){_load(i,a);renderLyrics();lyrCur=-1;lyrTick();};
-  const _seekPaint=seekPaint;
-  seekPaint=function(){_seekPaint();lyrTick();};
   return {open:openPlayer,syncBtn};
 })();
 
